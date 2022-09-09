@@ -6,8 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="DHBW-MyPersonal" />
+        <module name="DHBW-Fallstudie-MyPersonal" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="DHBW-Fallstudie-MyPersonal" target="1.5" />
+    </bytecodeTargetLevel>
   </component>
 </project>
