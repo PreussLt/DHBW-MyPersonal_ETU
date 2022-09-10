@@ -19,7 +19,6 @@ public class sql_connect {
     //Baut Verbindung zur Datenbank auf und überprüft die Verbindung
 
     try{
-      Class.forName("com.mysql.jdbc.Driver");
       Connection con= DriverManager.getConnection(
         db,db_user,db_pw);
       Statement stmt=con.createStatement();
