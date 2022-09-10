@@ -1,11 +1,13 @@
+package db;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
 public class Passwort_verwaltung {
 
-  public boolean prüfePasswort(String eingabePW,String prüfhash,String salt) throws NoSuchAlgorithmException {
-    if (get_hash(eingabePW,salt).equals(prüfhash)) return true;
+  public boolean pruefePasswort(String eingabePW,String pruefhash,String salt) throws NoSuchAlgorithmException {
+    if (get_hash(eingabePW,salt).equals(pruefhash)) return true;
     else return false;
   }// Prüfe Passwort
 
