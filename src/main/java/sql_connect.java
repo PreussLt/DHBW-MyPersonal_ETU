@@ -5,17 +5,17 @@ import java.sql.Statement;
 
 public class sql_connect {
   // Standard Daten:
-  private static String db = "jdbc:mysql://localhost:3306/myp_database"; //Datenbank
-  public static String db_name = "myp_database"; // Datenbankname
-  private static String db_user =""; // Standartd Datenbank Nutzer
-  private static String db_pw =""; // Standard Datenbank Passwort
+  private static String db = Einstellungen.db; //Datenbank
+  public static String db_name = Einstellungen.db_name; // Datenbankname
+  private static String db_user = Einstellungen.db_user; // Standartd Datenbank Nutzer
+  private static String db_pw = Einstellungen.db_pw; // Standard Datenbank Passwort
 
 
 
   // ETU Zugriff Datenbank
   public static Connection etu_connect(){
-    db_user = "myp_db_admin";
-    db_pw= "DHBW1234";
+    db_user = "myp_db_admin"; //! Achtung @Ovverreide
+    db_pw= "DHBW1234"; //! Achtung @Ovverreide
     //Baut Verbindung zur Datenbank auf und überprüft die Verbindung
 
     try{
