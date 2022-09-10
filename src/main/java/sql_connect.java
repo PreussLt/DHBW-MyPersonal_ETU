@@ -6,6 +6,7 @@ import java.sql.Statement;
 public class sql_connect {
   // Standard Daten:
   private static String db = "jdbc:mysql://localhost:3306/myp_database"; //Datenbank
+  public static String db_name = "myp_database"; // Datenbankname
   private static String db_user =""; // Standartd Datenbank Nutzer
   private static String db_pw =""; // Standard Datenbank Passwort
 
