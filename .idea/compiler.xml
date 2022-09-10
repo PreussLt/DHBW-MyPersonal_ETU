@@ -10,8 +10,5 @@
         <module name="DHBW-MyPersonal" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="DHBW-MyPersonal" target="1.8" />
-    </bytecodeTargetLevel>
   </component>
 </project>

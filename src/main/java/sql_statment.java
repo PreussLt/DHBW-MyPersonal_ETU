@@ -55,6 +55,12 @@ public class sql_statment {
     return ausgabeArray;
   }
 
+  // Ausführen eines Instert Statment
+  // TODO: 10.09.2022  insert Statment einfügen
+
+  // Hier Folgen die Verborgenen Funktionen
+  //
+  //
   // Hier Folgen die "Verborgenen" Funktionen
   public String[] datenfüllenArray(ResultSet rs,String[][] ausgabeArray){
     String[] ausgabe = new String[ausgabeArray[0].length];
@@ -88,7 +94,7 @@ public class sql_statment {
     try {
       // Anzahl der Rows herraus finden
       Statement stm = con.createStatement();
-      String statment="select count(*) from INFORMATION_SCHEMA.COLUMNS WHERE table_schema='"+sql_connect.db_name+"' AND table_name='"+tabelle+"';";
+      String statment="select count(*) from INFORMATION_SCHEMA.COLUMNS WHERE table_schema='"+Einstellungen.db_name+"' AND table_name='"+tabelle+"';";
       ResultSet rs = stm.executeQuery(statment);
       rs.next();
       int count = rs.getInt(1);
