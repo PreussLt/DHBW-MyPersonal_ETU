@@ -6,7 +6,7 @@ import java.sql.Statement;
 public class sql_connect {
   // Standard Daten:
   private static String db = Einstellungen.db; //Datenbank
-  public static String db_name = Einstellungen.db_name; // Datenbankname
+  private static String db_name = Einstellungen.db_name; // Datenbankname
   private static String db_user = Einstellungen.db_user; // Standartd Datenbank Nutzer
   private static String db_pw = Einstellungen.db_pw; // Standard Datenbank Passwort
 
