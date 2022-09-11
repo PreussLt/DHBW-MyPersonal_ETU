@@ -3,10 +3,24 @@ package db;
 import java.sql.Connection;
 
 public class Nutzerverwaltung {
+  // Loader
   Einstellungen cnf = new Einstellungen();
   sql_connect sql_conn = new sql_connect();
   sql_statment sql = new sql_statment();
   Passwort_verwaltung pwv = new Passwort_verwaltung();
+
+  public boolean nutzer_löschen(String mID){
+    try {
+      Connection con = sql_conn.intern_connect();
+      if (!sql.delete(cnf.mitarbeiter,"M_ID=\'"+mID+"\'",con)) return false;
+      if (!sql.delete(cnf.mb_konto,"MK_M_ID=\'"+mID+"\';",con)) return false;
+      // TODO: 11.09.2022 SAobald Bucungen Hinzugeügt wurden Hier erweitern
+      return true;
+    }catch (Exception e){
+      System.err.println("!ERROR! Folgende Fehler Meldung wurde Ausgebene: "+e);
+      return false;
+    }//END try Catc
+  }
 
   public boolean nutzer_anlegen(String vName,String nName,int pNummer,String pw,int aModell, int uKlasse){
       try {
@@ -35,12 +49,13 @@ public class Nutzerverwaltung {
         String[] Daten2 ={newID, Integer.toString(uKlasse),Integer.toString(aModell)};
         if(!sql.insert(cnf.mb_konto,Daten2,con)) return false;
 
+        con.close();
         return true;
       }catch (Exception e){
         System.err.println("Fehler: "+e);
         return false;
-      }
-  }
+      }// END try catch
+  }// Nutzer anlegen
 
   private boolean überprüfeZahlen(int aModell, int uKlasse, Connection con){
     Boolean flag=false;
@@ -49,7 +64,7 @@ public class Nutzerverwaltung {
     String[][] arr_aModell = sql.select_arr(cnf.mb_arbeitsmodell,"*","",con);
     for (int i = 0; i< arr_aModell.length;i++){
       if (aModell == Integer.parseInt(arr_aModell[i][0])) flag=true;
-    }
+    }//END For
     if (!flag) return false;
 
     // Überprüfen ob Userklasse Exsitiert
@@ -58,11 +73,11 @@ public class Nutzerverwaltung {
     String[][] arr_uKlasse = sql.select_arr(cnf.mb_konto,"*","",con);
     for (int i = 0; i< arr_uKlasse.length;i++){
       if (uKlasse == Integer.parseInt(arr_aModell[i][0])) flag=true;
-    }
+    }// END FOR
     if (!flag) return false;
 
     return true;
-  }
+  }// ÜberprüfeZahlen
 
 
 }// Nuterverwaltung

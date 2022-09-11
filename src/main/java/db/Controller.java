@@ -14,7 +14,8 @@ public class Controller {
     String salt = pwv.get_Salt();
     Connection con = sql_connect.intern_connect();
 
-    System.out.println(nzv.nutzer_anlegen("Chris","Henselmann",1604,"Kyle2002_",1,1));
+    System.out.println(nzv.nutzer_löschen("8"));
+    //System.out.println(nzv.nutzer_anlegen("Chris","Henselmann",1604,"Kyle2002_",1,1));
     //String[] cars = {"Tester2", "Willi", "51651", "",""};
     //sql.insert(cnf.mitarbeiter,cars,con);
 

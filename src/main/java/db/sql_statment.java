@@ -33,6 +33,8 @@ public class sql_statment {
 
 //Ausführen eines SQL Select Staments mit Array Ausgabe
   public String[][] select_arr(String tabelle, String ziel, String bedingung, Connection con){
+    // Array clearen
+    ausgabeArray = null;
     // Daten für Array abfragen.
    int rows = get_numRows(tabelle,bedingung,con);
    int columns = get_numColums(tabelle,con);
