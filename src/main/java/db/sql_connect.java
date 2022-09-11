@@ -16,25 +16,37 @@ public class sql_connect {
 
   // ETU Zugriff Datenbank
   public static Connection etu_connect(){
-    db_user = "myp_db_admin"; //! Achtung @Ovverreide
-    db_pw= "DHBW1234"; //! Achtung @Ovverreide
+    db_user = Einstellungen.db_user_etu; //! Achtung @Ovverreide
+    db_pw= Einstellungen.db_pw_etu; //! Achtung @Ovverreide
     //Baut Verbindung zur Datenbank auf und überprüft die Verbindung
+    return connect();
+  } // etu connect
 
-    try{
-      Connection con= DriverManager.getConnection(
-        db,db_user,db_pw);
-      Statement stmt=con.createStatement();
-      ResultSet rs=stmt.executeQuery("show databases;");
-      return con;
+  // System Zugriff auf Datenbank
+  public static Connection intern_connect(){
+    db_user = Einstellungen.db_user_intern;
+    db_pw = Einstellungen.db_pw_intern;
+    //Baut Verbindung zur Datenbank auf und überprüft die Verbindung
+    return connect();
+  }
 
-      //System.out.println("Connected"); --< Debug Gründe
-    }//Try
 
-    catch(Exception e){
-      System.err.println("Fehler: "+e);
-      return null;
-    }//Catch
+private static Connection connect(){
+  try{
+    Connection con= DriverManager.getConnection(
+      db,db_user,db_pw);
+    Statement stmt=con.createStatement();
+    ResultSet rs=stmt.executeQuery("show databases;");
+    return con;
 
-  } // End Connection ETU
+    //System.out.println("Connected"); --< Debug Gründe
+  }//Try
 
-}
+  catch(Exception e){
+    System.err.println("Fehler: "+e);
+    return null;
+  }//Catch
+
+}// connect
+
+}// END Class

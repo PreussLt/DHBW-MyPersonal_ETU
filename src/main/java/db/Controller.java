@@ -9,7 +9,8 @@ public class Controller {
   public static void main(String[] args) throws NoSuchAlgorithmException {
 
     String salt = pwv.get_Salt();
-    System.out.println(pwv.pruefePasswort("Test1234", pwv.get_hash("Test1234", salt), salt));
+    System.out.println(pwv.pw_richtlinen_check("abcdefghijklmD4/"));
+    //System.out.println(pwv.pruefePasswort("Test1234", pwv.get_hash("Test1234", salt), salt));
 
     }
   }

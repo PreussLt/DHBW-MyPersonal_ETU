@@ -5,12 +5,41 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
 public class Passwort_verwaltung {
+  Einstellungen cnf = new Einstellungen();
 
   public boolean pruefePasswort(String eingabePW,String pruefhash,String salt) throws NoSuchAlgorithmException {
     if (get_hash(eingabePW,salt).equals(pruefhash)) return true;
     else return false;
   }// Prüfe Passwort
 
+  public boolean pw_richtlinen_check(String password){
+    boolean zahl_enthlaten=false;
+    boolean char_klein=false;
+    boolean char_groß = false;
+    boolean sonderzeichen = false;
+
+    char[] chars = password.toCharArray();
+
+    // Längen überprüfen:
+    if (chars.length > cnf.pw_max_lengt || chars.length < cnf.pw_min_lenght){
+      System.err.println("Länge des Passwortes zu kurz");
+      return false;
+    }
+
+    // Sonderzeichen/Zahl überprüfen
+    for (int i=0; i<chars.length;i++){
+      if (Character.isDigit(chars[i])) zahl_enthlaten = true;
+      if(Character.isUpperCase(chars[i])) char_groß = true;
+      if(Character.isLowerCase(chars[i])) char_klein = true;
+      if (!Character.isLetterOrDigit(chars[i])) sonderzeichen = true;
+    }
+
+    if (cnf.pw_Sonzerzeichen == true && sonderzeichen == false)return false;
+    if (cnf.pw_gk_schreibung == true && char_groß == false || char_klein==false) return false;
+    if (cnf.pw_Zahl == true && zahl_enthlaten==false) return false;
+
+    return true;
+  }
 
   public String get_hash(String password, String salt) {
     String hash = null;
