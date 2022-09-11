@@ -25,6 +25,7 @@ public class Einstellungen {
   public static String mb_konto = "mk_konto"; // Mitarbeiter Konto
   public static String mb_buchung = "b_buchung"; // Buchungen
   public static String mb_zeiteintrag = "bz_zeiteintrag";
+  public static String mb_arbeitsmodell ="a_arbeitsmodelle";
 
   //  Passwort sicherheits einstellungen
   public static boolean pw_gk_schreibung = true; // Mindest eins Char muss groß / klein sein

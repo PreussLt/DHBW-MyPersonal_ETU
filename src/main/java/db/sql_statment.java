@@ -6,10 +6,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class sql_statment {
-
+  private String[][] ausgabeArray;
 
   // Ausführen eins SQL SELECT Statment mit Consolen Ausgabe
-  public void select(String tabelle, String ziel, String bedingung, Connection con){
+  public boolean select(String tabelle, String ziel, String bedingung, Connection con){
 
     try {
       // Abfrage aufbauen
@@ -22,10 +22,11 @@ public class sql_statment {
           rs.getString(2));
       }//END While
 
-
+      return true;
     } catch (SQLException e) {
       // Fehler
       e.printStackTrace();
+      return false;
     }// END try, Catch
 
   } // SQL Abruf
@@ -36,7 +37,7 @@ public class sql_statment {
    int rows = get_numRows(tabelle,bedingung,con);
    int columns = get_numColums(tabelle,con);
    if (rows == -1 | columns ==-1) System.err.println("Fehler in den Zeilen/Spalten"); // Überprüfen ob eine Fehler in den Spalten vorleigt
-    String[][] ausgabeArray = new String[rows][columns];
+    ausgabeArray = new String[rows][columns];
 
     try {
       // Abfrage aufbauen
@@ -46,21 +47,46 @@ public class sql_statment {
       // Ausgabe in Array
       int i=0;
       while(rs.next()){
-        datenfuellenArray(rs,ausgabeArray);
+        if(!datenfuellenArray(rs,i)) break;
+        i++;
       }//END While
 
     } catch (SQLException e) {
       // Fehler
       e.printStackTrace();
+      return null;
     }// END try, Catch
-
     return ausgabeArray;
   }// Select Arra
 
+// Ausführen eines Insert Statment
+public boolean insert(String tabelle, String[] Daten, Connection con){
 
+  try {
+    // Arayy in SQL Daten input
+    String sql_daten ="";
+    for (int i=0;i<Daten.length;i++){
+      if (i==(Daten.length-1)) sql_daten+= "\'"+Daten[i]+"\'";
+      else sql_daten+= "\'"+Daten[i]+"\'"+",";
+    }
+
+
+    // Abfrage aufbauen
+    Statement stm = con.createStatement();
+    String sql_stm = "INSERT INTO "+tabelle+" VALUES (Null,"+sql_daten+");";
+    System.out.println("*INFO* Folgendes SQL-Statment wurde ausgeführt:"+sql_stm);
+    stm.execute(sql_stm);
+    return true;
+  } catch (SQLException e) {
+    // Fehler
+    e.printStackTrace();
+    return false;
+  }// END try, Catch
+
+} // SQL Insert
 
   // Hier Folgen die "Verborgenen" Funktionen
-  public String[] datenfuellenArray(ResultSet rs,String[][] ausgabeArray){
+  private boolean datenfuellenArray(ResultSet rs, int count){
     String[] ausgabe = new String[ausgabeArray[0].length];
     for (int i=0; i < ausgabe.length ;i++){
       try {
@@ -70,8 +96,12 @@ public class sql_statment {
       }//END Try Catch
 
     }// END For
-    System.out.println(java.util.Arrays.toString(ausgabe));
-    return ausgabe;
+
+    for (int i=0;i < ausgabeArray[0].length;i++){
+      ausgabeArray[count][i] = ausgabe[i];
+    }// End For
+    //System.out.println(java.util.Arrays.toString(ausgabe)); //--> Debuggin Zeile
+    return true;
   }// datenfüllen Array
 
   public int get_numRows(String tabelle, String bedingung, Connection con){

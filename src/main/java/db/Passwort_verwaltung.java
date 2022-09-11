@@ -34,9 +34,18 @@ public class Passwort_verwaltung {
       if (!Character.isLetterOrDigit(chars[i])) sonderzeichen = true;
     }
 
-    if (cnf.pw_Sonzerzeichen == true && sonderzeichen == false)return false;
-    if (cnf.pw_gk_schreibung == true && char_groß == false || char_klein==false) return false;
-    if (cnf.pw_Zahl == true && zahl_enthlaten==false) return false;
+    if (cnf.pw_Sonzerzeichen == true && sonderzeichen == false){
+      System.err.println("Kein Sonderzeichen troz Vorgabe");
+      return false;
+    }
+    if (cnf.pw_gk_schreibung == true && char_groß == false || char_klein==false){
+      System.err.println("Keine Groß/Klein Schreibung trotz Vorgabe");
+      return false;
+    }
+    if (cnf.pw_Zahl == true && zahl_enthlaten==false){
+      System.err.println("Keine Zahl im Passwort trotz Vorgabe");
+      return false;
+    }
 
     return true;
   }
