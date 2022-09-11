@@ -1,3 +1,5 @@
+package db;
+
 public class Einstellungen {
 
   /*
@@ -6,7 +8,7 @@ public class Einstellungen {
 
    */
 
-  // Einstellungen für die Datenbanken
+  // db.Einstellungen für die Datenbanken
   public static String db = "jdbc:mysql://localhost:3306/myp_database"; //Datenbank
   public static String db_name = "myp_database"; // Datenbankname
   public static String db_user =""; // Standartd Datenbank Nutzer

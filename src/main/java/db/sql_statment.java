@@ -1,3 +1,5 @@
+package db;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -44,7 +46,7 @@ public class sql_statment {
       // Ausgabe in Array
       int i=0;
       while(rs.next()){
-        datenfüllenArray(rs,ausgabeArray);
+        datenfuellenArray(rs,ausgabeArray);
       }//END While
 
     } catch (SQLException e) {
@@ -58,7 +60,7 @@ public class sql_statment {
 
 
   // Hier Folgen die "Verborgenen" Funktionen
-  public String[] datenfüllenArray(ResultSet rs,String[][] ausgabeArray){
+  public String[] datenfuellenArray(ResultSet rs,String[][] ausgabeArray){
     String[] ausgabe = new String[ausgabeArray[0].length];
     for (int i=0; i < ausgabe.length ;i++){
       try {
