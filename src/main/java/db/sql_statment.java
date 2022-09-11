@@ -85,7 +85,27 @@ public boolean insert(String tabelle, String[] Daten, Connection con){
 
 } // SQL Insert
 
-  // Hier Folgen die "Verborgenen" Funktionen
+// Ausführen eines Delete Statments
+public boolean delete(String tabelle, String bedingung, Connection con){
+
+  try {
+       // Abfrage aufbauen
+    Statement stm = con.createStatement();
+    String sql_stm = "DELETE FROM "+tabelle+" WHERE "+bedingung+";";
+    System.out.println("*INFO* Folgendes SQL-Statment wurde ausgeführt:"+sql_stm);
+    stm.execute(sql_stm);
+    return true;
+  } catch (SQLException e) {
+    // Fehler
+    e.printStackTrace();
+    return false;
+  }// END try, Catch
+
+} // SQL Delete
+
+/*
+ Hier Folgen die "Verborgenen" Funktionen
+ */
   private boolean datenfuellenArray(ResultSet rs, int count){
     String[] ausgabe = new String[ausgabeArray[0].length];
     for (int i=0; i < ausgabe.length ;i++){
