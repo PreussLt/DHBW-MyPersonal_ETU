@@ -35,15 +35,15 @@ public class Passwort_verwaltung {
     }
 
     if (cnf.pw_Sonzerzeichen == true && sonderzeichen == false){
-      System.err.println("Kein Sonderzeichen troz Vorgabe");
+      System.err.println("!ERROR! Kein Sonderzeichen troz Vorgabe");
       return false;
     }
     if (cnf.pw_gk_schreibung == true && char_groß == false || char_klein==false){
-      System.err.println("Keine Groß/Klein Schreibung trotz Vorgabe");
+      System.err.println("!ERROR! Keine Groß/Klein Schreibung trotz Vorgabe");
       return false;
     }
     if (cnf.pw_Zahl == true && zahl_enthlaten==false){
-      System.err.println("Keine Zahl im Passwort trotz Vorgabe");
+      System.err.println("!ERROR! Keine Zahl im Passwort trotz Vorgabe");
       return false;
     }
 
