@@ -7,12 +7,12 @@ public class Controller {
   public static Passwort_verwaltung pwv = new Passwort_verwaltung();
   public static Nutzerverwaltung nzv = new Nutzerverwaltung();
   public static Einstellungen cnf = new Einstellungen();
-
+  public static Buchung bch = new Buchung();
   public static void main(String[] args) throws NoSuchAlgorithmException {
 
+    bch.neueBuchung("1","2022-09-08");
 
 
-   nzv.passwort_ändern("7","Nils1_Doof");
     //System.out.println(nzv.nutzer_anlegen("Chris","Henselmann",1604,"Kyle2002_",1,1));
     //String[] cars = {"Tester2", "Willi", "51651", "",""};
     //sql.insert(cnf.mitarbeiter,cars,con);
