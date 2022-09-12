@@ -10,7 +10,7 @@ public class Controller {
   public static Buchung bch = new Buchung();
   public static void main(String[] args) throws NoSuchAlgorithmException {
 
-    bch.neueBuchung("1","2022-09-08");
+    bch.löscheBuchung("2");
 
 
     //System.out.println(nzv.nutzer_anlegen("Chris","Henselmann",1604,"Kyle2002_",1,1));
