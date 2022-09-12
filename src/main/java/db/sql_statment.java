@@ -17,11 +17,14 @@ public class sql_statment {
       ResultSet rs = stm.executeQuery("select "+ziel+" from "+tabelle+" "+bedingung+";");
 
       // Ausgabe 0
+      int count = 0;
+      if (rs.next()==false && count==0) return false; // Ausgabe leer
+      /*
       while(rs.next()){
-        System.out.println(rs.getString(1) + " " +
-          rs.getString(2));
-      }//END While
+         // Ausgabe leer
 
+      }//END While
+      */
       return true;
     } catch (SQLException e) {
       // Fehler

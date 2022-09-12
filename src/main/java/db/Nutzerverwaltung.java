@@ -9,6 +9,17 @@ public class Nutzerverwaltung {
   sql_statment sql = new sql_statment();
   Passwort_verwaltung pwv = new Passwort_verwaltung();
 
+  public boolean existiertNutzer(String vNname, String nName){
+    Connection con = sql_conn.intern_connect();
+    if(!sql.select(cnf.mitarbeiter,"*","WHERE M_Vorname=\'"+vNname+"\' AND M_Nachname=\'"+nName+"\'",con) ) return false;
+    System.err.println("x");
+    return true;
+  }
+  public boolean existiertNutzer(String mid){
+    Connection con = sql_conn.intern_connect();
+    if(!sql.select(cnf.mitarbeiter,"*","WHERE M_ID=\'"+mid+"\'",con) ) return false;
+    return true;
+  }
   public boolean passwort_ändern(String mId,String neuPassword){
     try {
       // Neue Passwort

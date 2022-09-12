@@ -30,6 +30,14 @@ public class sql_connect {
     return connect();
   }
 
+  // System Zugriff auf Datenbank
+  public static Connection extern_connect(){
+    db_user = Einstellungen.db_user_extern;
+    db_pw = Einstellungen.db_pw_extern;
+    //Baut Verbindung zur Datenbank auf und überprüft die Verbindung
+    return connect();
+  }
+
 
 private static Connection connect(){
   try{

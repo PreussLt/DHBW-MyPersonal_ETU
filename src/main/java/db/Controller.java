@@ -8,9 +8,15 @@ public class Controller {
   public static Nutzerverwaltung nzv = new Nutzerverwaltung();
   public static Einstellungen cnf = new Einstellungen();
   public static Buchung bch = new Buchung();
+  public static GetBuchungsdaten bcd = new GetBuchungsdaten();
   public static void main(String[] args) throws NoSuchAlgorithmException {
 
-    bch.löscheBuchung("2");
+    //nzv.existiertNutzer("Kyle","Henselmann");
+    try {
+      bcd.getDifTime("2022-09-10 16:00:42","2022-09-10 21:28:06");
+    }catch (Exception e){
+
+    }
 
 
     //System.out.println(nzv.nutzer_anlegen("Chris","Henselmann",1604,"Kyle2002_",1,1));

@@ -19,6 +19,9 @@ public class Einstellungen {
   //Interner DB-Zugriff
   public static String db_user_intern ="myp_db_admin";
   public static String db_pw_intern="DHBW1234";
+  // Externe DB-Zugriff
+  public static String db_user_extern ="myp_db_admin";
+  public static String db_pw_extern="DHBW1234";
 
   // Tabellen Namen
   public static String mitarbeiter = "m_mitarbeiter"; // Mitarbeiter
