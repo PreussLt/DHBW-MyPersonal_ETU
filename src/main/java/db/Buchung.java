@@ -89,17 +89,23 @@ public boolean neuerZeiteintrag(String mID,String tag,String Zeitstempel){
   public boolean löscheBuchung(String bid){
     // NEue Datenbnak Verbindung
     Connection con = sql_conn.intern_connect();
-    String[][] zeiteintraege = sql.select_arr(cnf.mb_zeiteintrag,"*","BZ_B_ID=\'"+bid+"\'",con);
+    Boolean zeiteintraege = sql.select(cnf.mb_zeiteintrag,"*","BZ_B_ID=\'"+bid+"\'",con);
     if (zeiteintraege != null){
       System.out.println("r");
-      if (!sql.delete(cnf.mb_zeiteintrag,"BZ_B_ID=\'"+bid+"\';",con)) return false;
+      if (!sql.delete(cnf.mb_zeiteintrag,"BZ_B_ID=\'"+bid+"\'",con)) return false;
     }
 
     if(!sql.delete(cnf.mb_buchung,"B_ID=\'"+bid+"\'",con)) return false;
     else return true;
 
 
-  }// lösche Bucunh
+  }// lösche Buchung und damit auch die Zeiteinträge
+
+  public boolean löscheZeiteinträge(String bz_id){
+    Connection con = sql_conn.intern_connect();
+    if (!sql.delete(cnf.mb_zeiteintrag,"BZ_B_ID=\'"+bz_id+"\'",con)) return false;
+    return true;
+  }
 
   /*
   Hier sin die verstekten Funktionen

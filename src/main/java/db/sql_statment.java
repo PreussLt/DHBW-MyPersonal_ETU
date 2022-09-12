@@ -95,7 +95,7 @@ public boolean delete(String tabelle, String bedingung, Connection con){
   try {
        // Abfrage aufbauen
     Statement stm = con.createStatement();
-    String sql_stm = "DELETE FROM "+tabelle+" "+bedingung+";";
+    String sql_stm = "DELETE FROM "+tabelle+" WHERE "+bedingung+";";
 
     // Consoleausgabe + Execute;
     System.out.println("*INFO* Folgendes SQL-Statment wurde ausgeführt:"+sql_stm);
