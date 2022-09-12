@@ -9,19 +9,43 @@ public class Nutzerverwaltung {
   sql_statment sql = new sql_statment();
   Passwort_verwaltung pwv = new Passwort_verwaltung();
 
+  public boolean passwort_ändern(String mId,String neuPassword){
+    try {
+      // Neue Passwort
+      String neuSalt = pwv.get_Salt();
+      if (!pwv.pw_richtlinen_check(neuPassword)) return false;
+      String neuPW = pwv.get_hash(neuPassword,neuSalt);
+      // Vorbereitung Arrays
+      String ziele[]= {"M_Passwort","M_Salt"};
+      String wert[]={neuPW,neuSalt};
+      String bedingung ="WHERE M_ID=\'"+mId+"\'";
+      // Neu Verbindung Aufbauen
+      Connection con = sql_conn.intern_connect();
+      // Statment ausführen
+      if(!sql.update(cnf.mitarbeiter,ziele,wert,bedingung,con)) return false;
+      return true;
+    }catch (Exception e){
+      // Fehlermeldung
+      System.err.println("!ERROR! passwort_ändern"+e);
+      return false;
+    }// END Try catch
+  }// passwort ändern
+
+  // Bestehnden Nutzer Löschen
   public boolean nutzer_löschen(String mID){
     try {
       Connection con = sql_conn.intern_connect();
-      if (!sql.delete(cnf.mitarbeiter,"M_ID=\'"+mID+"\'",con)) return false;
-      if (!sql.delete(cnf.mb_konto,"MK_M_ID=\'"+mID+"\';",con)) return false;
+      if (!sql.delete(cnf.mitarbeiter,"WHERE M_ID=\'"+mID+"\'",con)) return false;
+      if (!sql.delete(cnf.mb_konto,"WHERE MK_M_ID=\'"+mID+"\';",con)) return false;
       // TODO: 11.09.2022 SAobald Bucungen Hinzugeügt wurden Hier erweitern
       return true;
     }catch (Exception e){
       System.err.println("!ERROR! Folgende Fehler Meldung wurde Ausgebene: "+e);
       return false;
     }//END try Catc
-  }
+  }//Nutzer Löschen
 
+  // Neuen Nutzer Anlegen
   public boolean nutzer_anlegen(String vName,String nName,int pNummer,String pw,int aModell, int uKlasse){
       try {
         // Datenbank Verbindung aufbauen

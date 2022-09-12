@@ -1,7 +1,6 @@
 package db;
 
 import java.security.NoSuchAlgorithmException;
-import java.sql.Connection;
 
 public class Controller {
   public static sql_statment sql = new sql_statment();
@@ -11,10 +10,9 @@ public class Controller {
 
   public static void main(String[] args) throws NoSuchAlgorithmException {
 
-    String salt = pwv.get_Salt();
-    Connection con = sql_connect.intern_connect();
 
-    System.out.println(nzv.nutzer_löschen("8"));
+
+   nzv.passwort_ändern("7","Nils1_Doof");
     //System.out.println(nzv.nutzer_anlegen("Chris","Henselmann",1604,"Kyle2002_",1,1));
     //String[] cars = {"Tester2", "Willi", "51651", "",""};
     //sql.insert(cnf.mitarbeiter,cars,con);

@@ -76,6 +76,8 @@ public boolean insert(String tabelle, String[] Daten, Connection con){
     // Abfrage aufbauen
     Statement stm = con.createStatement();
     String sql_stm = "INSERT INTO "+tabelle+" VALUES (Null,"+sql_daten+");";
+
+    // Consoleausgabe + Execute;
     System.out.println("*INFO* Folgendes SQL-Statment wurde ausgeführt:"+sql_stm);
     stm.execute(sql_stm);
     return true;
@@ -93,7 +95,9 @@ public boolean delete(String tabelle, String bedingung, Connection con){
   try {
        // Abfrage aufbauen
     Statement stm = con.createStatement();
-    String sql_stm = "DELETE FROM "+tabelle+" WHERE "+bedingung+";";
+    String sql_stm = "DELETE FROM "+tabelle+" "+bedingung+";";
+
+    // Consoleausgabe + Execute;
     System.out.println("*INFO* Folgendes SQL-Statment wurde ausgeführt:"+sql_stm);
     stm.execute(sql_stm);
     return true;
@@ -104,6 +108,39 @@ public boolean delete(String tabelle, String bedingung, Connection con){
   }// END try, Catch
 
 } // SQL Delete
+
+// Ausführen eines UPDATE Statmends
+public boolean update(String tabelle, String[] ziel, String[] neuerWert,String bedingung, Connection con){
+  if (ziel.length!=neuerWert.length){
+    System.err.println("!Error! Die Arrays haben Unterschiedliche Längen");
+  }
+  try {
+    //Aray in Strings Vorbeteitein
+    String stm_zuweisung = "";
+    for (int i=0; i<ziel.length;i++){
+      if(i == (ziel.length-1)){
+        stm_zuweisung+= ""+ziel[i]+" = \'"+neuerWert[i]+"\'";
+      }else {
+        stm_zuweisung+= ""+ziel[i]+" = \'"+neuerWert[i]+"\',";
+      }
+    }
+
+
+    // Statment Vorbereiten
+    Statement stm = con.createStatement();
+    String sql_stm = "UPDATE "+tabelle+" SET "+stm_zuweisung+" "+bedingung+";";
+
+    // Consoleausgabe + Execute;
+    System.out.println("*INFO* Folgendes SQL-Statment wurde ausgeführt:"+sql_stm);
+    stm.execute(sql_stm);
+    return true;
+  } catch (SQLException e) {
+    // Fehler
+    e.printStackTrace();
+    return false;
+  }// END try, Catch
+
+} // SQL Update
 
 /*
  Hier Folgen die "Verborgenen" Funktionen
