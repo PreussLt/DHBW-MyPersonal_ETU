@@ -31,9 +31,7 @@ public class GetBuchungsdaten {
     int z2=1;
     for (int i = 0; i <(arbzeit.length/2);i++){
       try {
-        System.out.println(z1);
-        System.out.println(z2);
-        Arbeitszeit = getDifTime(arbzeit[2][2],arbzeit[3][2]);
+        Arbeitszeit += getDifTime(arbzeit[z1][2],arbzeit[z2][2]);
         z1+=2;
         z2+=2;
       } catch (Exception e){
@@ -64,7 +62,7 @@ public class GetBuchungsdaten {
     int stunden = (int)diffInMinutes/60;
     double ausgabe = (diffInMinutes-stunden*60)*100/60;
     ausgabe = ausgabe/100 + (double) stunden;
-    System.out.println(ausgabe);
+    //System.out.println(ausgabe); Debugg
     return ausgabe;
   }//
 }
