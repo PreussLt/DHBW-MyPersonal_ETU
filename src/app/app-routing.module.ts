@@ -1,7 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import {EntryListComponent} from "./entry-list/entry-list.component";
 
-const routes: Routes = [];
+//Für verschiedene Request-Urls Ergebniskomponenten setzen
+const routes: Routes = [
+  {path: 'entries', component: EntryListComponent},
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
