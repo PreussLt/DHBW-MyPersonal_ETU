@@ -13,7 +13,7 @@ public class Controller {
 
     //nzv.existiertNutzer("Kyle","Henselmann");
     try {
-      System.out.println(bcd.getArbeitszeitHeute("6"));
+      System.out.println(bcd.getArbeitszeit("1","2022-09-09"));
     }catch (Exception e){
 
     }

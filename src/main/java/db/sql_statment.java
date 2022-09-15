@@ -48,7 +48,7 @@ public class sql_statment {
       // Abfrage aufbauen
       Statement stm = con.createStatement();
       String sql_stm = "select "+ziel+" from "+tabelle+" "+bedingung+";";
-      System.out.println(sql_stm); // Debugging
+      //System.out.println(sql_stm); // Debugging
       ResultSet rs = stm.executeQuery(sql_stm);
 
       // Ausgabe in Array
@@ -136,7 +136,7 @@ public boolean update(String tabelle, String[] ziel, String[] neuerWert,String b
     String sql_stm = "UPDATE "+tabelle+" SET "+stm_zuweisung+" "+bedingung+";";
 
     // Consoleausgabe + Execute;
-    System.out.println("*INFO* Folgendes SQL-Statment wurde ausgeführt:"+sql_stm);
+    //System.out.println("*INFO* Folgendes SQL-Statment wurde ausgeführt:"+sql_stm);
     stm.execute(sql_stm);
     return true;
   } catch (SQLException e) {
@@ -196,7 +196,7 @@ public boolean update(String tabelle, String[] ziel, String[] neuerWert,String b
         // Anzahl der Rows herraus finden
         Statement stm = con.createStatement();
         String statment="select count(*) from INFORMATION_SCHEMA.COLUMNS WHERE table_schema='"+Einstellungen.db_name+"' AND table_name='"+split[i]+"';";
-        System.out.println("*INFO* Folgendes Statment wurde ausgeführt"+statment); // Debugging
+        //System.out.println("*INFO* Folgendes Statment wurde ausgeführt"+statment); // Debugging
         ResultSet rs = stm.executeQuery(statment);
         rs.next();
         int count = rs.getInt(1);
