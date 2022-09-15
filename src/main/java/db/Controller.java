@@ -13,7 +13,7 @@ public class Controller {
 
     //nzv.existiertNutzer("Kyle","Henselmann");
     try {
-      bcd.getDifTime("2022-09-10 16:00:42","2022-09-10 21:28:06");
+      System.out.println(bcd.getArbeitszeitHeute("6"));
     }catch (Exception e){
 
     }
