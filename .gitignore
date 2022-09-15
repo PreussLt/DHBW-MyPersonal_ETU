@@ -38,7 +38,10 @@ testem.log
 /typings
 
 #target
+./target
+.\target
 /target
+\target
 
 # System files
 .DS_Store
