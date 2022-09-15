@@ -2,6 +2,10 @@
   "demo.title": "Übersetzung demo",
   "demo.text": "Das ist eine einfache Demonstration von ngx-translate",
   "demo.en": "Englisch",
-  "demo.de": "Deutsch"
+  "demo.de": "Deutsch",
+  "login.username": "Benutzername",
+  "login.password": "Passwort",
+  "login.loginBtn": "Einloggen",
+  "login.required": "Erforderlich"
 
 }
