@@ -47,7 +47,9 @@ public class sql_statment {
     try {
       // Abfrage aufbauen
       Statement stm = con.createStatement();
-      ResultSet rs = stm.executeQuery("select "+ziel+" from "+tabelle+" "+bedingung+";");
+      String sql_stm = "select "+ziel+" from "+tabelle+" "+bedingung+";";
+      System.out.println(sql_stm); // Debugging
+      ResultSet rs = stm.executeQuery(sql_stm);
 
       // Ausgabe in Array
       int i=0;
@@ -181,14 +183,27 @@ public boolean update(String tabelle, String[] ziel, String[] neuerWert,String b
   }// get_numRows
 
   public int get_numColums(String tabelle, Connection con){
+    String[] split;
+    if (tabelle.contains(",")){
+      split = tabelle.split(",");
+    }else {
+      split = new String[]{tabelle};
+    }
+
     try {
-      // Anzahl der Rows herraus finden
-      Statement stm = con.createStatement();
-      String statment="select count(*) from INFORMATION_SCHEMA.COLUMNS WHERE table_schema='"+Einstellungen.db_name+"' AND table_name='"+tabelle+"';";
-      ResultSet rs = stm.executeQuery(statment);
-      rs.next();
-      int count = rs.getInt(1);
-      return count;
+      int numColm = 0;
+      for (int i =0;i< split.length;i++){
+        // Anzahl der Rows herraus finden
+        Statement stm = con.createStatement();
+        String statment="select count(*) from INFORMATION_SCHEMA.COLUMNS WHERE table_schema='"+Einstellungen.db_name+"' AND table_name='"+split[i]+"';";
+        System.out.println("*INFO* Folgendes Statment wurde ausgeführt"+statment); // Debugging
+        ResultSet rs = stm.executeQuery(statment);
+        rs.next();
+        int count = rs.getInt(1);
+        numColm += count;
+      }
+
+      return numColm;
 
     } catch (Exception e){
       return -1;

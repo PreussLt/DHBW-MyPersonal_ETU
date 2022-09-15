@@ -11,31 +11,36 @@ public class GetBuchungsdaten {
   private Einstellungen cnf = new Einstellungen();
   private sql_statment sql = new sql_statment();
 
-  public Integer getArbeitszeitHeute(String mid){
+  public double getArbeitszeitHeute(String mid){
     Connection con = sql_conn.extern_connect();
     if(!sql.select(cnf.mb_buchung,"*","WHERE B_TAG=\'"+getHeute()+"\' AND B_M_ID=\'"+mid+"\' ",con)) return 0;
-
-    return -1;
+    else return berechneArbeitszeit(mid,getHeute());
   }// get ArbeitszeitHeute
 
   private double berechneArbeitszeit(String mid,String Tag){
     Connection con = sql_conn.extern_connect();
     if (!nzv.existiertNutzer(mid)) return -1;
-    String[][] arbzeit = sql.select_arr(cnf.mb_zeiteintrag+","+cnf.mb_buchung,"*","B_ID = BZ_B_ID AND B_M_ID=\'"+mid+"\' ORDER BY BZ_Zeiteintrag ASC ",con);
+    String[][] arbzeit = sql.select_arr(cnf.mb_zeiteintrag+","+cnf.mb_buchung,"*"," WHERE B_ID = BZ_B_ID AND B_M_ID=\'"+mid+"\' ORDER BY BZ_Zeiteintrag ASC ",con);
     if((arbzeit.length%2)==1){
       System.err.println("!ERROR! Es fehlt ein Zeiteintrag");
       return -1;
     }// END IF, Es ist eine Ungerade Zahl
+    System.out.println(arbzeit[0].length+" "+arbzeit.length);
     double Arbeitszeit = 0;
-    for (int i = 0; i>= (arbzeit.length/2);i=i+2){
+    int z1=0;
+    int z2=1;
+    for (int i = 0; i <(arbzeit.length/2);i++){
       try {
-        Arbeitszeit = getDifTime(arbzeit[i][5],arbzeit[i+1][0]);
+        Arbeitszeit += getDifTime(arbzeit[z1][2],arbzeit[z2][2]);
+        z1+=2;
+        z2+=2;
       } catch (Exception e){
-        System.err.println("!ERROR! Es enstand ein Fehler beim berechnen entstanden");
+        System.err.println("!ERROR! Es enstand ein Fehler beim berechnen entstanden: "+e);
         return -1;
-      }
+      }// END Catcj
 
-    }
+    }// END For
+
     return Arbeitszeit;
   }
 
@@ -56,7 +61,8 @@ public class GetBuchungsdaten {
     long diffInMinutes = java.time.Duration.between(dateTime1, dateTime2).toMinutes();
     int stunden = (int)diffInMinutes/60;
     double ausgabe = (diffInMinutes-stunden*60)*100/60;
-    ausgabe = ausgabe/100 + (double) stunden ;
+    ausgabe = ausgabe/100 + (double) stunden;
+    //System.out.println(ausgabe); Debugg
     return ausgabe;
   }//
 }
