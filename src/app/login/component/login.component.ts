@@ -14,7 +14,7 @@ export class LoginComponent implements OnInit {
 
     model: Login = { userid: "admin", password: "cool" };
     loginForm: FormGroup;
-    message: string;
+    invalid: boolean;
     returnUrl: string;
 
     constructor(
@@ -25,6 +25,7 @@ export class LoginComponent implements OnInit {
     ) {
       translate.setDefaultLang('de');
       translate.use('de');
+      this.invalid = false;
     }
 
   ngOnInit() {
@@ -39,23 +40,21 @@ export class LoginComponent implements OnInit {
   get f() { return this.loginForm.controls; }
 
   login() {
-      console.log(this.f['userid'].value == this.model.userid);
     // stop here if form is invalid
     if (this.loginForm.invalid) {
-      console.log("Fail")
       return;
     }
     else {
-      if (this.f['userid'].value == this.model.userid && this.f['password'].value == this.model.password) {
-        console.log("Login successful");
-        //this.authService.authLogin(this.model);
-        localStorage.setItem('isLoggedIn', "true");
-        localStorage.setItem('token', this.f['userid'].value);
-        this.router.navigate([this.returnUrl]);
-      }
-      else {
-        this.message = "Please check your userid and password";
-      }
+      this.authService.authenticate(this.f['userid'].value, this.f['password'].value).subscribe(data => {
+        if(data){
+          sessionStorage.setItem('isLoggedIn', "true");
+          sessionStorage.setItem('token', this.f['userid'].value);
+          this.router.navigate([this.returnUrl]);
+        }
+        else {
+          this.invalid = true;
+        }
+      });
     }
   }
   }

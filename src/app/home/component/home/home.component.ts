@@ -22,7 +22,7 @@ export class HomeComponent implements OnInit{
 
 
   ngOnInit() {
-    this.id = localStorage.getItem('token');
+    this.id = sessionStorage.getItem('token');
     //console.log(this.id);
   }
 

@@ -1,13 +1,22 @@
 import { Injectable } from '@angular/core';
+import {HttpClient} from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthserviceService {
-  constructor() { }
+  authUrl: string;
+
+  constructor(private http: HttpClient) {
+    this.authUrl = 'http://localhost:8080/userauth'
+  }
 
   logout() :void {
-    localStorage.setItem('isLoggedIn','false');
-    localStorage.removeItem('token');
+    sessionStorage.setItem('isLoggedIn','false');
+    sessionStorage.removeItem('token');
+  }
+
+  public authenticate(personalnummer: string, password: string): Observable<boolean>{
+    return this.http.post<boolean>(this.authUrl, {'personalnummer':personalnummer, 'password':password});
   }
 }

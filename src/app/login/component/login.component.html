@@ -1,10 +1,11 @@
 <form [formGroup]="loginForm">
 <section id="intro" class="wrapper style1 fullscreen fade-up">
   <div class="inner">
-    <h1>Bitte loggen sie sich ein!</h1>
+    <h1>{{'login.welcomemessage'|translate}}</h1>
     <div class="field">
+      <div *ngIf="invalid">{{'login.invalid'|translate}}</div>
       <div class="field half">
-        <label for="username">Username</label>
+        <label for="username">{{'login.personellnumber'|translate}}</label>
         <input type="text" name="username" id="username" formControlName="userid" />
       </div>
       <div *ngIf="!f['userid'].valid" style="color:red;">{{'login.required'|translate}}</div>
