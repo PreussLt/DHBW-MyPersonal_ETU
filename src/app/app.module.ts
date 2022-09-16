@@ -6,24 +6,26 @@ import { AppComponent } from './app.component';
 import { EntryListComponent } from './entry-list/entry-list.component';
 import {TimeEntryService} from "./timeEntry/service/time-entry.service";
 import {HttpClientModule} from "@angular/common/http";
-import {FormsModule} from "@angular/forms";
-// import ngx-translate and the http loader
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {HttpClient} from '@angular/common/http';
 import { HomeComponent } from './home/component/home/home.component';
+import { LoginComponent } from './login/component/login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     EntryListComponent,
-    HomeComponent
+    HomeComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

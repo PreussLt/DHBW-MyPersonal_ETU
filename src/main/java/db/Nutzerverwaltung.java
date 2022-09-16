@@ -1,5 +1,7 @@
 package db;
 
+import backend.User;
+
 import java.sql.Connection;
 
 public class Nutzerverwaltung {
@@ -8,6 +10,25 @@ public class Nutzerverwaltung {
   sql_connect sql_conn = new sql_connect();
   sql_statment sql = new sql_statment();
   Passwort_verwaltung pwv = new Passwort_verwaltung();
+
+  public User getUser(String pnummer){
+    Connection con = sql_conn.intern_connect();
+    if (!sql.select(cnf.mitarbeiter,"*","WHERE M_Personalnummer=\'"+pnummer+"\'",con)){
+      System.err.println("!ERROR! Personalnummer exisitert nicht");
+      return null;
+    }
+    User user = new User();
+
+    String[][] arr = sql.select_arr(cnf.mitarbeiter,"*","WHERE M_Personalnummer=\'"+pnummer+"\'",con);
+    user.setId(arr[0][0]);
+    user.setPrename(arr[0][1]);
+    user.setLastname(arr[0][2]);
+    user.setPrsnumber(arr[0][3]);
+    user.setAbtnumber(arr[0][4]);
+    user.setPasshash(arr[0][5]);
+    user.setSalt(arr[0][6]);
+    return user;
+  }
 
   public boolean existiertNutzer(String vNname, String nName){
     Connection con = sql_conn.intern_connect();
@@ -18,6 +39,11 @@ public class Nutzerverwaltung {
   public boolean existiertNutzer(String mid){
     Connection con = sql_conn.intern_connect();
     if(!sql.select(cnf.mitarbeiter,"*","WHERE M_ID=\'"+mid+"\'",con) ) return false;
+    return true;
+  }
+  public boolean existiertNutzerMitPersonalnummer(String personalnummer){
+    Connection con = sql_conn.intern_connect();
+    if(!sql.select(cnf.mitarbeiter,"*","WHERE M_PERSONALNUMMER=\'"+personalnummer+"\'",con) ) return false;
     return true;
   }
   public boolean passwort_ändern(String mId,String neuPassword){

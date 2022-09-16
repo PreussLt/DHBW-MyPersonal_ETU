@@ -42,6 +42,15 @@ public class Buchungsdaten {
     return null;
   }
 
+    [x][4] = Arbeitszeit
+     */
+    String tag,numZs,aZs,eZs,A;
+
+
+    return null;
+  }
+
+
   public double getArbeitszeit(String mid){
     Connection con = sql_conn.extern_connect();
     if(!sql.select(cnf.mb_buchung,"*","WHERE B_TAG=\'"+getHeute()+"\' AND B_M_ID=\'"+mid+"\' ",con)) return 0;
@@ -49,6 +58,7 @@ public class Buchungsdaten {
     if(!sql.select(cnf.mb_buchung,"B_Stunden","WHERE B_TAG=\'"+getHeute()+"\' AND B_M_ID=\'"+mid+"\' ",con)) return berechneArbeitszeit(mid,getHeute());
     else return Double.parseDouble(sql.select_arr(cnf.mb_buchung,"B_Stunden","WHERE B_TAG=\'"+getHeute()+"\' AND B_M_ID=\'"+mid+"\' ",con)[0][0]);
   }// get ArbeitszeitHeute
+
   public double getArbeitszeit(String mid, String tag){
     Connection con = sql_conn.extern_connect();
     if(!sql.select(cnf.mb_buchung,"*","WHERE B_TAG=\'"+tag+"\' AND B_M_ID=\'"+mid+"\' ",con)) return 0;

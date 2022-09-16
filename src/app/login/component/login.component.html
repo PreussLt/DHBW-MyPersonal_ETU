@@ -1,0 +1,31 @@
+<form [formGroup]="loginForm">
+<section id="intro" class="wrapper style1 fullscreen fade-up">
+  <div class="inner">
+    <h1>{{'login.welcomemessage'|translate}}</h1>
+    <div class="field">
+      <div *ngIf="invalid">{{'login.invalid'|translate}}</div>
+      <div class="field half">
+        <label for="username">{{'login.personellnumber'|translate}}</label>
+        <input type="text" name="username" id="username" formControlName="userid" />
+      </div>
+      <div *ngIf="!f['userid'].valid" style="color:red;">{{'login.required'|translate}}</div>
+    </div>
+    <p style="line-height:150%">
+    <div class="field">
+    <div class="field half">
+      <label for="password">{{'login.password'|translate}}</label>
+      <input type="password" name="username" id="password" formControlName="password" />
+    </div>
+    <div *ngIf="!f['password'].valid" style="color:red;">{{'login.required'|translate}}</div>
+    </div>
+    <p style="line-height:150%">
+    <ul class="actions">
+      <li>    <button class="btn btn-success" type="submit" (click)="login()">{{'login.loginBtn'|translate}}</button>
+      </li>
+    </ul>
+  </div>
+  <div class="fields">
+
+  </div>
+</section>
+</form>

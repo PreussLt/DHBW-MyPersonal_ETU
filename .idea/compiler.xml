@@ -12,7 +12,6 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="DHBW-Fallstudie-MyPersonal" target="17" />
       <module name="DHBW-MyPersonal" target="17" />
     </bytecodeTargetLevel>
   </component>
