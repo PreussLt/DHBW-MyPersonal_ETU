@@ -32,6 +32,18 @@ public class Buchungsdaten {
     if (!sql.insert(cnf.mb_zeiteintrag,daten,con)) return false;
     return true;
   }
+  public boolean setZeitintrag(String mid, String timestampp){
+    Connection con = sql_conn.extern_connect();
+    String tag = getDatumVonTimestamp(timestampp);
+    if(!sql.select(cnf.mb_buchung,"B_Tag","WHERE B_M_ID=\'"+mid+"\' AND B_TAG=\'"+tag+"\'",con)){
+      String[] daten ={mid,getHeute(),"-1"};
+      if (!sql.insert(cnf.mb_buchung,daten,con)) return false;
+    }
+    String bid = sql.select_arr(cnf.mb_buchung,"B_ID","WHERE B_M_ID=\'"+mid+"\' AND B_TAG=\'"+tag+"\'",con)[0][0];
+    String[] daten ={bid,timestampp};
+    if (!sql.insert(cnf.mb_zeiteintrag,daten,con)) return false;
+    return true;
+  }
 
 
   public Arbeitszeiteintrag getArbeitszeitEintrag(String mid, String tag){
@@ -42,13 +54,7 @@ public class Buchungsdaten {
     return null;
   }
 
-    [x][4] = Arbeitszeit
-     */
-    String tag,numZs,aZs,eZs,A;
 
-
-    return null;
-  }
 
 
   public double getArbeitszeit(String mid){
@@ -96,6 +102,11 @@ public class Buchungsdaten {
     return Arbeitszeit;
   }
 
+  private String getDatumVonTimestamp(String timestamp){
+    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    LocalDateTime tag = LocalDateTime.parse(timestamp, dtf);
+    return dtf.format(tag);
+  }
   private String getHeute(){
     // Heutiges Datum Formatieren
     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
