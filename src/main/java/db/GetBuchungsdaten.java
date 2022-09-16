@@ -11,6 +11,23 @@ public class GetBuchungsdaten {
   private Einstellungen cnf = new Einstellungen();
   private sql_statment sql = new sql_statment();
 
+
+  public String[][] getArbeitszeitListe(){
+    /*
+    Aufbau Array;
+    [x][0] = Tag
+    [x][1] = Anzahl der Zeitstempel
+    [x][2] = Start der Arbeitszeit
+    [x][3] = Ende der Arbeitszeiz
+    [x][4] = Arbeitszeit
+     */
+    String tag,numZs,aZs,eZs,A;
+
+
+    return null;
+  }
+
+
   public double getArbeitszeit(String mid){
     Connection con = sql_conn.extern_connect();
     if(!sql.select(cnf.mb_buchung,"*","WHERE B_TAG=\'"+getHeute()+"\' AND B_M_ID=\'"+mid+"\' ",con)) return 0;
