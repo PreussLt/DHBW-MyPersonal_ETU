@@ -18,6 +18,7 @@ public class Controller {
 
     }
 
+    System.out.println(pwv.pruefePasswort("Kyle2002_","508dfffdee2536aa75990be2b6b92aaa7d3807d0","[B@101df177"));
 
     //System.out.println(nzv.nutzer_anlegen("Chris","Henselmann",1604,"Kyle2002_",1,1));
     //String[] cars = {"Tester2", "Willi", "51651", "",""};
