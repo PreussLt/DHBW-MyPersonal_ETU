@@ -1,5 +1,7 @@
 package db;
 
+import DatenKlassen.Arbeitszeiteintrag;
+
 import java.sql.Connection;
 import java.text.ParseException;
 import java.time.LocalDateTime;
@@ -12,6 +14,7 @@ public class GetBuchungsdaten {
   private sql_statment sql = new sql_statment();
 
 
+
   public String[][] getArbeitszeitListe(){
     /*
     Aufbau Array;
@@ -19,6 +22,23 @@ public class GetBuchungsdaten {
     [x][1] = Anzahl der Zeitstempel
     [x][2] = Start der Arbeitszeit
     [x][3] = Ende der Arbeitszeiz
+    [x][4] = Ist die Max Arbeitszeiten Überschritten worden
+
+     */
+    return null;
+  }
+
+
+
+
+  public Arbeitszeiteintrag getArbeitszeitEintrag(String mid, String tag){
+    Connection con = sql_conn.extern_connect();
+    double arbeitszeit = getArbeitszeit(mid, tag);
+    String eStemp,lStemp;
+    String[][] sql_abf = sql.select_arr(cnf.mb_zeiteintrag+","+cnf.mb_buchung,"*"," WHERE B_ID = BZ_B_ID AND B_M_ID=\'"+mid+"\' AND B_Tag=\'"+tag+"\' ORDER BY BZ_Zeiteintrag ASC ",con);
+    return null;
+  }
+
     [x][4] = Arbeitszeit
      */
     String tag,numZs,aZs,eZs,A;
@@ -35,6 +55,7 @@ public class GetBuchungsdaten {
     if(!sql.select(cnf.mb_buchung,"B_Stunden","WHERE B_TAG=\'"+getHeute()+"\' AND B_M_ID=\'"+mid+"\' ",con)) return berechneArbeitszeit(mid,getHeute());
     else return Double.parseDouble(sql.select_arr(cnf.mb_buchung,"B_Stunden","WHERE B_TAG=\'"+getHeute()+"\' AND B_M_ID=\'"+mid+"\' ",con)[0][0]);
   }// get ArbeitszeitHeute
+  
   public double getArbeitszeit(String mid, String tag){
     Connection con = sql_conn.extern_connect();
     if(!sql.select(cnf.mb_buchung,"*","WHERE B_TAG=\'"+tag+"\' AND B_M_ID=\'"+mid+"\' ",con)) return 0;
