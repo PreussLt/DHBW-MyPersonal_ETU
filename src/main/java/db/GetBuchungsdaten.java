@@ -10,7 +10,7 @@ public class GetBuchungsdaten {
   private Nutzerverwaltung nzv = new Nutzerverwaltung();
   private Einstellungen cnf = new Einstellungen();
   private sql_statment sql = new sql_statment();
-
+  
   public String[][] getArbeitszeitListe(){
     /*
     Aufbau Array;
@@ -21,7 +21,11 @@ public class GetBuchungsdaten {
     [x][4] = Ist die Max Arbeitszeiten Überschritten worden
 
      */
+
+
+    return null;
   }
+
   public double getArbeitszeit(String mid){
     Connection con = sql_conn.extern_connect();
     if(!sql.select(cnf.mb_buchung,"*","WHERE B_TAG=\'"+getHeute()+"\' AND B_M_ID=\'"+mid+"\' ",con)) return 0;
