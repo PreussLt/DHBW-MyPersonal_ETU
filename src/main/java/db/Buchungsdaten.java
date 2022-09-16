@@ -7,7 +7,7 @@ import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class GetBuchungsdaten {
+public class Buchungsdaten {
   private sql_connect sql_conn = new sql_connect();
   private Nutzerverwaltung nzv = new Nutzerverwaltung();
   private Einstellungen cnf = new Einstellungen();
@@ -15,19 +15,23 @@ public class GetBuchungsdaten {
 
 
   public String[][] getArbeitszeitListe() {
-    /*
-    Aufbau Array;
-    [x][0] = Tag
-    [x][1] = Anzahl der Zeitstempel
-    [x][2] = Start der Arbeitszeit
-    [x][3] = Ende der Arbeitszeiz
-    [x][4] = Ist die Max Arbeitszeiten Überschritten worden
 
-     */
     return null;
   }
 
 
+
+  public boolean setZeitintrag(String mid){
+    Connection con = sql_conn.extern_connect();
+    if(!sql.select(cnf.mb_buchung,"B_Tag","WHERE B_M_ID=\'"+mid+"\' AND B_TAG=\'"+getHeute()+"\'",con)){
+      String[] daten ={mid,getHeute(),"-1"};
+      if (!sql.insert(cnf.mb_buchung,daten,con)) return false;
+    }
+    String bid = sql.select_arr(cnf.mb_buchung,"B_ID","WHERE B_M_ID=\'"+mid+"\' AND B_TAG=\'"+getHeute()+"\'",con)[0][0];
+    String[] daten ={bid,getTimestamp()};
+    if (!sql.insert(cnf.mb_zeiteintrag,daten,con)) return false;
+    return true;
+  }
 
 
   public Arbeitszeiteintrag getArbeitszeitEintrag(String mid, String tag){
@@ -41,14 +45,14 @@ public class GetBuchungsdaten {
   public double getArbeitszeit(String mid){
     Connection con = sql_conn.extern_connect();
     if(!sql.select(cnf.mb_buchung,"*","WHERE B_TAG=\'"+getHeute()+"\' AND B_M_ID=\'"+mid+"\' ",con)) return 0;
-    if(sql.select_arr(cnf.mb_buchung,"B_Stunden","WHERE B_TAG=\'"+getHeute()+"\' AND B_M_ID=\'"+mid+"\' ",con)[0][0]==null) return berechneArbeitszeit(mid,getHeute());
+    if(Double.parseDouble(sql.select_arr(cnf.mb_buchung,"B_Stunden","WHERE B_TAG=\'"+getHeute()+"\' AND B_M_ID=\'"+mid+"\' ",con)[0][0])== -99.00) return berechneArbeitszeit(mid,getHeute());
     if(!sql.select(cnf.mb_buchung,"B_Stunden","WHERE B_TAG=\'"+getHeute()+"\' AND B_M_ID=\'"+mid+"\' ",con)) return berechneArbeitszeit(mid,getHeute());
     else return Double.parseDouble(sql.select_arr(cnf.mb_buchung,"B_Stunden","WHERE B_TAG=\'"+getHeute()+"\' AND B_M_ID=\'"+mid+"\' ",con)[0][0]);
   }// get ArbeitszeitHeute
   public double getArbeitszeit(String mid, String tag){
     Connection con = sql_conn.extern_connect();
     if(!sql.select(cnf.mb_buchung,"*","WHERE B_TAG=\'"+tag+"\' AND B_M_ID=\'"+mid+"\' ",con)) return 0;
-    if(sql.select_arr(cnf.mb_buchung,"B_Stunden","WHERE B_TAG=\'"+tag+"\' AND B_M_ID=\'"+mid+"\' ",con)[0][0]==null) return berechneArbeitszeit(mid,tag);
+    if(Double.parseDouble(sql.select_arr(cnf.mb_buchung,"B_Stunden","WHERE B_TAG=\'"+tag+"\' AND B_M_ID=\'"+mid+"\' ",con)[0][0])==-99.00) return berechneArbeitszeit(mid,tag);
     if(!sql.select(cnf.mb_buchung,"B_Stunden","WHERE B_TAG=\'"+tag+"\' AND B_M_ID=\'"+mid+"\' ",con)) return berechneArbeitszeit(mid,tag);
     else return Double.parseDouble(sql.select_arr(cnf.mb_buchung,"B_Stunden","WHERE B_TAG=\'"+tag+"\' AND B_M_ID=\'"+mid+"\' ",con)[0][0]);
   }// get Arbeitszeit AM Tag X
@@ -85,6 +89,14 @@ public class GetBuchungsdaten {
   private String getHeute(){
     // Heutiges Datum Formatieren
     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    LocalDateTime jetzt = LocalDateTime.now();
+    String d_heute = dtf.format(jetzt);
+    return d_heute;
+  }// Get Heuter
+
+  private String getTimestamp(){
+    // Heutiges Datum Formatieren
+    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     LocalDateTime jetzt = LocalDateTime.now();
     String d_heute = dtf.format(jetzt);
     return d_heute;
