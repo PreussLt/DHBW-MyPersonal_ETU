@@ -14,7 +14,9 @@ public class sql_statment {
     try {
       // Abfrage aufbauen
       Statement stm = con.createStatement();
-      ResultSet rs = stm.executeQuery("select "+ziel+" from "+tabelle+" "+bedingung+";");
+      String sql_stm = "select "+ziel+" from "+tabelle+" "+bedingung+";";
+      System.out.println("*INFO* Folgendes Statment wurde ausgeführt: "+sql_stm);
+      ResultSet rs = stm.executeQuery(sql_stm);
 
       // Ausgabe 0
       int count = 0;
