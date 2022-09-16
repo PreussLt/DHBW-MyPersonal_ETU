@@ -9,6 +9,17 @@ public class Nutzerverwaltung {
   sql_statment sql = new sql_statment();
   Passwort_verwaltung pwv = new Passwort_verwaltung();
 
+  public String[] getUser(String pnummer){
+    Connection con = sql_conn.intern_connect();
+    if (!sql.select(cnf.mitarbeiter,"*","WHER  M_Personalnummer=\'"+pnummer+"\'",con)){
+      System.err.println("!ERROR! Personalnummer exisitert nicht");
+      return null;
+    }
+    String[][] arr = sql.select_arr(cnf.mitarbeiter,"*","WHER  M_Personalnummer=\'"+pnummer+"\'",con);
+    String[] ausgabe = {arr[0][0],arr[0][1],arr[0][2],arr[0][3],arr[0][4],arr[0][5],arr[0][6],arr[0][7]};
+    return ausgabe;
+  }
+
   public boolean existiertNutzer(String vNname, String nName){
     Connection con = sql_conn.intern_connect();
     if(!sql.select(cnf.mitarbeiter,"*","WHERE M_Vorname=\'"+vNname+"\' AND M_Nachname=\'"+nName+"\'",con) ) return false;
