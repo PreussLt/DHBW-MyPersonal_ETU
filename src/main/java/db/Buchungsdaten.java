@@ -21,7 +21,8 @@ public class Buchungsdaten {
     String eStempel, lStempel;
     double stunden;
     String[][] stempel;
-    stunden = getArbeitszeit(mid,tag);
+
+    stunden = berechneArbeitszeit(mid,tag); // TODO: 19.09.2022  hier gegen get Austauschen
 
     if (!bch.überprüfeBuchungvorhanden(tag,mid,con)) return null;
     String bid = sql.select_arr(cnf.mb_buchung,"B_ID","WHERE B_M_ID=\'"+mid+"\' AND B_TAG=\'"+tag+"\'",con)[0][0];

@@ -16,10 +16,10 @@ public class Controller {
     //nzv.existiertNutzer("Kyle","Henselmann");
     try {
       //System.out.println(bcd.getArbeitszeit("6","2022-09-18"));
-      //Arbeitstag t1 = bcd.getArbeitszeiteintrag("6","2022-09-18");
-      //System.out.println(ArbeitstagPruefen.istTagFeiertag("2022-11-24"));
+      Arbeitstag t1 = bcd.getArbeitszeiteintrag("6","2022-09-18");
+      //System.out.println(bcd.berechneArbeitszeit("6","2022-09-18"));
     }catch (Exception e){
-
+      System.err.println(e);
     }
 
     //System.out.println(bcd.setZeitintrag("9"));

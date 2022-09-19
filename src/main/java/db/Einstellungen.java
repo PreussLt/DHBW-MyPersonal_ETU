@@ -30,6 +30,7 @@ public class Einstellungen {
   public static String mb_zeiteintrag = "bz_zeitsteintrag";
   public static String mb_arbeitsmodell ="a_arbeitsmodelle";
   public static String feiertag ="f_feiertage";
+  public static String gleitzeittage ="mg_gleitzeittage";
 
   //  Passwort sicherheits einstellungen
   public static boolean pw_gk_schreibung = true; // Mindest eins Char muss groß / klein sein
