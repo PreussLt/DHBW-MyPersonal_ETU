@@ -38,12 +38,18 @@ public class Nutzerverwaltung {
   }
   public boolean existiertNutzer(String mid){
     Connection con = sql_conn.intern_connect();
-    if(!sql.select(cnf.mitarbeiter,"*","WHERE M_ID=\'"+mid+"\'",con) ) return false;
+    if(!sql.select(cnf.mitarbeiter,"*","WHERE M_ID=\'"+mid+"\'",con) ) {
+      System.err.println("!ERROR! Nutzer existiert nicht");
+      return false;
+    }
     return true;
   }
   public boolean existiertNutzerMitPersonalnummer(String personalnummer){
     Connection con = sql_conn.intern_connect();
-    if(!sql.select(cnf.mitarbeiter,"*","WHERE M_PERSONALNUMMER=\'"+personalnummer+"\'",con) ) return false;
+    if(!sql.select(cnf.mitarbeiter,"*","WHERE M_PERSONALNUMMER=\'"+personalnummer+"\'",con) ) {
+      System.err.println("!ERROR! Nutzer existiert nicht");
+      return false;
+    }
     return true;
   }
   public boolean passwort_ändern(String mId,String neuPassword){
