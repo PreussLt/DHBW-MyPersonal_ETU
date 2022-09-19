@@ -29,4 +29,11 @@ public class UserController {
     }
     return isMatching;
   }
+
+  @PostMapping("/getMid")
+  public String getMid(@RequestBody String personalnummer){
+    Nutzerverwaltung nv = new Nutzerverwaltung();
+    User user = nv.getUser(personalnummer);
+    return user.getId();
+  }
 }
