@@ -12,13 +12,25 @@ public class Buchungsdaten {
   private Nutzerverwaltung nzv = new Nutzerverwaltung();
   private Einstellungen cnf = new Einstellungen();
   private sql_statment sql = new sql_statment();
+  private Buchung bch = new Buchung();
 
 
-  public Arbeitstag getArbeitszeiteintrag(String mid){
+  public Arbeitstag getArbeitszeiteintrag(String mid,String tag){
+    Connection con = sql_conn.extern_connect();
     if (!nzv.existiertNutzer(mid)) return null;
-    String tag, eStempel, lStempel;
+    String eStempel, lStempel;
     double stunden;
     String[][] stempel;
+    stunden = getArbeitszeit(mid,tag);
+
+    if (!bch.überprüfeBuchungvorhanden(tag,mid,con)) return null;
+    String bid = sql.select_arr(cnf.mb_buchung,"B_ID","WHERE B_M_ID=\'"+mid+"\' AND B_TAG=\'"+tag+"\'",con)[0][0];
+    stempel = sql.select_arr(cnf.mb_zeiteintrag,"*","WHERE BZ_B_ID=\'"+bid+"\'",con);
+    eStempel = stempel[0][2];
+    lStempel=stempel[(stempel.length-1)][2];
+    String[] timestamps = new String[stempel.length];
+    for (int i=0;i < stempel.length;i++) timestamps[i] = stempel[i][2];
+    return new Arbeitstag(tag,stunden,timestamps,eStempel,lStempel,mid);
 
   }
   public String[][] getArbeitszeitListe() {
