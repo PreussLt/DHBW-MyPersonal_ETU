@@ -1,6 +1,6 @@
 package db;
 
-import DatenKlassen.Arbeitszeiteintrag;
+import DatenKlassen.Arbeitstag;
 
 import java.sql.Connection;
 import java.text.ParseException;
@@ -14,6 +14,13 @@ public class Buchungsdaten {
   private sql_statment sql = new sql_statment();
 
 
+  public Arbeitstag getArbeitszeiteintrag(String mid){
+    if (!nzv.existiertNutzer(mid)) return null;
+    String tag, eStempel, lStempel;
+    double stunden;
+    String[][] stempel;
+
+  }
   public String[][] getArbeitszeitListe() {
 
     return null;
@@ -46,7 +53,7 @@ public class Buchungsdaten {
   }
 
 
-  public Arbeitszeiteintrag getArbeitszeitEintrag(String mid, String tag){
+  public Arbeitstag getArbeitszeitEintrag(String mid, String tag){
     Connection con = sql_conn.extern_connect();
     double arbeitszeit = getArbeitszeit(mid, tag);
     String eStemp,lStemp;
