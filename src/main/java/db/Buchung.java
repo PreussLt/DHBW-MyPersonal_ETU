@@ -110,7 +110,7 @@ public boolean neuerZeiteintrag(String mID,String tag,String Zeitstempel){
   /*
   Hier sin die verstekten Funktionen
    */
-  private boolean überprüfeBuchungvorhanden(String Date,String mID,Connection con){
+  public boolean überprüfeBuchungvorhanden(String Date,String mID,Connection con){
     // Überprüfen ob für den Heutigen Tag schon eine Buchung Besteht
     String sBedingung = "WHERE B_M_ID=\'" + mID + "\'  AND B_TAG=\'" + Date + "\'";
     //System.out.println(sBedingung);// --> Debuggin

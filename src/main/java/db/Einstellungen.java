@@ -29,6 +29,7 @@ public class Einstellungen {
   public static String mb_buchung = "b_buchung"; // Buchungen
   public static String mb_zeiteintrag = "bz_zeitsteintrag";
   public static String mb_arbeitsmodell ="a_arbeitsmodelle";
+  public static String feiertag ="f_feiertage";
 
   //  Passwort sicherheits einstellungen
   public static boolean pw_gk_schreibung = true; // Mindest eins Char muss groß / klein sein

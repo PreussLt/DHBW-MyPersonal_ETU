@@ -62,7 +62,7 @@ public class sql_statment {
 
     } catch (SQLException e) {
       // Fehler
-      e.printStackTrace();
+      System.err.println("!ERROR!: "+e);
       return null;
     }// END try, Catch
     return ausgabeArray;
@@ -154,11 +154,12 @@ public boolean update(String tabelle, String[] ziel, String[] neuerWert,String b
  */
   private boolean datenfuellenArray(ResultSet rs, int count){
     String[] ausgabe = new String[ausgabeArray[0].length];
+    //System.out.println("Länge Array: "+ausgabeArray[0].length); --> Debbuging
     for (int i=0; i < ausgabe.length ;i++){
       try {
         ausgabe[i] = rs.getString(i+1);
       }catch (Exception e){
-        System.err.println("Fehler: "+e);
+        //System.err.println("!ERROR! "+e);
       }//END Try Catch
 
     }// END For
@@ -174,12 +175,15 @@ public boolean update(String tabelle, String[] ziel, String[] neuerWert,String b
     try {
       // Anzahl der Rows herraus finden
       Statement stm = con.createStatement();
-      ResultSet rs = stm.executeQuery("select count(*) from "+tabelle+" "+bedingung+";");
+      String sql_stm = "select count(*) from "+tabelle+" "+bedingung+";";
+      System.out.println("*INFO* Folgendes Statment wurde ausgeführt: "+sql_stm); // --> Debugging
+      ResultSet rs = stm.executeQuery(sql_stm);
       rs.next();
       int count = rs.getInt(1);
       return count;
 
     } catch (Exception e){
+      System.err.println("!ERROR! Ein Fehler ist beim Zählen der Rows aufgerteten: "+e);
       return -1;
     }// END try, catch
   }// get_numRows
@@ -208,6 +212,7 @@ public boolean update(String tabelle, String[] ziel, String[] neuerWert,String b
       return numColm;
 
     } catch (Exception e){
+      System.err.println("!ERROR! Ein Fehler ist beim Zählen der Columns aufgerteten: "+e);
       return -1;
     }// END try, catch
   }// gent_numRows
