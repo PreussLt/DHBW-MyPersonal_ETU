@@ -38,4 +38,10 @@ public class Einstellungen {
   public static boolean pw_Sonzerzeichen = true; // Mindesten ein Sonderzeichen muss vorhanden sein
   public static int pw_min_lenght = 6; // Mindestlänge der Zahlen
   public static int pw_max_lengt=16;
+
+  // Pausen REgelung
+  public double erstePause=6;
+  public double längeEPause=0.5;
+  public double zweitePause=9;
+  public double längeZPause=0.25;
 }

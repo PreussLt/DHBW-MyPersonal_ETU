@@ -9,17 +9,22 @@ import java.time.format.DateTimeFormatter;
 
 public class Arbeitstag {
   private ArbeitstagPruefen aTag = new ArbeitstagPruefen();
-  private String tag;
-  private double arbeitszeit;
-  private String[] Zeistempel;
   private String ersterStempel;
   private String letzterStempel;
   private String mid;
 
+  // Public Boolens
+  public String tag;
+  public double arbeitszeit;
+  public String[] Zeistempel;
+
+
   // Boolens
-  private boolean feiertag=false;
-  private boolean gleitzeittag=false;
-  public boolean arbeitszeiEingehalten;
+  public boolean feiertag=false;
+  public boolean gleitzeittag=false;
+  public boolean arbeitszeitenEingehalten;
+  public boolean pausenEingehalten;
+  public boolean maxArbeitszeitEingehalten;
 
 
 
@@ -39,11 +44,24 @@ public class Arbeitstag {
     feiertag = aTag.istTagFeiertag(this.tag);
     gleitzeittag = aTag.istTagGleitzeitag(this.tag,mid);
     if (feiertag || gleitzeittag) arbeitszeit = Sollarbetiszeit();
-    arbeitszeiEingehalten = ZeitGrenzen();
-    System.out.println(arbeitszeiEingehalten);
+    arbeitszeitenEingehalten = ZeitGrenzen();
+    pausenEingehalten = sindPausenEingehalten();
+    maxArbeitszeitEingehalten = istMaxArbeitszeitEingehalten();
+    System.out.println(arbeitszeitenEingehalten);
 
   }
 
+  private boolean sindPausenEingehalten(){
+    return true;
+  }
+  private boolean istMaxArbeitszeitEingehalten(){
+    double maxArbeitszeit = 10; // TODO: 19.09.2022 Aus datenbank ziehen
+    if (arbeitszeit > maxArbeitszeit ){
+      arbeitszeit=maxArbeitszeit;
+      return false;
+    }
+    return true;
+  }
   private boolean ZeitGrenzen(){
     String Min = tag+" 06:00:00"; // TODO: 19.09.2022 Aus datenbank ziehen
     String Max = tag+" 22:00:00"; // ""
