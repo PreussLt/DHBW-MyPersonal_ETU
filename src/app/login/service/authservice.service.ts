@@ -7,9 +7,11 @@ import {Observable} from "rxjs";
 })
 export class AuthserviceService {
   authUrl: string;
+  getIdUrl: string;
 
   constructor(private http: HttpClient) {
-    this.authUrl = 'http://localhost:8080/userauth'
+    this.authUrl = 'http://localhost:8080/userauth';
+    this.getIdUrl = 'http://localhost:8080/getMid';
   }
 
   logout() :void {
@@ -19,5 +21,9 @@ export class AuthserviceService {
 
   public authenticate(personalnummer: string, password: string): Observable<boolean>{
     return this.http.post<boolean>(this.authUrl, {'personalnummer':personalnummer, 'password':password});
+  }
+
+  public getMId(personalnummer: string): Observable<string>{
+    return this.http.post<string>(this.getIdUrl, personalnummer);
   }
 }
