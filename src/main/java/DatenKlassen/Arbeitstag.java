@@ -2,16 +2,30 @@ package DatenKlassen;
 
 import db.ArbeitstagPruefen;
 
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Arbeitstag {
   private ArbeitstagPruefen aTag = new ArbeitstagPruefen();
-  private String tag;
-  private double arbeitszeit;
-  private String[] Zeistempel;
   private String ersterStempel;
   private String letzterStempel;
-  private boolean feiertag=false;
-  private boolean gleitzeittag=false;
   private String mid;
+
+  // Public Boolens
+  public String tag;
+  public double arbeitszeit;
+  public String[] Zeistempel;
+
+
+  // Boolens
+  public boolean feiertag=false;
+  public boolean gleitzeittag=false;
+  public boolean arbeitszeitenEingehalten;
+  public boolean pausenEingehalten;
+  public boolean maxArbeitszeitEingehalten;
+
 
 
 
@@ -22,18 +36,45 @@ public class Arbeitstag {
     this.ersterStempel = ersterStempel;
     this.letzterStempel = letzterStempel;
     this.mid = mid;
+    vorgabenAnwenden();
   }// Constructor
 
-  private void vorgabenAnwenden(){
-    // Überpüfe ob Tag Feiertag ist
+  public void vorgabenAnwenden(){
+    // Überpüfe ob Tag Feiertag oder Gleitzeittag ist
     feiertag = aTag.istTagFeiertag(this.tag);
-    if (feiertag) arbeitszeit = Sollarbetiszeit();
-
-
+    gleitzeittag = aTag.istTagGleitzeitag(this.tag,mid);
+    if (feiertag || gleitzeittag) arbeitszeit = Sollarbetiszeit();
+    arbeitszeitenEingehalten = ZeitGrenzen();
+    pausenEingehalten = sindPausenEingehalten();
+    maxArbeitszeitEingehalten = istMaxArbeitszeitEingehalten();
+    System.out.println(arbeitszeitenEingehalten);
 
   }
 
-  public double Sollarbetiszeit(){
+  private boolean sindPausenEingehalten(){
+    return true;
+  }
+  private boolean istMaxArbeitszeitEingehalten(){
+    double maxArbeitszeit = 10; // TODO: 19.09.2022 Aus datenbank ziehen
+    if (arbeitszeit > maxArbeitszeit ){
+      arbeitszeit=maxArbeitszeit;
+      return false;
+    }
+    return true;
+  }
+  private boolean ZeitGrenzen(){
+    String Min = tag+" 06:00:00"; // TODO: 19.09.2022 Aus datenbank ziehen
+    String Max = tag+" 22:00:00"; // ""
+
+    Timestamp tMin = Timestamp.valueOf(Min);
+    Timestamp tMax = Timestamp.valueOf(Max);
+
+    if (aTag.sindZeiteneingehalten(getZeistempel(),tMin,tMax) == 0) return true;
+
+    this.arbeitszeit = arbeitszeit - aTag.sindZeiteneingehalten(getZeistempel(),tMin,tMax);
+    return false;
+  }
+  private double Sollarbetiszeit(){
     return 7.6; // TODO: 19.09.2022 Hier die Datenbank verbindung aufbauen und den Berechneten Wert ausgeben
   }
 
