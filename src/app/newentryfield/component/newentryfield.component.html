@@ -1,0 +1,17 @@
+<form [formGroup]="newTimeEntryForm">
+<label for="date">Datum Start</label>
+<input type="date" id="date" formControlName="date">
+<label for="timeBegin">Zeit Start</label>
+<input type="time" id="timeBegin" formControlName="timeBegin">
+
+<label for="dateEnd">Datum Ende</label>
+<input type="date" id="dateEnd" formControlName="dateEnd">
+<label for="timeEnd">Zeit Ende</label>
+<input type="time" id="timeEnd" formControlName="timeEnd">
+<br><br>
+<button (click)="submit()">Neuen Eintrag erstellen</button>
+
+<p *ngIf="failure">Fehlschlag</p>
+<p *ngIf="!failure">Erfolg</p>
+
+</form>
