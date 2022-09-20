@@ -1,18 +1,16 @@
-    import { Component, OnInit } from '@angular/core';
-    import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-    import {Router} from "@angular/router";
-    import {Login} from "../interfaces/login";
-    import {AuthserviceService} from "../service/authservice.service";
-    import {TranslateService} from "@ngx-translate/core";
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {Router} from "@angular/router";
+import {AuthserviceService} from "../service/authservice.service";
+import {TranslateService} from "@ngx-translate/core";
 
-    @Component({
+@Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
 
-    model: Login = { userid: "admin", password: "cool" };
     loginForm: FormGroup;
     invalid: boolean;
     returnUrl: string;
@@ -49,7 +47,10 @@ export class LoginComponent implements OnInit {
         if(data){
           sessionStorage.setItem('isLoggedIn', "true");
           sessionStorage.setItem('token', this.f['userid'].value);
-          this.router.navigate([this.returnUrl]);
+          this.authService.getMId(this.f['userid'].value).subscribe(data => {
+            sessionStorage.setItem('mid', data);
+            this.router.navigate([this.returnUrl]);
+          });
         }
         else {
           this.invalid = true;

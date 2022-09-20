@@ -1,0 +1,12 @@
+<table>
+  <tr>
+    <th>{{'overview.zid'|translate}}</th>
+    <th>{{'overview.bid'|translate}}</th>
+    <th>{{'overview.timestamp'|translate}}</th>
+  </tr>
+  <tr *ngFor="let entry of entries">
+    <td>{{entry.zid}}</td>
+    <td>{{entry.bid}}</td>
+    <td>{{entry.timestamp}}</td>
+  </tr>
+</table>
