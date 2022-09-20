@@ -1,4 +1,5 @@
 export class TimeEntry {
-  id: string;
-  msg: string;
+  zid: string
+  bid: string
+  timestamp: string
 }

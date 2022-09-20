@@ -1,11 +1,16 @@
 package db;
 
 import DatenKlassen.Arbeitstag;
+import DatenKlassen.TimeEntry;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.ParseException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 public class Buchungsdaten {
   private sql_connect sql_conn = new sql_connect();
@@ -49,7 +54,7 @@ public class Buchungsdaten {
     }
     String bid = sql.select_arr(cnf.mb_buchung,"B_ID","WHERE B_M_ID=\'"+mid+"\' AND B_TAG=\'"+getHeute()+"\'",con)[0][0];
     String[] daten ={bid,getTimestamp()};
-    if (!sql.insert(cnf.mb_zeiteintrag,daten,con)) return false;
+    if (!sql.insertZeiteintrag(cnf.mb_zeiteintrag,daten,con)) return false;
     return true;
   }
   public boolean setZeitintrag(String mid, String timestampp){
@@ -61,7 +66,7 @@ public class Buchungsdaten {
     }
     String bid = sql.select_arr(cnf.mb_buchung,"B_ID","WHERE B_M_ID=\'"+mid+"\' AND B_TAG=\'"+tag+"\'",con)[0][0];
     String[] daten ={bid,timestampp};
-    if (!sql.insert(cnf.mb_zeiteintrag,daten,con)) return false;
+    if (!sql.insertZeiteintrag(cnf.mb_zeiteintrag,daten,con)) return false;
     return true;
   }
 
@@ -74,6 +79,24 @@ public class Buchungsdaten {
     return null;
   }
 
+  public ArrayList<TimeEntry> getAllTimeentries(String bid){
+    ArrayList<TimeEntry> entries = new ArrayList<>();
+    try{
+      Connection con = sql_connect.intern_connect();
+      String bedingungen = String.format("WHERE BZ_ID = %d ORDER BY `bz_zeitsteintrag`.`BZ_Zeiteintrag` ASC", Integer.parseInt(bid));
+      ResultSet rs = sql.fetchAll("bz_zeitsteintrag", bedingungen, con);
+
+      while(rs.next()){
+        String zid = String.valueOf(rs.getInt(1));
+        String timestamp = String.valueOf(rs.getTimestamp(3));
+        TimeEntry t = new TimeEntry(zid, bid, timestamp);
+        entries.add(t);
+      }
+    } catch(SQLException e){
+      e.printStackTrace();
+    }
+    return entries;
+  }
 
 
 
@@ -124,7 +147,7 @@ public class Buchungsdaten {
 
   private String getDatumVonTimestamp(String timestamp){
     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-    LocalDateTime tag = LocalDateTime.parse(timestamp, dtf);
+    LocalDate tag = LocalDate.parse(timestamp, dtf);
     return dtf.format(tag);
   }
   private String getHeute(){
