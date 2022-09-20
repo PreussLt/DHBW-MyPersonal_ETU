@@ -26,8 +26,4 @@ export class TimeEntryService {
   public newEntry(mId: string, date: string, time: string): Observable<boolean>{
     return this.http.post<boolean>(this.newEntryUrl, {"mid":mId, "date":date, "time":time});
   }
-
-  public newEntry(mId: string, date: string, time: string): Observable<boolean>{
-    return this.http.post<boolean>(this.newEntryUrl, {"mid":mId, "date":date, "time":time});
-  }
 }
