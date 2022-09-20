@@ -1,9 +1,6 @@
 package db;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 public class sql_statment {
   private String[][] ausgabeArray;
@@ -177,6 +174,18 @@ public boolean update(String tabelle, String[] ziel, String[] neuerWert,String b
 
 } // SQL Update
 
+  public ResultSet fetchAll(String table, String bedingungen, Connection con){
+    ResultSet rs = null;
+    try {
+      String query = String.format("SELECT * from %s %s", table, bedingungen);
+      PreparedStatement ps = con.prepareStatement(query);
+      rs = ps.executeQuery();
+    } catch(SQLException e) {
+      e.printStackTrace();
+    }
+
+    return rs;
+  }
 /*
  Hier Folgen die "Verborgenen" Funktionen
  */

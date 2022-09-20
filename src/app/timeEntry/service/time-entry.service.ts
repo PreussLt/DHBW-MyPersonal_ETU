@@ -19,7 +19,12 @@ export class TimeEntryService {
 
   //Get-Request an Spring-Endpoint senden
   public findAll(): Observable<TimeEntry[]>{
-    return this.http.get<TimeEntry[]>(this.userUrl);
+    let mid = sessionStorage.getItem("mid");
+    return this.http.post<TimeEntry[]>(this.userUrl, mid);
+  }
+
+  public newEntry(mId: string, date: string, time: string): Observable<boolean>{
+    return this.http.post<boolean>(this.newEntryUrl, {"mid":mId, "date":date, "time":time});
   }
 
   public newEntry(mId: string, date: string, time: string): Observable<boolean>{

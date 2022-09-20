@@ -1,8 +1,13 @@
 package db;
 
+import DatenKlassen.BuchungModel;
+
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 public class Buchung {
   private Einstellungen cnf = new Einstellungen();
@@ -105,6 +110,26 @@ public boolean neuerZeiteintrag(String mID,String tag,String Zeitstempel){
     Connection con = sql_conn.intern_connect();
     if (!sql.delete(cnf.mb_zeiteintrag,"BZ_B_ID=\'"+bz_id+"\'",con)) return false;
     return true;
+  }
+
+  public ArrayList<BuchungModel> getAllBuchungen(String mid){
+    ArrayList<BuchungModel> buchungen = new ArrayList<>();
+      Connection con = sql_conn.intern_connect();
+      String bedingungen = String.format("WHERE B_M_ID = %d ORDER BY `b_buchung`.`B_Tag` ASC", Integer.parseInt(mid));
+      ResultSet rs = sql.fetchAll("b_buchung", bedingungen, con);
+    try {
+      while(rs.next()) {
+        String buchungsid = String.valueOf(rs.getInt(1));
+        String day = String.valueOf(rs.getDate(3));
+        String hours = String.valueOf(rs.getDouble(4));
+        BuchungModel b = new BuchungModel(buchungsid, mid, day, hours);
+        buchungen.add(b);
+      }
+    }
+    catch(SQLException e) {
+        throw new RuntimeException(e);
+      }
+    return buchungen;
   }
 
   /*

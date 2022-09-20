@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { EntryListComponent } from './entry-list/entry-list.component';
 import {TimeEntryService} from "./timeEntry/service/time-entry.service";
 import {HttpClientModule} from "@angular/common/http";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
@@ -18,7 +17,6 @@ import { NewentryfieldComponent } from './newentryfield/component/newentryfield.
 @NgModule({
   declarations: [
     AppComponent,
-    EntryListComponent,
     HomeComponent,
     LoginComponent,
     OverviewTimeentriesComponent,

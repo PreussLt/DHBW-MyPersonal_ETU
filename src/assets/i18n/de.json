@@ -11,5 +11,7 @@
   "login.required": "Erforderlich",
   "login.invalid": "Bitte überprüfen Sie die Personalnummer und Ihr Passwort",
 
-  "overview.date": "Datum"
+  "overview.bid": "Buchungs-ID",
+  "overview.zid": "Zeiteintrag-ID",
+  "overview.timestamp": "Zeitstempel"
 }

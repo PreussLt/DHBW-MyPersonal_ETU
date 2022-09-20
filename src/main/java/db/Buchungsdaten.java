@@ -1,12 +1,16 @@
 package db;
 
 import DatenKlassen.Arbeitstag;
+import DatenKlassen.TimeEntry;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 public class Buchungsdaten {
   private sql_connect sql_conn = new sql_connect();
@@ -75,6 +79,24 @@ public class Buchungsdaten {
     return null;
   }
 
+  public ArrayList<TimeEntry> getAllTimeentries(String bid){
+    ArrayList<TimeEntry> entries = new ArrayList<>();
+    try{
+      Connection con = sql_connect.intern_connect();
+      String bedingungen = String.format("WHERE BZ_ID = %d ORDER BY `bz_zeitsteintrag`.`BZ_Zeiteintrag` ASC", Integer.parseInt(bid));
+      ResultSet rs = sql.fetchAll("bz_zeitsteintrag", bedingungen, con);
+
+      while(rs.next()){
+        String zid = String.valueOf(rs.getInt(1));
+        String timestamp = String.valueOf(rs.getTimestamp(3));
+        TimeEntry t = new TimeEntry(zid, bid, timestamp);
+        entries.add(t);
+      }
+    } catch(SQLException e){
+      e.printStackTrace();
+    }
+    return entries;
+  }
 
 
 
