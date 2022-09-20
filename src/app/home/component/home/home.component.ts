@@ -26,6 +26,10 @@ export class HomeComponent implements OnInit{
     //console.log(this.id);
   }
 
+  redirect(component: string){
+    this.router.navigate([component]);
+  }
+
   logout() {
     console.log('logout');
     this.authService.logout();

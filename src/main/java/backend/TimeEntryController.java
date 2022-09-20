@@ -1,14 +1,14 @@
 package backend;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import db.Buchung;
+import db.Buchungsdaten;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin (origins = "http://localhost:4200")
 public class TimeEntryController {
 
   //Aufruf bei Request
@@ -20,6 +20,16 @@ public class TimeEntryController {
       tes.add(t);
     }
     return tes;
+  }
+
+  @PostMapping("/newEntry")
+  public boolean newEntry(@RequestBody Entry entry){
+    Buchung buchung = new Buchung();
+    Buchungsdaten buchungsdaten = new Buchungsdaten();
+    if(buchung.neueBuchung(entry.getMid(), entry.getDate())){
+      return buchungsdaten.setZeitintrag(entry.getMid(), entry.getDate());
+    }
+    return false;
   }
 
 }

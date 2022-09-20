@@ -3,10 +3,13 @@
   "demo.text": "Das ist eine einfache Demonstration von ngx-translate",
   "demo.en": "Englisch",
   "demo.de": "Deutsch",
+
   "login.welcomemessage": "Bitte loggen sie sich ein!",
   "login.personellnumber": "Personalnummer",
   "login.password": "Passwort",
   "login.loginBtn": "Einloggen",
   "login.required": "Erforderlich",
-  "login.invalid": "Bitte überprüfen Sie die Personalnummer und Ihr Passwort"
+  "login.invalid": "Bitte überprüfen Sie die Personalnummer und Ihr Passwort",
+
+  "overview.date": "Datum"
 }

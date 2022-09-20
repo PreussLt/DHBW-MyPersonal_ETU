@@ -4,6 +4,7 @@ import DatenKlassen.Arbeitstag;
 
 import java.sql.Connection;
 import java.text.ParseException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -49,7 +50,7 @@ public class Buchungsdaten {
     }
     String bid = sql.select_arr(cnf.mb_buchung,"B_ID","WHERE B_M_ID=\'"+mid+"\' AND B_TAG=\'"+getHeute()+"\'",con)[0][0];
     String[] daten ={bid,getTimestamp()};
-    if (!sql.insert(cnf.mb_zeiteintrag,daten,con)) return false;
+    if (!sql.insertZeiteintrag(cnf.mb_zeiteintrag,daten,con)) return false;
     return true;
   }
   public boolean setZeitintrag(String mid, String timestampp){
@@ -61,7 +62,7 @@ public class Buchungsdaten {
     }
     String bid = sql.select_arr(cnf.mb_buchung,"B_ID","WHERE B_M_ID=\'"+mid+"\' AND B_TAG=\'"+tag+"\'",con)[0][0];
     String[] daten ={bid,timestampp};
-    if (!sql.insert(cnf.mb_zeiteintrag,daten,con)) return false;
+    if (!sql.insertZeiteintrag(cnf.mb_zeiteintrag,daten,con)) return false;
     return true;
   }
 
@@ -124,7 +125,7 @@ public class Buchungsdaten {
 
   private String getDatumVonTimestamp(String timestamp){
     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-    LocalDateTime tag = LocalDateTime.parse(timestamp, dtf);
+    LocalDate tag = LocalDate.parse(timestamp, dtf);
     return dtf.format(tag);
   }
   private String getHeute(){
