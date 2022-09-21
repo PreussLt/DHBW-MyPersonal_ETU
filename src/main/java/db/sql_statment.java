@@ -1,9 +1,6 @@
 package db;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 public class sql_statment {
   private String[][] ausgabeArray;
@@ -82,7 +79,7 @@ public boolean insert(String tabelle, String[] Daten, Connection con){
 
     // Abfrage aufbauen
     Statement stm = con.createStatement();
-    String sql_stm = "INSERT INTO "+tabelle+" VALUES (Null,"+sql_daten+");";
+    String sql_stm = "INSERT INTO "+tabelle+" VALUES (Null,"+sql_daten+", NULL);";
 
     // Consoleausgabe + Execute;
     System.out.println("*INFO* Folgendes SQL-Statment wurde ausgeführt:"+sql_stm);
@@ -95,6 +92,34 @@ public boolean insert(String tabelle, String[] Daten, Connection con){
   }// END try, Catch
 
 } // SQL Insert
+
+  // Ausführen eines Insert Statment
+  public boolean insertZeiteintrag(String tabelle, String[] Daten, Connection con){
+
+    try {
+      // Arayy in SQL Daten input
+      String sql_daten ="";
+      for (int i=0;i<Daten.length;i++){
+        if (i==(Daten.length-1)) sql_daten+= "\'"+Daten[i]+"\'";
+        else sql_daten+= "\'"+Daten[i]+"\'"+",";
+      }
+
+
+      // Abfrage aufbauen
+      Statement stm = con.createStatement();
+      String sql_stm = "INSERT INTO "+tabelle+" VALUES (Null,"+sql_daten+");";
+
+      // Consoleausgabe + Execute;
+      System.out.println("*INFO* Folgendes SQL-Statment wurde ausgeführt:"+sql_stm);
+      stm.execute(sql_stm);
+      return true;
+    } catch (SQLException e) {
+      // Fehler
+      e.printStackTrace();
+      return false;
+    }// END try, Catch
+
+  } // SQL Insert
 
 // Ausführen eines Delete Statments
 public boolean delete(String tabelle, String bedingung, Connection con){
@@ -149,6 +174,18 @@ public boolean update(String tabelle, String[] ziel, String[] neuerWert,String b
 
 } // SQL Update
 
+  public ResultSet fetchAll(String table, String bedingungen, Connection con){
+    ResultSet rs = null;
+    try {
+      String query = String.format("SELECT * from %s %s", table, bedingungen);
+      PreparedStatement ps = con.prepareStatement(query);
+      rs = ps.executeQuery();
+    } catch(SQLException e) {
+      e.printStackTrace();
+    }
+
+    return rs;
+  }
 /*
  Hier Folgen die "Verborgenen" Funktionen
  */
