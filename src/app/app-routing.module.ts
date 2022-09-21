@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {LoginComponent} from "./login/component/login.component";
-import {HomeComponent} from "./home/component/home/home.component";
-import {AuthGuard} from "./login/guards/auth.guard";
-import {AppComponent} from "./app.component";
-import {OverviewTimeentriesComponent} from "./overview-timeentries/component/overview-timeentries.component";
-import {NewentryfieldComponent} from "./newentryfield/component/newentryfield.component";
+import {LoginComponent} from "./components/login/login.component";
+import {HomeComponent} from "./components/home/home.component";
+import {AuthGuard} from "./guards/auth/auth.guard";
+import {AppComponent} from "./components/app.component";
+import {OverviewTimeentriesComponent} from "./components/overview-timeentries/overview-timeentries.component";
+import {NewentryfieldComponent} from "./components/newentryfield/newentryfield.component";
 
 //Für verschiedene Request-Urls Ergebniskomponenten setzen
 const routes: Routes = [

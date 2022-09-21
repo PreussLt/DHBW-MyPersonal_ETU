@@ -1,6 +1,7 @@
 package backend;
 
 import DatenKlassen.BuchungModel;
+import DatenKlassen.Entry;
 import DatenKlassen.TimeEntry;
 import db.Buchung;
 import db.Buchungsdaten;

@@ -2,18 +2,18 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import {TimeEntryService} from "./timeEntry/service/time-entry.service";
+import { AppComponent } from './components/app.component';
+import {TimeEntryService} from "./services/time-entry/time-entry.service";
 import {HttpClientModule} from "@angular/common/http";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {HttpClient} from '@angular/common/http';
-import { HomeComponent } from './home/component/home/home.component';
-import { LoginComponent } from './login/component/login.component';
-import { OverviewTimeentriesComponent } from './overview-timeentries/component/overview-timeentries.component';
-import { NewentryfieldComponent } from './newentryfield/component/newentryfield.component';
-import { ChangePwComponent } from './change-pw/component/change-pw.component';
+import { HomeComponent } from './components/home/home.component';
+import { LoginComponent } from './components/login/login.component';
+import { OverviewTimeentriesComponent } from './components/overview-timeentries/overview-timeentries.component';
+import { NewentryfieldComponent } from './components/newentryfield/newentryfield.component';
+import { ChangePwComponent } from './components/change-pw/change-pw.component';
 
 @NgModule({
   declarations: [

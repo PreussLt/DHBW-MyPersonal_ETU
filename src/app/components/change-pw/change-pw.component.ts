@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {AuthserviceService} from "../../login/service/authservice.service";
+import {AuthService} from "../../services/auth/auth.service";
 import {Router} from "@angular/router";
 
 @Component({
@@ -15,7 +15,7 @@ export class ChangePwComponent implements OnInit {
   notMatching: boolean;
   invalidForm: boolean;
 
-  constructor(private formBuilder: FormBuilder, private authService: AuthserviceService, private router: Router){
+  constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: Router){
 
   }
 

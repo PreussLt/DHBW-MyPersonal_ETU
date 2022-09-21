@@ -2,6 +2,7 @@ package backend;
 
 import DatenKlassen.ChangePwData;
 import DatenKlassen.LoginData;
+import DatenKlassen.User;
 import db.Nutzerverwaltung;
 import db.Passwort_verwaltung;
 import org.springframework.web.bind.annotation.CrossOrigin;

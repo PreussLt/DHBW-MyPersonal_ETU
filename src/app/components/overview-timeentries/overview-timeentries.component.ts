@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {TranslateService} from "@ngx-translate/core";
-import {TimeEntryService} from "../../timeEntry/service/time-entry.service";
-import {TimeEntry} from "../../timeEntry/model/time-entry";
+import {TimeEntryService} from "../../services/time-entry/time-entry.service";
+import {TimeEntry} from "../../models/timeEntry/time-entry";
 
 @Component({
   selector: 'app-overview-timeentries',
