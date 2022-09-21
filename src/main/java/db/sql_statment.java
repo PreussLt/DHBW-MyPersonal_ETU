@@ -93,33 +93,6 @@ public boolean insert(String tabelle, String[] Daten, Connection con){
 
 } // SQL Insert
 
-  // Ausführen eines Insert Statment
-  public boolean insertZeiteintrag(String tabelle, String[] Daten, Connection con){
-
-    try {
-      // Arayy in SQL Daten input
-      String sql_daten ="";
-      for (int i=0;i<Daten.length;i++){
-        if (i==(Daten.length-1)) sql_daten+= "\'"+Daten[i]+"\'";
-        else sql_daten+= "\'"+Daten[i]+"\'"+",";
-      }
-
-
-      // Abfrage aufbauen
-      Statement stm = con.createStatement();
-      String sql_stm = "INSERT INTO "+tabelle+" VALUES (Null,"+sql_daten+");";
-
-      // Consoleausgabe + Execute;
-      System.out.println("*INFO* Folgendes SQL-Statment wurde ausgeführt:"+sql_stm);
-      stm.execute(sql_stm);
-      return true;
-    } catch (SQLException e) {
-      // Fehler
-      e.printStackTrace();
-      return false;
-    }// END try, Catch
-
-  } // SQL Insert
 
 // Ausführen eines Delete Statments
 public boolean delete(String tabelle, String bedingung, Connection con){
