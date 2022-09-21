@@ -6,7 +6,7 @@ import {AbstractControl, ValidationErrors, ValidatorFn} from "@angular/forms";
 @Injectable({
   providedIn: 'root'
 })
-export class AuthserviceService {
+export class AuthService {
   authUrl: string;
   getIdUrl: string;
   checkPWUrl: string;
