@@ -2,6 +2,10 @@ package DatenKlassen;
 
 import lombok.Data;
 
+/**
+ * @author Noah Dambacher
+ * @version 1.0
+ */
 @Data
 public class User {
   private String id;
