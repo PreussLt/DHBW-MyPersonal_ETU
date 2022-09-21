@@ -34,6 +34,7 @@ export class NewentryfieldComponent implements OnInit {
       let response = this.timeEntryService.newEntry(mid.toString(), this.f['date'].value, this.f['timeBegin'].value);
       response.subscribe(data => {
         this.failure = !data;
+        window.location.reload();
       });
     }
   }
