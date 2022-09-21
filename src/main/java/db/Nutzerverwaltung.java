@@ -17,9 +17,22 @@ public class Nutzerverwaltung {
       System.err.println("!ERROR! Personalnummer exisitert nicht");
       return null;
     }
-    User user = new User();
-
     String[][] arr = sql.select_arr(cnf.mitarbeiter,"*","WHERE M_Personalnummer=\'"+pnummer+"\'",con);
+    return setUserdata(arr);
+  }
+
+  public User getUserMid(String mid){
+    Connection con = sql_connect.intern_connect();
+    if (!sql.select(Einstellungen.mitarbeiter,"*", "WHERE M_ID='" +mid+ "'",con)){
+      System.err.println("!ERROR! ID exisitert nicht");
+      return null;
+    }
+    String[][] arr = sql.select_arr(cnf.mitarbeiter,"*", "WHERE M_ID='" +mid+ "'",con);
+    return setUserdata(arr);
+  }
+
+  private User setUserdata(String[][] arr) {
+    User user = new User();
     user.setId(arr[0][0]);
     user.setPrename(arr[0][1]);
     user.setLastname(arr[0][2]);
@@ -29,6 +42,7 @@ public class Nutzerverwaltung {
     user.setSalt(arr[0][6]);
     return user;
   }
+
 
   public boolean existiertNutzer(String vNname, String nName){
     Connection con = sql_conn.intern_connect();
@@ -52,7 +66,7 @@ public class Nutzerverwaltung {
     }
     return true;
   }
-  public boolean passwort_ändern(String mId,String neuPassword){
+  public boolean passwort_aendern(String mId,String neuPassword){
     try {
       // Neue Passwort
       String neuSalt = pwv.get_Salt();

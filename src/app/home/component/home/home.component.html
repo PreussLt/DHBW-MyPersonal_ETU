@@ -9,8 +9,8 @@
         <li><br></li>
         <li><br></li>
         <li><br></li>
-        <li><button (click)="useLanguage('de')">{{'demo.de'|translate}}</button></li>
-        <li><button (click)="useLanguage('en')">{{'demo.en'|translate}}</button></li>
+        <li><button (click)="useLanguage('de')">{{'translate.de'|translate}}</button></li>
+        <li><button (click)="useLanguage('en')">{{'translate.en'|translate}}</button></li>
       </ul>
     </nav>
   </div>
@@ -65,21 +65,7 @@
 
       <div class="split style1">
         <section>
-          <form method="post" action="#">
-            <div class="fields">
-              <div class="field half">
-                <label for="oldPW">Altes Passwort</label>
-                <input type="text" name="oldPW" id="oldPW" />
-              </div>
-              <div class="field half">
-                <label for="newPW">Neues Passwort</label>
-                <input type="text" name="newPW" id="newPW" />
-              </div>
-            </div>
-            <ul class="actions">
-              <li><a href="" class="button submit">Passwort ändern</a></li>
-            </ul>
-          </form>
+          <app-change-pw></app-change-pw>
         </section>
         <section>
           <ul class="contact">
