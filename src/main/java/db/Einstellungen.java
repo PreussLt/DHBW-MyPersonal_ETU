@@ -33,10 +33,10 @@ public class Einstellungen {
   public static String gleitzeittage ="mg_gleitzeittage";
 
   //  Passwort sicherheits einstellungen
-  public static boolean pw_gk_schreibung = true; // Mindest eins Char muss groß / klein sein
-  public static boolean pw_Zahl = true; // Mindestens eine Zahl muss dabei sein
-  public static boolean pw_Sonzerzeichen = true; // Mindesten ein Sonderzeichen muss vorhanden sein
-  public static int pw_min_lenght = 6; // Mindestlänge der Zahlen
+  public static boolean pw_gk_schreibung = false; // Mindest eins Char muss groß / klein sein
+  public static boolean pw_Zahl = false; // Mindestens eine Zahl muss dabei sein
+  public static boolean pw_Sonzerzeichen = false; // Mindesten ein Sonderzeichen muss vorhanden sein
+  public static int pw_min_lenght = 1; // Mindestlänge der Zahlen
   public static int pw_max_lengt=16;
 
   // Pausen REgelung

@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {TranslateService} from "@ngx-translate/core";
 import {Router} from "@angular/router";
-import {AuthserviceService} from "../../../login/service/authservice.service";
 
 @Component({
   selector: 'app-home',
@@ -11,9 +10,7 @@ import {AuthserviceService} from "../../../login/service/authservice.service";
 export class HomeComponent implements OnInit{
   title = 'DHBW-Fallstudie-MyPersonal';
   id: string|null;
-  constructor(private translate: TranslateService, private router: Router, private authService: AuthserviceService ) {
-    translate.setDefaultLang('de');
-    translate.use('de');
+  constructor(private translate: TranslateService, private router: Router) {
   }
 
   useLanguage(language: string): void {
@@ -30,9 +27,4 @@ export class HomeComponent implements OnInit{
     this.router.navigate([component]);
   }
 
-  logout() {
-    console.log('logout');
-    this.authService.logout();
-    this.router.navigate(['/login']);
-  }
 }

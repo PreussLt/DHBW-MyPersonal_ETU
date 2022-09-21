@@ -13,6 +13,7 @@ import { HomeComponent } from './home/component/home/home.component';
 import { LoginComponent } from './login/component/login.component';
 import { OverviewTimeentriesComponent } from './overview-timeentries/component/overview-timeentries.component';
 import { NewentryfieldComponent } from './newentryfield/component/newentryfield.component';
+import { ChangePwComponent } from './change-pw/component/change-pw.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { NewentryfieldComponent } from './newentryfield/component/newentryfield.
     HomeComponent,
     LoginComponent,
     OverviewTimeentriesComponent,
-    NewentryfieldComponent
+    NewentryfieldComponent,
+    ChangePwComponent
   ],
   imports: [
     BrowserModule,
