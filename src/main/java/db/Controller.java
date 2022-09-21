@@ -1,6 +1,7 @@
 package db;
 
 import DatenKlassen.Arbeitstag;
+import DatenKlassen.ArbeitstagListe;
 
 import java.security.NoSuchAlgorithmException;
 
@@ -18,6 +19,7 @@ public class Controller {
       //System.out.println(bcd.getArbeitszeit("6","2022-09-18"));
       //Arbeitstag t1 = bcd.getArbeitszeiteintrag("6","2022-09-18");
       //System.out.println(ArbeitstagPruefen.istTagFeiertag("2022-11-24"));
+      ArbeitstagListe kyle = new ArbeitstagListe("6");
     }catch (Exception e){
 
     }

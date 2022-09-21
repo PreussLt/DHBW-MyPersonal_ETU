@@ -14,7 +14,6 @@ public class ArbeitstagPruefen {
   private  Einstellungen cnf = new Einstellungen();
 
   public double sindPausenEingehalten(String[] zEintrag, double Arbeitszeit){  // gibt für true 0 zurücl
-    // TODO: 19.09.2022 Umprogramieren
     if(zEintrag.length==2 && Arbeitszeit <= cnf.erstePause) return 0;
     else if(zEintrag.length==2) return Arbeitszeit-cnf.erstePause;
     double abezugPause=0;
@@ -24,7 +23,7 @@ public class ArbeitstagPruefen {
       // ERste Arbeitszeit über 6 Stunden
       if(getDifTime(stringToTS(zEintrag[0]),stringToTS(zEintrag[1])) > cnf.erstePause) abezugPause += getDifTime(stringToTS(zEintrag[0]),stringToTS(zEintrag[2])) - cnf.längeEPause;
       else if (getDifTime(stringToTS(zEintrag[0]),stringToTS(zEintrag[1])) <= cnf.erstePause && getDifTime(stringToTS(zEintrag[1]),stringToTS(zEintrag[2])) < cnf.längeEPause) abezugPause += cnf.längeEPause - getDifTime(stringToTS(zEintrag[1]),stringToTS(zEintrag[2]));
-      if ((Arbeitszeit - abezugPause) > cnf.zweitePause) abezugPause+= cnf.längeZPause;
+      if ((Arbeitszeit - abezugPause) > cnf.zweitePause) abezugPause+= cnf.zweitePause;
       // Deifferenz zwischen Drittem und Zweiten Zwiteintrag zngleich der Pausenzeit
       return abezugPause;
     }
