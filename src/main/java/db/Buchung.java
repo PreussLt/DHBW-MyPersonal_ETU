@@ -104,6 +104,7 @@ public boolean neuerZeiteintrag(String mID,String tag,String Zeitstempel){
     return sql.delete(Einstellungen.mb_zeiteintrag, "BZ_B_ID='" + bz_id + "'", con);
   }
 
+  /* Unötige Funktion, arbeit über datenklassen
   public ArrayList<BuchungModel> getAllBuchungen(String mid){
     ArrayList<BuchungModel> buchungen = new ArrayList<>();
       Connection con = sql_connect.intern_connect();
@@ -123,7 +124,7 @@ public boolean neuerZeiteintrag(String mID,String tag,String Zeitstempel){
       }
     return buchungen;
   }
-
+/*
   /*
   Hier sin die verstekten Funktionen
    */
