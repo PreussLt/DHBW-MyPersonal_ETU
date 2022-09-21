@@ -1,8 +1,8 @@
 {
   "demo.title": "Translation demo",
   "demo.text": "This is a simple demonstration of ngx-translate",
-  "demo.en": "English",
-  "demo.de": "German"
+  "translate.en": "English",
+  "translate.de": "German"
 
 
 }

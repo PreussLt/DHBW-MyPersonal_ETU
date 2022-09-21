@@ -1,12 +1,34 @@
 {
-  "demo.title": "Übersetzung demo",
-  "demo.text": "Das ist eine einfache Demonstration von ngx-translate",
-  "demo.en": "Englisch",
-  "demo.de": "Deutsch",
-  "login.welcomemessage": "Bitte loggen sie sich ein!",
-  "login.personellnumber": "Personalnummer",
-  "login.password": "Passwort",
-  "login.loginBtn": "Einloggen",
-  "login.required": "Erforderlich",
-  "login.invalid": "Bitte überprüfen Sie die Personalnummer und Ihr Passwort"
+  "translate":
+  {
+    "en": "Englisch",
+    "de": "Deutsch"
+  },
+
+  "login": {
+    "welcomemessage": "Bitte loggen sie sich ein!",
+    "personellnumber": "Personalnummer",
+    "password": "Passwort",
+    "loginBtn": "Einloggen",
+    "required": "Erforderlich",
+    "invalid": "Bitte überprüfen Sie die Personalnummer und Ihr Passwort"
+  },
+
+  "overview": {
+    "bid": "Buchungs-ID",
+    "zid": "Zeiteintrag-ID",
+    "timestamp": "Zeitstempel"
+  },
+
+  "changepw":
+  {
+    "oldpw": "Altes Passwort",
+    "newpw": "Neues Passwort",
+    "confirm": "Neues Passwort bestätigen",
+    "invalid": "Das alte Passwort ist nicht korrekt",
+    "notMatching": "Die Passwörter stimmen nicht überein",
+    "invalidForm": "Das neue Passwort erfüllt die Anforderungen nicht",
+    "changepwbtn": "Passwort ändern"
+  }
+
 }
