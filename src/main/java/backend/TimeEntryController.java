@@ -13,11 +13,19 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ * @author Noah Dambacher.
+ * @version 1.0.
+ */
 @RestController
 @CrossOrigin (origins = "http://localhost:4200")
 public class TimeEntryController {
 
-  //Aufruf bei Request
+  /**
+   * Requesthandler zum Ausgeben aller Zeiteinträge eines Mitarbeiters.
+   * @param mid MitarbeiterID als String.
+   * @return TimeEntry[], wird anhand der MitarbeiterID aus der Datenbank ausgelesen.
+   */
   @PostMapping("/entries")
   public TimeEntry[] getEntries(@RequestBody String mid){
     /*
@@ -43,6 +51,12 @@ public class TimeEntryController {
     return null; // Hinzugefügt
   }
 
+  /**
+   * Requesthandler zum Anlegen eines neuen Zeiteintrags in der Datenbank.
+   * @param entry Eingabedaten, bestehend aus MitarbeiterID, Datum und Zeit.
+   * @see Entry
+   * @return boolean - Hat der Eintrag geklappt?.
+   */
   @PostMapping("/newEntry")
   public boolean newEntry(@RequestBody Entry entry){
     Buchung buchung = new Buchung();
