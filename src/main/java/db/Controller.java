@@ -18,8 +18,6 @@ public class Controller {
     try {
       //System.out.println(bcd.getArbeitszeit("6","2022-09-18"));
       //Arbeitstag t1 = bcd.getArbeitszeiteintrag("6","2022-09-18");
-      //System.out.println(ArbeitstagPruefen.istTagFeiertag("2022-11-24"));
-      ArbeitstagListe kyle = new ArbeitstagListe("6");
     }catch (Exception e){
       System.err.println(e);
     }
