@@ -39,6 +39,8 @@ public class ArbeitstagListe {
     return gleitzeit;
   }
 
+
+
   private int getAnzahlArbeitstage(String eDatum, String aDatum){
     if (sql_statment.select_arr(cnf.mb_buchung,"count(*)","WHERE B_M_ID=\'"+mid+"\' AND B_TAG <=\'"+eDatum+"\' AND B_TAG >=\'"+aDatum+"\'",con)[0][0].equals(0)) return -1;
     return Integer.parseInt(sql_statment.select_arr(cnf.mb_buchung,"count(*)","WHERE B_M_ID=\'"+mid+"\'",con)[0][0]);
