@@ -112,8 +112,11 @@ public class Nutzerverwaltung {
         String pw_salt = new Passwort_verwaltung().get_Salt();
         pw = pwv.get_hash(pw,pw_salt);
 
+        // Abteilungs ID Bei änderungen hier hinzufügen
+        String aID = "1";
+
         // Neue Daten in Datenbank Hinzufügen
-        String[] Daten = {vName,nName,Integer.toString(pNummer),pw,pw_salt};
+        String[] Daten = {vName,nName,Integer.toString(pNummer),aID,pw,pw_salt,""};
         if (!sql.insert(Einstellungen.mitarbeiter,Daten,con)) return false;
 
         // Neue ID erhalten

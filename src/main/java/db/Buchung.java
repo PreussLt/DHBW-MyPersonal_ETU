@@ -79,7 +79,7 @@ public boolean neuerZeiteintrag(String mID,String tag,String Zeitstempel){
     if (flag) System.out.println("*INFO* Buchung war schon vorhanden");
     else {
       // SQL ÜBertragung Vorbereiten
-      String[] daten = {mID,tag};
+      String[] daten = {mID,tag,"-99"};
       return sql.insert(Einstellungen.mb_buchung, daten, con);
     }// ELSE
 
