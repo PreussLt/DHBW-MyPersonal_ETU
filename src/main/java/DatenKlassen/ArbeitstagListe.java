@@ -4,11 +4,13 @@ import db.Buchungsdaten;
 import db.Einstellungen;
 import db.sql_connect;
 import db.sql_statment;
+import lombok.Data;
 
 import java.sql.Connection;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+@Data
 public class ArbeitstagListe {
   // Hier die anderen Nötigen Klassen
   private sql_connect sql_conn = new sql_connect();

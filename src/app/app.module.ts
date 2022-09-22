@@ -14,6 +14,7 @@ import { LoginComponent } from './components/login/login.component';
 import { OverviewTimeentriesComponent } from './components/overview-timeentries/overview-timeentries.component';
 import { NewentryfieldComponent } from './components/newentryfield/newentryfield.component';
 import { ChangePwComponent } from './components/change-pw/change-pw.component';
+import { ArbeitstagslisteComponent } from './components/arbeitstagsliste/arbeitstagsliste.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { ChangePwComponent } from './components/change-pw/change-pw.component';
     LoginComponent,
     OverviewTimeentriesComponent,
     NewentryfieldComponent,
-    ChangePwComponent
+    ChangePwComponent,
+    ArbeitstagslisteComponent
   ],
   imports: [
     BrowserModule,
