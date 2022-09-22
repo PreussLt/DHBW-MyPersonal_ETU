@@ -45,34 +45,6 @@ public class ArbeitstagPruefen {
     return abezugPause;
   }
 
-  public double sindPausenEingehalten(String[] zEintrag, double Arbeitszeit){  // gibt für true 0 zurücl
-    // TODO: 19.09.2022 Umprogramieren
-    if(zEintrag.length==2 && Arbeitszeit <= cnf.erstePause) return 0;
-    else if(zEintrag.length==2) return Arbeitszeit-cnf.erstePause;
-    double abezugPause=0;
-
-    // Bei 4 Zeiteinträgen
-    if (zEintrag.length==4){
-      // ERste Arbeitszeit über 6 Stunden
-      if(getDifTime(stringToTS(zEintrag[0]),stringToTS(zEintrag[1])) > cnf.erstePause) abezugPause += getDifTime(stringToTS(zEintrag[0]),stringToTS(zEintrag[2])) - cnf.längeEPause;
-      else if (getDifTime(stringToTS(zEintrag[0]),stringToTS(zEintrag[1])) <= cnf.erstePause && getDifTime(stringToTS(zEintrag[1]),stringToTS(zEintrag[2])) < cnf.längeEPause) abezugPause += cnf.längeEPause - getDifTime(stringToTS(zEintrag[1]),stringToTS(zEintrag[2]));
-      if ((Arbeitszeit - abezugPause) > cnf.zweitePause) abezugPause+= cnf.längeZPause;
-      // Deifferenz zwischen Drittem und Zweiten Zwiteintrag zngleich der Pausenzeit
-      return abezugPause;
-    }
-
-    // Bei 6 Zeiteinträgem
-    if (zEintrag.length==6){
-      // ERste Arbeitszeit über 6 Stunden
-      if(getDifTime(stringToTS(zEintrag[0]),stringToTS(zEintrag[1])) > cnf.erstePause) abezugPause += getDifTime(stringToTS(zEintrag[0]),stringToTS(zEintrag[2])) - cnf.längeEPause;
-      else if (getDifTime(stringToTS(zEintrag[0]),stringToTS(zEintrag[1])) <= cnf.erstePause && getDifTime(stringToTS(zEintrag[1]),stringToTS(zEintrag[2])) < cnf.längeEPause) abezugPause += cnf.längeEPause - getDifTime(stringToTS(zEintrag[1]),stringToTS(zEintrag[2]));
-      if((Arbeitszeit-abezugPause)>9) abezugPause += getDifTime(stringToTS(zEintrag[0]),stringToTS(zEintrag[2])) - cnf.längeEPause;
-      else if (getDifTime(stringToTS(zEintrag[0]),stringToTS(zEintrag[1])) <= cnf.erstePause && getDifTime(stringToTS(zEintrag[1]),stringToTS(zEintrag[2])) < cnf.längeEPause) abezugPause += cnf.längeEPause - getDifTime(stringToTS(zEintrag[1]),stringToTS(zEintrag[2]));
-      // Deifferenz zwischen Drittem und Zweiten Zwiteintrag zngleich der Pausenzeit
-      return abezugPause;
-    }
-    return abezugPause;
-  }
 
   public  boolean istTagFeiertag(String tag){
     Connection con = sql_conn.extern_connect();

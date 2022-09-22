@@ -16,8 +16,9 @@ public class Controller {
     //nzv.existiertNutzer("Kyle","Henselmann");
     try {
       //System.out.println(bcd.getArbeitszeit("6","2022-09-18"));
-      Arbeitstag t1 = bcd.getArbeitszeiteintrag("6","2022-09-18");
+      //Arbeitstag t1 = bcd.getArbeitszeiteintrag("6","2022-09-18");
       //System.out.println(bcd.berechneArbeitszeit("6","2022-09-18"));
+      System.out.println(bcd.getDatumVonTimestamp("2022-09-09 22:00:00"));
     }catch (Exception e){
       System.err.println(e);
     }

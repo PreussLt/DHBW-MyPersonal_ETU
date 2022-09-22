@@ -20,6 +20,7 @@ public class TimeEntryController {
   //Aufruf bei Request
   @PostMapping("/entries")
   public TimeEntry[] getEntries(@RequestBody String mid){
+    /*
     Buchung b = new Buchung();
     Buchungsdaten bd = new Buchungsdaten();
     ArrayList<BuchungModel> buchungen = b.getAllBuchungen(mid);
@@ -37,6 +38,9 @@ public class TimeEntryController {
     }
 
     return timeEntries;
+
+     */
+    return null; // Hinzugefügt
   }
 
   @PostMapping("/newEntry")

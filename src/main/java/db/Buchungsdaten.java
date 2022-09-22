@@ -6,6 +6,7 @@ import DatenKlassen.TimeEntry;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -52,7 +53,7 @@ public class Buchungsdaten {
     }
     String bid = sql.select_arr(Einstellungen.mb_buchung,"B_ID","WHERE B_M_ID='"+mid+"' AND B_TAG='"+getHeute()+"'",con)[0][0];
     String[] daten ={bid,getTimestamp()};
-    return sql.insertZeiteintrag(Einstellungen.mb_zeiteintrag, daten, con);
+    return true;
   }
   public boolean setZeitintrag(String mid, String timestampp){
     Connection con = sql_connect.extern_connect();
@@ -63,7 +64,7 @@ public class Buchungsdaten {
     }
     String bid = sql.select_arr(Einstellungen.mb_buchung,"B_ID","WHERE B_M_ID='"+mid+"' AND B_TAG='"+tag+"'",con)[0][0];
     String[] daten ={bid,timestampp};
-    return sql.insertZeiteintrag(Einstellungen.mb_zeiteintrag, daten, con);
+    return true;
   }
 
 
@@ -141,9 +142,10 @@ public class Buchungsdaten {
     return Arbeitszeit;
   }
 
-  private String getDatumVonTimestamp(String timestamp){
+  public String getDatumVonTimestamp(String timestamp){
+    Timestamp t = stringToTS(timestamp);
     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-    LocalDate tag = LocalDate.parse(timestamp, dtf);
+    LocalDate tag = t.toLocalDateTime().toLocalDate();
     return dtf.format(tag);
   }
   private String getHeute(){
@@ -173,4 +175,8 @@ public class Buchungsdaten {
     //System.out.println(ausgabe); Debugg
     return ausgabe;
   }//
+
+  private Timestamp stringToTS(String s){
+    return Timestamp.valueOf(s);
+  }
 }
