@@ -35,8 +35,9 @@
   {
     "date": "Datum",
     "firstStamp": "Erster Stempel",
-    "lastStamp": "Zweiter Stempel",
-    "worktime": "Arbeitszeit"
+    "lastStamp": "Letzter Stempel",
+    "worktime": "Arbeitszeit",
+    "allentries": "Alle Stempel"
   }
 
 }

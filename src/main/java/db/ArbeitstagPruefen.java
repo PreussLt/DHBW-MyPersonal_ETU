@@ -1,28 +1,27 @@
 package db;
 
-import ch.qos.logback.core.joran.conditional.IfAction;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import java.sql.Connection;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+@JsonSerialize
 public class ArbeitstagPruefen {
-  private final sql_connect sql_conn = new sql_connect();
   private final sql_statment sql = new sql_statment();
-  private final Einstellungen cnf = new Einstellungen();
 
   public double sindPausenEingehalten(String[] zEintrag, double Arbeitszeit){  // gibt für true 0 zurücl
     // TODO: 19.09.2022 Umprogramieren
-    if(zEintrag.length==2 && Arbeitszeit <= cnf.erstePause) return 0;
-    else if(zEintrag.length==2) return Arbeitszeit-cnf.erstePause;
+    if(zEintrag.length==2 && Arbeitszeit <= Einstellungen.erstePause) return 0;
+    else if(zEintrag.length==2) return Arbeitszeit-Einstellungen.erstePause;
     double abezugPause=0;
 
     // Bei 4 Zeiteinträgen
     if (zEintrag.length==4){
       // ERste Arbeitszeit über 6 Stunden
       abezugPause = getAbezugPause(zEintrag, abezugPause);
-      if ((Arbeitszeit - abezugPause) > cnf.zweitePause) abezugPause+= cnf.längeZPause;
+      if ((Arbeitszeit - abezugPause) > Einstellungen.zweitePause) abezugPause+= Einstellungen.laengeZPause;
       // Deifferenz zwischen Drittem und Zweiten Zwiteintrag zngleich der Pausenzeit
       return abezugPause;
     }
@@ -31,8 +30,8 @@ public class ArbeitstagPruefen {
     if (zEintrag.length==6){
       // ERste Arbeitszeit über 6 Stunden
       abezugPause = getAbezugPause(zEintrag, abezugPause);
-      if((Arbeitszeit-abezugPause)>9) abezugPause += getDifTime(stringToTS(zEintrag[0]),stringToTS(zEintrag[2])) - cnf.längeEPause;
-      else if (getDifTime(stringToTS(zEintrag[0]),stringToTS(zEintrag[1])) <= cnf.erstePause && getDifTime(stringToTS(zEintrag[1]),stringToTS(zEintrag[2])) < cnf.längeEPause) abezugPause += cnf.längeEPause - getDifTime(stringToTS(zEintrag[1]),stringToTS(zEintrag[2]));
+      if((Arbeitszeit-abezugPause)>9) abezugPause += getDifTime(stringToTS(zEintrag[0]),stringToTS(zEintrag[2])) - Einstellungen.laengeEPause;
+      else if (getDifTime(stringToTS(zEintrag[0]),stringToTS(zEintrag[1])) <= Einstellungen.erstePause && getDifTime(stringToTS(zEintrag[1]),stringToTS(zEintrag[2])) < Einstellungen.laengeEPause) abezugPause += Einstellungen.laengeEPause - getDifTime(stringToTS(zEintrag[1]),stringToTS(zEintrag[2]));
       // Deifferenz zwischen Drittem und Zweiten Zwiteintrag zngleich der Pausenzeit
       return abezugPause;
     }
@@ -40,22 +39,20 @@ public class ArbeitstagPruefen {
   }
 
   private double getAbezugPause(String[] zEintrag, double abezugPause) {
-    if(getDifTime(stringToTS(zEintrag[0]),stringToTS(zEintrag[1])) > cnf.erstePause) abezugPause += getDifTime(stringToTS(zEintrag[0]),stringToTS(zEintrag[2])) - cnf.längeEPause;
-    else if (getDifTime(stringToTS(zEintrag[0]),stringToTS(zEintrag[1])) <= cnf.erstePause && getDifTime(stringToTS(zEintrag[1]),stringToTS(zEintrag[2])) < cnf.längeEPause) abezugPause += cnf.längeEPause - getDifTime(stringToTS(zEintrag[1]),stringToTS(zEintrag[2]));
+    if(getDifTime(stringToTS(zEintrag[0]),stringToTS(zEintrag[1])) > Einstellungen.erstePause) abezugPause += getDifTime(stringToTS(zEintrag[0]),stringToTS(zEintrag[2])) - Einstellungen.laengeEPause;
+    else if (getDifTime(stringToTS(zEintrag[0]),stringToTS(zEintrag[1])) <= Einstellungen.erstePause && getDifTime(stringToTS(zEintrag[1]),stringToTS(zEintrag[2])) < Einstellungen.laengeEPause) abezugPause += Einstellungen.laengeEPause - getDifTime(stringToTS(zEintrag[1]),stringToTS(zEintrag[2]));
     return abezugPause;
   }
 
 
   public  boolean istTagFeiertag(String tag){
-    Connection con = sql_conn.extern_connect();
-    if (!sql.select(cnf.feiertag,"f_tag","WHERE f_tag=\'"+tag+"\'",con)) return false;
-    return true;
+    Connection con = sql_connect.extern_connect();
+    return sql.select(Einstellungen.feiertag, "f_tag", "WHERE f_tag='" + tag + "'", con);
   }// ISt der Tag ein Feiertag
 
   public boolean istTagGleitzeitag(String tag, String mid){
-    Connection con = sql_conn.extern_connect();
-    if (!sql.select(cnf.gleitzeittage,"MG_TAG","WHERE  MG_TAG=\'"+tag+"\' AND MG_M_ID=\'"+mid+"\'",con)) return false;
-    return true;
+    Connection con = sql_connect.extern_connect();
+    return sql.select(Einstellungen.gleitzeittage, "MG_TAG", "WHERE  MG_TAG='" + tag + "' AND MG_M_ID='" + mid + "'", con);
   }// Ist der Tag ein Gleitzeit tag?
 
   public double sindZeiteneingehalten(String[] zEintrag, Timestamp tMin,Timestamp tMax){ // gibt für true 0 zurück
