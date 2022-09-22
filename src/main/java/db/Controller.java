@@ -18,7 +18,7 @@ public class Controller {
       //System.out.println(bcd.getArbeitszeit("6","2022-09-18"));
       //Arbeitstag t1 = bcd.getArbeitszeiteintrag("6","2022-09-18");
       //System.out.println(bcd.berechneArbeitszeit("6","2022-09-18"));
-      System.out.println(bcd.setZeitintrag("6","2022-09-21 09:33:00"));
+//      System.out.println(bcd.setZeitintrag("6","2022-09-21 09:33:00"));
     }catch (Exception e){
       System.err.println(e);
     }
