@@ -79,7 +79,7 @@ public boolean neuerZeiteintrag(String mID,String tag,String Zeitstempel){
     if (flag) System.out.println("*INFO* Buchung war schon vorhanden");
     else {
       // SQL ÜBertragung Vorbereiten
-      String[] daten = {mID,tag};
+      String[] daten = {mID,tag,"-99"};
       return sql.insert(Einstellungen.mb_buchung, daten, con);
     }// ELSE
 
@@ -104,6 +104,7 @@ public boolean neuerZeiteintrag(String mID,String tag,String Zeitstempel){
     return sql.delete(Einstellungen.mb_zeiteintrag, "BZ_B_ID='" + bz_id + "'", con);
   }
 
+  /* Unötige Funktion, arbeit über datenklassen
   public ArrayList<BuchungModel> getAllBuchungen(String mid){
     ArrayList<BuchungModel> buchungen = new ArrayList<>();
       Connection con = sql_connect.intern_connect();
@@ -123,7 +124,7 @@ public boolean neuerZeiteintrag(String mID,String tag,String Zeitstempel){
       }
     return buchungen;
   }
-
+/*
   /*
   Hier sin die verstekten Funktionen
    */

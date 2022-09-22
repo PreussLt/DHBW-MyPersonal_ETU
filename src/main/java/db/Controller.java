@@ -18,6 +18,7 @@ public class Controller {
     try {
       //System.out.println(bcd.getArbeitszeit("6","2022-09-18"));
       //Arbeitstag t1 = bcd.getArbeitszeiteintrag("6","2022-09-18");
+
     }catch (Exception e){
       System.err.println(e);
     }
@@ -25,7 +26,7 @@ public class Controller {
     //System.out.println(bcd.setZeitintrag("9"));
     //System.out.println(bcd.getArbeitszeit("9"));
 
-    //System.out.println(nzv.nutzer_anlegen("Chris","Henselmann",1604,"Kyle2002_",1,1));
+    //System.out.println(nzv.nutzer_anlegen("Hans","Solo",666,"Kyle2002_",1,1));
     //String[] cars = {"Tester2", "Willi", "51651", "",""};
     //sql.insert(cnf.mitarbeiter,cars,con);
 
