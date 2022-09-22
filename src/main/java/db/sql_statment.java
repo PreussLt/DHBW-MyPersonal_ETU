@@ -79,7 +79,7 @@ public boolean insert(String tabelle, String[] Daten, Connection con){
 
     // Abfrage aufbauen
     Statement stm = con.createStatement();
-    String sql_stm = "INSERT INTO "+tabelle+" VALUES (Null,"+sql_daten+", NULL);";
+    String sql_stm = "INSERT INTO "+tabelle+" VALUES (Null,"+sql_daten+");";
 
     // Consoleausgabe + Execute;
     System.out.println("*INFO* Folgendes SQL-Statment wurde ausgeführt:"+sql_stm);
