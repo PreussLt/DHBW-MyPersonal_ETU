@@ -62,7 +62,7 @@ public class TimeEntryController {
     Buchung buchung = new Buchung();
     Buchungsdaten buchungsdaten = new Buchungsdaten();
     if(buchung.neueBuchung(entry.getMid(), entry.getDate())){
-      return buchungsdaten.setZeitintrag(entry.getMid(), entry.getDate());
+      return buchungsdaten.setZeitintrag(entry.getMid(), entry.getDate(), entry.getTime());
     }
     return false;
   }

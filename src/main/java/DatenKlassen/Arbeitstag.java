@@ -1,12 +1,10 @@
 package DatenKlassen;
 
 import db.ArbeitstagPruefen;
+import lombok.Data;
 
-import java.sql.Date;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
+@Data
 public class Arbeitstag {
   private ArbeitstagPruefen aTag = new ArbeitstagPruefen();
   private String ersterStempel;
@@ -77,67 +75,4 @@ public class Arbeitstag {
   private double Sollarbetiszeit(){
     return 7.6; // TODO: 19.09.2022 Hier die Datenbank verbindung aufbauen und den Berechneten Wert ausgeben
   }
-
-
-
-
-  // Getter und Setter @AutoGenerarated
-  public String getTag() {
-    return tag;
-  }
-
-  public void setTag(String tag) {
-    this.tag = tag;
-  }
-
-  public double getArbeitszeit() {
-    return arbeitszeit;
-  }
-
-  public void setArbeitszeit(double arbeitszeit) {
-    this.arbeitszeit = arbeitszeit;
-  }
-
-  public String[] getZeistempel() {
-    return Zeistempel;
-  }
-
-  public void setZeistempel(String[] zeistempel) {
-    Zeistempel = zeistempel;
-  }
-
-  public String getErsterStempel() {
-    return ersterStempel;
-  }
-
-  public void setErsterStempel(String ersterStempel) {
-    this.ersterStempel = ersterStempel;
-  }
-
-  public String getLetzterStempel() {
-    return letzterStempel;
-  }
-
-  public void setLetzterStempel(String letzterStempel) {
-    this.letzterStempel = letzterStempel;
-  }
-
-  public boolean isFeiertag() {
-    return feiertag;
-  }
-
-  public void setFeiertag(boolean feiertag) {
-    this.feiertag = feiertag;
-  }
-
-  public boolean isGleitzeittag() {
-    return gleitzeittag;
-  }
-
-  public void setGleitzeittag(boolean gleitzeittag) {
-    this.gleitzeittag = gleitzeittag;
-  }
-
-
-
 }

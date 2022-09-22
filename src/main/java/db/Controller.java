@@ -18,7 +18,6 @@ public class Controller {
     try {
       //System.out.println(bcd.getArbeitszeit("6","2022-09-18"));
       //Arbeitstag t1 = bcd.getArbeitszeiteintrag("6","2022-09-18");
-
     }catch (Exception e){
       System.err.println(e);
     }

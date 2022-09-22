@@ -55,9 +55,8 @@ public class Buchungsdaten {
     String[] daten ={bid,getTimestamp()};
     return true;
   }
-  public boolean setZeitintrag(String mid, String timestampp){
+  public boolean setZeitintrag(String mid,String tag, String timestampp){
     Connection con = sql_connect.extern_connect();
-    String tag = getDatumVonTimestamp(timestampp);
     if(!sql.select(Einstellungen.mb_buchung,"B_Tag","WHERE B_M_ID='"+mid+"' AND B_TAG='"+tag+"'",con)){
       String[] daten ={mid,tag,"-99"};
       if (!sql.insert(Einstellungen.mb_buchung,daten,con)) return false;
