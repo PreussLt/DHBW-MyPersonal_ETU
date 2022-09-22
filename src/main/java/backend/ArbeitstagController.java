@@ -13,8 +13,8 @@ public class ArbeitstagController {
 
   @PostMapping ("/arbeitstage")
   public Arbeitstag[] getArbeitstagsliste(@RequestBody String mid){
-    ArbeitstagListe l = new ArbeitstagListe(mid);
-    return l.getArbeitstage();
+    ArbeitstagListe arbeitstagListe = new ArbeitstagListe(mid);
+    return arbeitstagListe.getArbeitstage();
   }
 
 }

@@ -4,7 +4,6 @@ import db.ArbeitstagPruefen;
 import lombok.Data;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
 
 @Data
 public class Arbeitstag {
@@ -16,7 +15,7 @@ public class Arbeitstag {
   // Public Boolens
   public String tag;
   public double arbeitszeit;
-  public String[] Zeistempel;
+  public String[] zeitstempel;
 
 
   // Boolens
@@ -27,10 +26,10 @@ public class Arbeitstag {
   public boolean maxArbeitszeitEingehalten;
 
 
-  public Arbeitstag(String tag, double arbeitszeit, String[] zeistempel, String ersterStempel, String letzterStempel, String mid) {
+  public Arbeitstag(String tag, double arbeitszeit, String[] zeitstempel, String ersterStempel, String letzterStempel, String mid) {
     this.tag = tag;
     this.arbeitszeit = arbeitszeit;
-    Zeistempel = zeistempel;
+    this.zeitstempel = zeitstempel;
     this.ersterStempel = ersterStempel;
     this.letzterStempel = letzterStempel;
     this.mid = mid;
@@ -70,9 +69,9 @@ public class Arbeitstag {
     Timestamp tMin = Timestamp.valueOf(Min);
     Timestamp tMax = Timestamp.valueOf(Max);
 
-    if (aTag.sindZeiteneingehalten(getZeistempel(), tMin, tMax) == 0) return true;
+    if (aTag.sindZeiteneingehalten(getZeitstempel(), tMin, tMax) == 0) return true;
 
-    this.arbeitszeit = arbeitszeit - aTag.sindZeiteneingehalten(getZeistempel(), tMin, tMax);
+    this.arbeitszeit = arbeitszeit - aTag.sindZeiteneingehalten(getZeitstempel(), tMin, tMax);
     return false;
   }
 

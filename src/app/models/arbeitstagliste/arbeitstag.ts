@@ -1,4 +1,6 @@
 export class Arbeitstag {
+  aTag: any;
+
   ersterStempel: string;
   letzterStempel: string;
   mid: string;
@@ -6,13 +8,11 @@ export class Arbeitstag {
   // Public Boolens
   tag: string;
   arbeitszeit: number;
-  Zeistempel: string[];
+  zeitstempel: string[];
 
-
-  // Boolens
   feiertag: boolean;
   gleitzeittag: boolean;
   arbeitszeitenEingehalten: boolean;
   pausenEingehalten: boolean;
-  bmaxArbeitszeitEingehalten: boolean;
+  maxArbeitszeitEingehalten: boolean;
 }
