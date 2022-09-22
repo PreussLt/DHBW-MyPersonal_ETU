@@ -29,6 +29,14 @@
     "notMatching": "Die Passwörter stimmen nicht überein",
     "invalidForm": "Das neue Passwort erfüllt die Anforderungen nicht",
     "changepwbtn": "Passwort ändern"
+  },
+
+  "arbeitstagliste":
+  {
+    "date": "Datum",
+    "firstStamp": "Erster Stempel",
+    "lastStamp": "Zweiter Stempel",
+    "worktime": "Arbeitszeit"
   }
 
 }
