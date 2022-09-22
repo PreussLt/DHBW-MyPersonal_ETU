@@ -1,1 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
+
+.vl {
+  border-left: 6px solid green;
+  height: 500px;
+}
+
+
