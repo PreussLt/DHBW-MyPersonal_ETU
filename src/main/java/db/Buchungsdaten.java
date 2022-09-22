@@ -53,6 +53,7 @@ public class Buchungsdaten {
     }
     String bid = sql.select_arr(Einstellungen.mb_buchung,"B_ID","WHERE B_M_ID='"+mid+"' AND B_TAG='"+getHeute()+"'",con)[0][0];
     String[] daten ={bid,getTimestamp()};
+    if (!sql.insert(Einstellungen.mb_zeiteintrag,daten,con)) return false;
     return true;
   }
   public boolean setZeitintrag(String mid,String tag, String timestampp){
@@ -63,6 +64,7 @@ public class Buchungsdaten {
     }
     String bid = sql.select_arr(Einstellungen.mb_buchung,"B_ID","WHERE B_M_ID='"+mid+"' AND B_TAG='"+tag+"'",con)[0][0];
     String[] daten ={bid,timestampp};
+    if (!sql.insert(Einstellungen.mb_zeiteintrag,daten,con)) return false;
     return true;
   }
 
