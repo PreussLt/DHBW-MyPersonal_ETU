@@ -1,4 +1,4 @@
-package controller;
+package backend;
 
 import DatenKlassen.BuchungModel;
 import DatenKlassen.Entry;

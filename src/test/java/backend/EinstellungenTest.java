@@ -1,4 +1,4 @@
-package application;
+package backend;
 
 import db.Einstellungen;
 import org.junit.jupiter.api.Assertions;
