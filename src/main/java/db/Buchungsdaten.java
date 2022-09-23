@@ -22,7 +22,7 @@ public class Buchungsdaten {
   public Arbeitstag getArbeitszeitEintrag(String mid,String tag){
     Connection con = sql_connect.extern_connect();
     if (!nzv.existiertNutzer(mid)) return null;
-    String eStempel, lStempel;
+    String eStempel, lStempel;4
     double stunden;
     String[][] stempel;
 
