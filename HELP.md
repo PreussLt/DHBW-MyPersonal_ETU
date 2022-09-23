@@ -1,7 +1,7 @@
 # Read Me First
 The following was discovered as part of building this project:
 
-* The original package name '.backend' is invalid and this project uses 'backend' instead.
+* The original package name '.application' is invalid and this project uses 'application' instead.
 
 # Getting Started
 

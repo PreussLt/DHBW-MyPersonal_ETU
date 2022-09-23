@@ -4,11 +4,13 @@
     <th>{{'arbeitstagliste.firstStamp'|translate}}</th>
     <th>{{'arbeitstagliste.lastStamp'|translate}}</th>
     <th>{{'arbeitstagliste.worktime'|translate}}</th>
+    <th></th>
   </tr>
   <tr *ngFor="let arbeitstag of arbeitstagListe">
     <td>{{arbeitstag.tag}}</td>
     <td>{{arbeitstag.ersterStempel}}</td>
     <td>{{arbeitstag.letzterStempel}}</td>
     <td>{{arbeitstag.arbeitszeit}}</td>
+    <td><button>{{'arbeitstagliste.allentries'|translate}}</button></td>
   </tr>
 </table>

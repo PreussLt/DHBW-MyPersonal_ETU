@@ -1,4 +1,4 @@
-package backend;
+package controller;
 
 import DatenKlassen.ChangePwData;
 import DatenKlassen.LoginData;

@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ArbeitslisteService} from "../../services/arbeitsliste/arbeitsliste.service";
-import {Arbeitstagliste} from "../../models/arbeitstagliste/arbeitstagliste";
 import {Arbeitstag} from "../../models/arbeitstagliste/arbeitstag";
 
 @Component({
@@ -14,7 +13,10 @@ export class ArbeitstagslisteComponent implements OnInit {
   constructor(private arbeitstagListeService: ArbeitslisteService) { }
 
   ngOnInit(): void {
-    this.arbeitstagListeService.getArbeitstagliste().subscribe(data => this.arbeitstagListe = data);
+    this.arbeitstagListeService.getArbeitstagliste().subscribe(data => {
+      console.log(data);
+      this.arbeitstagListe = data
+    });
   }
 
 }
