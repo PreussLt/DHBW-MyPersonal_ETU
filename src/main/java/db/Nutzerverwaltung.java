@@ -99,7 +99,7 @@ public class Nutzerverwaltung {
   }//Nutzer Löschen
 
   // Neuen Nutzer Anlegen
-  public boolean nutzer_anlegen(String vName,String nName,int pNummer,String pw,int aModell, int uKlasse){
+  public boolean nutzer_anlegen(String vName,String nName,int pNummer,String pw,int aModell, int uKlasse,String gDatum){
       try {
         // Datenbank Verbindung aufbauen
         Connection con = sql_connect.intern_connect();
@@ -116,7 +116,7 @@ public class Nutzerverwaltung {
         String aID = "1";
 
         // Neue Daten in Datenbank Hinzufügen
-        String[] Daten = {vName,nName,Integer.toString(pNummer),aID,pw,pw_salt,""};
+        String[] Daten = {vName,nName,Integer.toString(pNummer),aID,pw,pw_salt,gDatum};
         if (!sql.insert(Einstellungen.mitarbeiter,Daten,con)) return false;
 
         // Neue ID erhalten
