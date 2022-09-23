@@ -4,9 +4,13 @@ import db.Buchungsdaten;
 import db.Einstellungen;
 import db.sql_connect;
 import db.sql_statment;
+import lombok.Data;
 
 import java.sql.Connection;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
+@Data
 public class ArbeitstagListe {
   // Hier die anderen Nötigen Klassen
   private sql_connect sql_conn = new sql_connect();
@@ -21,7 +25,7 @@ public class ArbeitstagListe {
   public ArbeitstagListe(String mid) {
     this.mid = mid;
     try {
-      getArbeitstage(getAnzahlArbeitstage());
+      getArbeitstage(getAnzahlArbeitstage(getHeute(),"2000-01-01"));
 
     }catch (Exception e){
       System.err.println("!ERROR! Folgender Fehler ist aufgetreten: "+e);
@@ -29,10 +33,21 @@ public class ArbeitstagListe {
 
   }// Constructor
 
-  private int getAnzahlArbeitstage(){
-    if (sql_statment.select_arr(cnf.mb_buchung,"count(*)","WHERE B_M_ID=\'"+mid+"\'",con)[0][0].equals(0)) return -1;
+  public int getGleitzeit(){
+    int gleitzeit = 0;
+    for (int i=0; i<arbeitstage.length;i++){
+      gleitzeit += arbeitstage[i].getArbeitszeit();
+    }
+    return gleitzeit;
+  }
+
+
+
+  private int getAnzahlArbeitstage(String eDatum, String aDatum){
+    if (sql_statment.select_arr(cnf.mb_buchung,"count(*)","WHERE B_M_ID=\'"+mid+"\' AND B_TAG >\'"+aDatum+"\' AND B_TAG <=\'"+eDatum+"\'",con)[0][0].equals(0)) return -1;
     return Integer.parseInt(sql_statment.select_arr(cnf.mb_buchung,"count(*)","WHERE B_M_ID=\'"+mid+"\'",con)[0][0]);
   }// get AnzahlArbeitstage
+
   private boolean getArbeitstage(int laengeListe){
     arbeitstage = new Arbeitstag[laengeListe];
     if (!sql_statment.select(cnf.mb_buchung,"*","WHERE B_M_ID=\'"+mid+"\'",con)) return false;
@@ -48,4 +63,12 @@ public class ArbeitstagListe {
     }
 
   }// getArbeitstage
+
+
+  private String getHeute(){
+    // Heutiges Datum Formatieren
+    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    LocalDateTime jetzt = LocalDateTime.now();
+    return dtf.format(jetzt);
+  }// Get Heuter
 }//Class

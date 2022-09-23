@@ -104,12 +104,12 @@ public boolean neuerZeiteintrag(String mID,String tag,String Zeitstempel){
     return sql.delete(Einstellungen.mb_zeiteintrag, "BZ_B_ID='" + bz_id + "'", con);
   }
 
-  /* Unötige Funktion, arbeit über datenklassen
+
   public ArrayList<BuchungModel> getAllBuchungen(String mid){
     ArrayList<BuchungModel> buchungen = new ArrayList<>();
       Connection con = sql_connect.intern_connect();
       String bedingungen = String.format("WHERE B_M_ID = %d ORDER BY `b_buchung`.`B_Tag` ASC", Integer.parseInt(mid));
-      ResultSet rs = sql.fetchAll("b_buchung", bedingungen, con);
+      ResultSet rs = sql.fetchAll(Einstellungen.mb_buchung, bedingungen, con);
     try {
       while(rs.next()) {
         String buchungsid = String.valueOf(rs.getInt(1));
@@ -124,7 +124,7 @@ public boolean neuerZeiteintrag(String mID,String tag,String Zeitstempel){
       }
     return buchungen;
   }
-/*
+
   /*
   Hier sin die verstekten Funktionen
    */

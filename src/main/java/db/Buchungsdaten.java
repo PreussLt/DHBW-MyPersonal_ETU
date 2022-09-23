@@ -19,7 +19,7 @@ public class Buchungsdaten {
   private final Buchung bch = new Buchung();
 
 
-  public Arbeitstag getArbeitszeiteintrag(String mid,String tag){
+  public Arbeitstag getArbeitszeitEintrag(String mid,String tag){
     Connection con = sql_connect.extern_connect();
     if (!nzv.existiertNutzer(mid)) return null;
     String eStempel, lStempel;
@@ -59,27 +59,32 @@ public class Buchungsdaten {
     if (!sql.insert(Einstellungen.mb_zeiteintrag,daten,con)) return false;
     return true;
   }
-  public boolean setZeitintrag(String mid, String timestampp){
+  public boolean setZeitintrag(String mid, String tag, String timestampp){
     Connection con = sql_connect.extern_connect();
-    String tag = getDatumVonTimestamp(timestampp);
     if(!sql.select(Einstellungen.mb_buchung,"B_Tag","WHERE B_M_ID='"+mid+"' AND B_TAG='"+tag+"'",con)){
       String[] daten ={mid,tag,"-99"};
       if (!sql.insert(Einstellungen.mb_buchung,daten,con)) return false;
     }
     String bid = sql.select_arr(Einstellungen.mb_buchung,"B_ID","WHERE B_M_ID='"+mid+"' AND B_TAG='"+tag+"'",con)[0][0];
     String[] daten ={bid,timestampp};
-    if (!sql.insert(Einstellungen.mb_zeiteintrag,daten,con)) return false;
-    return true;
+    return sql.insert(Einstellungen.mb_zeiteintrag, daten, con);
   }
 
-
+/*
   public Arbeitstag getArbeitszeitEintrag(String mid, String tag){
     Connection con = sql_connect.extern_connect();
     double arbeitszeit = getArbeitszeit(mid, tag);
     String eStemp,lStemp;
-    String[][] sql_abf = sql.select_arr(Einstellungen.mb_zeiteintrag+","+Einstellungen.mb_buchung,"*"," WHERE B_ID = BZ_B_ID AND B_M_ID='"+mid+"' AND B_Tag='"+tag+"' ORDER BY BZ_Zeiteintrag ASC ",con);
-    return null;
+    try {
+      String[][] sql_abf = sql.select_arr(Einstellungen.mb_zeiteintrag+","+Einstellungen.mb_buchung,"*"," WHERE B_ID = BZ_B_ID AND B_M_ID='"+mid+"' AND B_Tag='"+tag+"' ORDER BY BZ_Zeiteintrag ASC ",con);
+      return new Arbeitstag()
+    } catch (Exception e){
+      System.err.println("!ERROR! Ein Fehler ist aufgerteten: "+e);
+    }
+
   }
+
+ */
 
   public ArrayList<TimeEntry> getAllTimeentries(String bid){
     ArrayList<TimeEntry> entries = new ArrayList<>();

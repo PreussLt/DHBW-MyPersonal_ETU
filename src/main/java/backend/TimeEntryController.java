@@ -28,7 +28,7 @@ public class TimeEntryController {
    */
   @PostMapping("/entries")
   public TimeEntry[] getEntries(@RequestBody String mid){
-    /*
+
     Buchung b = new Buchung();
     Buchungsdaten bd = new Buchungsdaten();
     ArrayList<BuchungModel> buchungen = b.getAllBuchungen(mid);
@@ -44,11 +44,7 @@ public class TimeEntryController {
     for(int i = 0; i < timeEntries.length; i++){
       timeEntries[i] = entries.get(i);
     }
-
     return timeEntries;
-
-     */
-    return null; // Hinzugefügt
   }
 
   /**
@@ -61,8 +57,9 @@ public class TimeEntryController {
   public boolean newEntry(@RequestBody Entry entry){
     Buchung buchung = new Buchung();
     Buchungsdaten buchungsdaten = new Buchungsdaten();
+    String timestamp = String.format("%s %s:00", entry.getDate(), entry.getTime());
     if(buchung.neueBuchung(entry.getMid(), entry.getDate())){
-      return buchungsdaten.setZeitintrag(entry.getMid(), entry.getDate());
+      return buchungsdaten.setZeitintrag(entry.getMid(), entry.getDate(), timestamp);
     }
     return false;
   }

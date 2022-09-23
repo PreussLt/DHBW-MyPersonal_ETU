@@ -17,7 +17,7 @@ public class sql_statment {
 
       // Ausgabe 0
       int count = 0;
-      if (rs.next()==false && count==0) return false; // Ausgabe leer
+      if (!rs.next()) return false; // Ausgabe leer
       /*
       while(rs.next()){
          // Ausgabe leer
@@ -129,8 +129,6 @@ public boolean update(String tabelle, String[] ziel, String[] neuerWert,String b
         stm_zuweisung+= ""+ziel[i]+" = \'"+neuerWert[i]+"\',";
       }
     }
-
-
     // Statment Vorbereiten
     Statement stm = con.createStatement();
     String sql_stm = "UPDATE "+tabelle+" SET "+stm_zuweisung+" "+bedingung+";";
