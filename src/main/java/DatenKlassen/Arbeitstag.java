@@ -16,7 +16,11 @@ public class Arbeitstag {
   // Public Boolens
   public String tag;
   public double arbeitszeit;
+<<<<<<< Updated upstream
   public String[] Zeistempel;
+=======
+  public String[][] zeitstempel;
+>>>>>>> Stashed changes
 
 
   // Boolens
@@ -27,9 +31,13 @@ public class Arbeitstag {
   public boolean maxArbeitszeitEingehalten;
 
 
+<<<<<<< Updated upstream
 
 
   public Arbeitstag(String tag, double arbeitszeit, String[] zeistempel, String ersterStempel, String letzterStempel,String mid) {
+=======
+  public Arbeitstag(String tag, double arbeitszeit, String[][] zeitstempel, String ersterStempel, String letzterStempel, String mid) {
+>>>>>>> Stashed changes
     this.tag = tag;
     this.arbeitszeit = arbeitszeit;
     Zeistempel = zeistempel;

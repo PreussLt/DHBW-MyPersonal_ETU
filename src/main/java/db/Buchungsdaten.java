@@ -33,8 +33,11 @@ public class Buchungsdaten {
     stempel = sql.select_arr(Einstellungen.mb_zeiteintrag,"*","WHERE BZ_B_ID='"+bid+"'",con);
     eStempel = stempel[0][2];
     lStempel=stempel[(stempel.length-1)][2];
-    String[] timestamps = new String[stempel.length];
-    for (int i=0;i < stempel.length;i++) timestamps[i] = stempel[i][2];
+    String[][] timestamps = new String[stempel.length][2];
+    for (int i=0;i < stempel.length;i++){
+      timestamps[i][0] = stempel[i][2];
+      timestamps[i][1] = stempel[i][0];
+    }
     return new Arbeitstag(tag,stunden,timestamps,eStempel,lStempel,mid);
 
   }
