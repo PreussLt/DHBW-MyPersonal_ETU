@@ -55,10 +55,10 @@ public class ArbeitstagPruefen {
     return sql.select(Einstellungen.gleitzeittage, "MG_TAG", "WHERE  MG_TAG='" + tag + "' AND MG_M_ID='" + mid + "'", con);
   }// Ist der Tag ein Gleitzeit tag?
 
-  public double sindZeiteneingehalten(String[] zEintrag, Timestamp tMin,Timestamp tMax){ // gibt für true 0 zurück
+  public double sindZeiteneingehalten(String[][] zEintrag, Timestamp tMin,Timestamp tMax){ // gibt für true 0 zurück
     double abzugZeit=0;
-    if (stringToTS(zEintrag[0]).before(tMin)) abzugZeit += getDifTime(stringToTS(zEintrag[0]),tMin);
-    if (stringToTS(zEintrag[3]).after(tMax)) abzugZeit+= getDifTime(tMax,stringToTS(zEintrag[(zEintrag.length-1)]));
+    if (stringToTS(zEintrag[0][0]).before(tMin)) abzugZeit += getDifTime(stringToTS(zEintrag[0][0]),tMin);
+    if (stringToTS(zEintrag[3][0]).after(tMax)) abzugZeit+= getDifTime(tMax,stringToTS(zEintrag[(zEintrag.length-1)][0]));
     return abzugZeit;
   }
 
