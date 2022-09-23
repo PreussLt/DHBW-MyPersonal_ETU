@@ -33,19 +33,31 @@ public class ArbeitstagListe {
 
   }// Constructor
 
-  public int getGleitzeit(){
-    int gleitzeit = 0;
-    for (int i=0; i<arbeitstage.length;i++){
-      gleitzeit += arbeitstage[i].getArbeitszeit();
+
+  private int getAnzahlArbeitstage() {
+    try {
+      if (sql_statment.select_arr(cnf.mb_buchung, "count(*)", "WHERE B_M_ID=\'" + mid + "\'", con)[0][0].equals(0)) return -1;
+      int tage = Integer.parseInt(sql_statment.select_arr(cnf.mb_buchung, "count(*)", "WHERE B_M_ID=\'" + mid + "\'", con)[0][0]);
+      tage += Integer.parseInt(sql_statment.select_arr(cnf.gleitzeittage, "count(*)", "WHERE MG_M_ID=\'" + mid + "\'", con)[0][0]);
+      return tage;
+    } catch (Exception e) {
+      System.err.println("!ERROR! Fehler in der Anzahl Arbeitstag: " + e);
+      return -1;
     }
-    return gleitzeit;
   }
 
+    private int getAnzahlArbeitstage(String eDatum, String aDatum){
+    try {
+      if (sql_statment.select_arr(cnf.mb_buchung,"count(*)","WHERE B_M_ID=\'"+mid+"\' AND B_TAG >\'"+aDatum+"\' AND B_TAG <=\'"+eDatum+"\'",con)[0][0].equals(0)) return -1;
+      int tage = Integer.parseInt(sql_statment.select_arr(cnf.mb_buchung,"count(*)","WHERE B_M_ID=\'"+mid+"\' AND B_TAG >\'"+aDatum+"\' AND B_TAG <=\'"+eDatum+"\'",con)[0][0]);
+      tage += Integer.parseInt(sql_statment.select_arr(cnf.gleitzeittage,"count(*)","WHERE MG_M_ID=\'"+mid+"\' AND MG_TAG >\'"+aDatum+"\' AND MG_TAG <=\'"+eDatum+"\'",con)[0][0]);
+      return tage;
+    } catch (Exception e){
+      System.err.println("!ERROR! Fehler in der Anzahl Arbeitstag: " + e);
+      return -1;
+    }
+    // get AnzahlArbeitstage
 
-
-  private int getAnzahlArbeitstage(String eDatum, String aDatum){
-    if (sql_statment.select_arr(cnf.mb_buchung,"count(*)","WHERE B_M_ID=\'"+mid+"\' AND B_TAG >\'"+aDatum+"\' AND B_TAG <=\'"+eDatum+"\'",con)[0][0].equals(0)) return -1;
-    return Integer.parseInt(sql_statment.select_arr(cnf.mb_buchung,"count(*)","WHERE B_M_ID=\'"+mid+"\'",con)[0][0]);
   }// get AnzahlArbeitstage
 
   private boolean getArbeitstage(int laengeListe){
