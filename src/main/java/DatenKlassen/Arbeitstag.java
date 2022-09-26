@@ -37,14 +37,18 @@ public class Arbeitstag {
     this.ersterStempel = ersterStempel;
     this.letzterStempel = letzterStempel;
     this.mid = mid;
-    vorgabenAnwenden();
+    if (this.zeitstempel != null){
+      vorgabenAnwenden();
+    } else {
+      // Überpüfe ob Tag Feiertag oder Gleitzeittag ist
+      feiertag = aTag.istTagFeiertag(this.tag);
+      gleitzeittag = aTag.istTagGleitzeitag(this.tag, mid);
+      if (feiertag || gleitzeittag) this.arbeitszeit = Sollarbetiszeit();
+    }
+
   }// Constructor
 
   public void vorgabenAnwenden() {
-    // Überpüfe ob Tag Feiertag oder Gleitzeittag ist
-    feiertag = aTag.istTagFeiertag(this.tag);
-    gleitzeittag = aTag.istTagGleitzeitag(this.tag, mid);
-    if (feiertag || gleitzeittag) arbeitszeit = Sollarbetiszeit();
     arbeitszeitenEingehalten = ZeitGrenzen();
     pausenEingehalten = sindPausenEingehalten();
     maxArbeitszeitEingehalten = istMaxArbeitszeitEingehalten();
