@@ -58,7 +58,7 @@ public class ArbeitstagPruefen {
   public double sindZeiteneingehalten(String[][] zEintrag, Timestamp tMin,Timestamp tMax){ // gibt für true 0 zurück
     double abzugZeit=0;
     if (stringToTS(zEintrag[0][0]).before(tMin)) abzugZeit += getDifTime(stringToTS(zEintrag[0][0]),tMin);
-    if (stringToTS(zEintrag[3][0]).after(tMax)) abzugZeit+= getDifTime(tMax,stringToTS(zEintrag[(zEintrag.length-1)][0]));
+    if (stringToTS(zEintrag[zEintrag.length-1][0]).after(tMax)) abzugZeit+= getDifTime(tMax,stringToTS(zEintrag[(zEintrag.length-1)][0]));
     return abzugZeit;
   }
 
