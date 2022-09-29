@@ -8,9 +8,9 @@
   </tr>
   <tr *ngFor="let arbeitstag of arbeitstagListe">
     <td>{{arbeitstag.tag}}</td>
-    <td>{{arbeitstag.ersterStempel}}</td>
-    <td>{{arbeitstag.letzterStempel}}</td>
+    <td>{{arbeitstag.ersterStempel.substring(10)}}</td>
+    <td>{{arbeitstag.letzterStempel.substring(10)}}</td>
     <td>{{arbeitstag.arbeitszeit}}</td>
-    <td><button>{{'arbeitstagliste.allentries'|translate}}</button></td>
+    <td><button (click)="openEntries(arbeitstag.zeitstempel)">{{'arbeitstagliste.allentries'|translate}}</button></td>
   </tr>
 </table>

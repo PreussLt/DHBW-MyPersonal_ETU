@@ -12,9 +12,10 @@ import java.sql.Timestamp;
 @Data
 public class Arbeitstag {
   private ArbeitstagPruefen aTag = new ArbeitstagPruefen();
-  private static Connection con = new sql_connect().extern_connect();
-  private Einstellungen cnf = new Einstellungen();
+  private Connection con = sql_connect.intern_connect();
   private sql_statment sql = new sql_statment();
+  private Einstellungen cnf = new Einstellungen();
+
   public String ersterStempel;
   public String letzterStempel;
   public String mid;
@@ -40,15 +41,22 @@ public class Arbeitstag {
 
   public Arbeitstag(String tag, double arbeitszeit, String[][] zeitstempel, String ersterStempel, String letzterStempel, String mid) {
 
+
     this.tag = tag;
     this.arbeitszeit = arbeitszeit;
     this.zeitstempel = zeitstempel;
     this.ersterStempel = ersterStempel;
     this.letzterStempel = letzterStempel;
     this.mid = mid;
-    this.maxArbeitszeit = getMaxArbeitszeit();
-    this.sollArbeitszeit = getSollarbeitszeit();
-    vorgabenAnwenden();
+    if (this.zeitstempel != null){
+      vorgabenAnwenden();
+    } else {
+      // Überpüfe ob Tag Feiertag oder Gleitzeittag ist
+      feiertag = aTag.istTagFeiertag(this.tag,con);
+      gleitzeittag = aTag.istTagGleitzeitag(this.tag, mid, con);
+      if (feiertag || gleitzeittag) this.arbeitszeit = Sollarbetiszeit();
+    }
+
   }// Constructor
 
   public void vorgabenAnwenden() {
@@ -119,5 +127,73 @@ public class Arbeitstag {
 
   private double Sollarbetiszeit() {
     return this.sollArbeitszeit;
+  }
+
+  private double getMaxArbeitszeit(){
+    try {
+      String sql_stm = "WHERE M_ID = MK_M_ID AND MK_A_ID = A_ID AND A_G_ID = G_ID AND M_ID=\'"+mid+"\';";
+      return Double.parseDouble(sql.select_arr(""+cnf.mb_konto+","+cnf.mb_arbeitsmodell+","+cnf.mitarbeiter+","+cnf.mb_grenzwerte,"G_TAG",sql_stm,con)[0][0]);
+    }catch (Exception e){
+      System.err.println("!ERROR! Fehler in getMaxArbeitszeit: "+e);
+      return -1;
+    }
+  }
+
+
+  // Getter und Setter @AutoGenerarated
+  public String getTag() {
+    return tag;
+  }
+
+  public void setTag(String tag) {
+    this.tag = tag;
+  }
+
+  public double getArbeitszeit() {
+    return arbeitszeit;
+  }
+
+  public void setArbeitszeit(double arbeitszeit) {
+    this.arbeitszeit = arbeitszeit;
+  }
+
+  public String[][] getZeistempel() {
+    return this.zeitstempel;
+  }
+
+  public void setZeistempel(String[][] zeistempel) {
+    this.zeitstempel = zeistempel;
+  }
+
+  public String getErsterStempel() {
+    return ersterStempel;
+  }
+
+  public void setErsterStempel(String ersterStempel) {
+    this.ersterStempel = ersterStempel;
+  }
+
+  public String getLetzterStempel() {
+    return letzterStempel;
+  }
+
+  public void setLetzterStempel(String letzterStempel) {
+    this.letzterStempel = letzterStempel;
+  }
+
+  public boolean isFeiertag() {
+    return feiertag;
+  }
+
+  public void setFeiertag(boolean feiertag) {
+    this.feiertag = feiertag;
+  }
+
+  public boolean isGleitzeittag() {
+    return gleitzeittag;
+  }
+
+  public void setGleitzeittag(boolean gleitzeittag) {
+    this.gleitzeittag = gleitzeittag;
   }
 }

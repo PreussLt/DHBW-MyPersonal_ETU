@@ -1,12 +1,12 @@
 <table>
   <tr>
     <th>{{'overview.zid'|translate}}</th>
-    <th>{{'overview.bid'|translate}}</th>
     <th>{{'overview.timestamp'|translate}}</th>
+    <th></th>
   </tr>
   <tr *ngFor="let entry of entries">
-    <td>{{entry.zid}}</td>
-    <td>{{entry.bid}}</td>
-    <td>{{entry.timestamp}}</td>
+    <td>{{entry[1]}}</td>
+    <td>{{entry[0].substring(10)}}</td>
+    <td><button (click)="editEntry(entry[1])">{{'overview.edit'|translate}}</button></td>
   </tr>
 </table>

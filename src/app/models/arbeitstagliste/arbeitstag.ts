@@ -8,7 +8,7 @@ export class Arbeitstag {
   // Public Boolens
   tag: string;
   arbeitszeit: number;
-  zeitstempel: string[];
+  zeitstempel: string[][];
 
   feiertag: boolean;
   gleitzeittag: boolean;

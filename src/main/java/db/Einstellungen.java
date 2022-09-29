@@ -27,11 +27,12 @@ public class Einstellungen {
   public static String mitarbeiter = "m_mitarbeiter"; // Mitarbeiter
   public static String mb_konto = "mk_konto"; // Mitarbeiter Konto
   public static String mb_buchung = "b_buchung"; // Buchungen
-  public static String mb_zeiteintrag = "bz_zeitsteintrag";
-  public static String mb_arbeitsmodell ="a_arbeitsmodelle";
+  public static String mb_zeiteintrag = "bz_zeitsteintrag"; // Zeiteinträge in Form der stempel
+  public static String mb_arbeitsmodell ="a_arbeitsmodelle"; // Arbeitsmodell
   public static String feiertag ="f_feiertage";
   public static String gleitzeittage ="mg_freietage";
   public static String mb_grenzwerte ="g_grenzwerte"; // Grenzwerte der Arbeitsmodelle
+
 
 
   //  Passwort sicherheits einstellungen

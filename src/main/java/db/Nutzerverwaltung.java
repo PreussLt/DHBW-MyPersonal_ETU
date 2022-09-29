@@ -42,29 +42,26 @@ public class Nutzerverwaltung {
   }
 
 
-  public boolean existiertNutzer(String vNname, String nName){
-    Connection con = sql_connect.intern_connect();
+  public boolean existiertNutzer(String vNname, String nName,Connection con){
     if(!sql.select(Einstellungen.mitarbeiter,"*","WHERE M_Vorname='"+vNname+"' AND M_Nachname='"+nName+"'",con) ) return false;
     System.err.println("x");
     return true;
   }
-  public boolean existiertNutzer(String mid){
-    Connection con = sql_connect.intern_connect();
+  public boolean existiertNutzer(String mid, Connection con){
     if(!sql.select(Einstellungen.mitarbeiter,"*","WHERE M_ID='"+mid+"'",con) ) {
       System.err.println("!ERROR! Nutzer existiert nicht");
       return false;
     }
     return true;
   }
-  public boolean existiertNutzerMitPersonalnummer(String personalnummer){
-    Connection con = sql_connect.intern_connect();
+  public boolean existiertNutzerMitPersonalnummer(String personalnummer, Connection con){
     if(!sql.select(Einstellungen.mitarbeiter,"*","WHERE M_PERSONALNUMMER='"+personalnummer+"'",con) ) {
       System.err.println("!ERROR! Nutzer existiert nicht");
       return false;
     }
     return true;
   }
-  public boolean passwort_aendern(String mId,String neuPassword){
+  public boolean passwort_aendern(String mId,String neuPassword, Connection con){
     try {
       // Neue Passwort
       String neuSalt = pwv.get_Salt();
@@ -74,8 +71,7 @@ public class Nutzerverwaltung {
       String[] ziele = {"M_Passwort","M_Salt"};
       String[] wert ={neuPW,neuSalt};
       String bedingung ="WHERE M_ID='"+mId+"'";
-      // Neu Verbindung Aufbauen
-      Connection con = sql_connect.intern_connect();
+
       // Statment ausführen
       return sql.update(Einstellungen.mitarbeiter, ziele, wert, bedingung, con);
     }catch (Exception e){
@@ -86,9 +82,8 @@ public class Nutzerverwaltung {
   }// passwort ändern
 
   // Bestehnden Nutzer Löschen
-  public boolean nutzer_loeschen(String mID){
+  public boolean nutzer_loeschen(String mID,Connection con){
     try {
-      Connection con = sql_connect.intern_connect();
       if (!sql.delete(Einstellungen.mitarbeiter,"WHERE M_ID='"+mID+"'",con)) return false;
       return sql.delete(Einstellungen.mb_konto, "WHERE MK_M_ID='" + mID + "';", con);
       // TODO: 11.09.2022 SAobald Bucungen Hinzugeügt wurden Hier erweitern
@@ -99,11 +94,9 @@ public class Nutzerverwaltung {
   }//Nutzer Löschen
 
   // Neuen Nutzer Anlegen
-  public boolean nutzer_anlegen(String vName,String nName,int pNummer,String pw,int aModell, int uKlasse,String gDatum){
+  public boolean nutzer_anlegen(String vName,String nName,int pNummer,String pw,int aModell, int uKlasse,String gDatum, Connection con){
       try {
-        // Datenbank Verbindung aufbauen
-        Connection con = sql_connect.intern_connect();
-
+       
         // Übeprüfen ob eingaben Korrekt
         if (!ueberpruefeZahlen(aModell,uKlasse,con)) return false;
         if (!pwv.pw_richtlinen_check(pw)) return false;
