@@ -5,12 +5,14 @@ import DatenKlassen.LoginData;
 import DatenKlassen.User;
 import db.Nutzerverwaltung;
 import db.Passwort_verwaltung;
+import db.sql_connect;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.security.NoSuchAlgorithmException;
+import java.sql.Connection;
 
 /**
  * @author Noah Dambacher.
@@ -19,7 +21,7 @@ import java.security.NoSuchAlgorithmException;
 @RestController
 @CrossOrigin (origins = "http://localhost:4200")
 public class UserController {
-
+  private static Connection con = new sql_connect().intern_connect();
   /**
    * Requesthandler zum Authentifizieren der Anmeldedaten im Login-Fenster.
    * @param loginData Eingegebene Anmeldeinformationen, bestehend aus Personalnummer und Eingabe-Passwort.
@@ -31,7 +33,7 @@ public class UserController {
     Passwort_verwaltung pv = new Passwort_verwaltung();
     Nutzerverwaltung nv = new Nutzerverwaltung();
     boolean isMatching = false;
-    if(nv.existiertNutzerMitPersonalnummer(loginData.getPersonalnummer())) {
+    if(nv.existiertNutzerMitPersonalnummer(loginData.getPersonalnummer(),con)) {
       User user = nv.getUser(loginData.getPersonalnummer());
       try {
         if(pv.pruefePasswort(loginData.getPassword(), user.getPasshash(), user.getSalt())) {
@@ -88,6 +90,6 @@ public class UserController {
   @PostMapping("/changepw")
   public boolean changePW(@RequestBody ChangePwData cpw){
     Nutzerverwaltung nutzerverwaltung = new Nutzerverwaltung();
-    return nutzerverwaltung.passwort_aendern(cpw.getMid(), cpw.getPw());
+    return nutzerverwaltung.passwort_aendern(cpw.getMid(), cpw.getPw(),con);
   }
 }

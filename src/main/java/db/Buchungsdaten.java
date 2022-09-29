@@ -3,11 +3,7 @@ package db;
 import DatenKlassen.Arbeitstag;
 import DatenKlassen.TimeEntry;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.text.ParseException;
+import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -17,16 +13,17 @@ public class Buchungsdaten {
   private final Nutzerverwaltung nzv = new Nutzerverwaltung();
   private final sql_statment sql = new sql_statment();
   private final Buchung bch = new Buchung();
+  private static Connection con = sql_connect.extern_connect();
 
 
   public Arbeitstag getArbeitszeitEintrag(String mid,String tag){
-    Connection con = sql_connect.extern_connect();
-    if (!nzv.existiertNutzer(mid)) return null;
+
+    if (!nzv.existiertNutzer(mid,con)) return null;
     String eStempel, lStempel;
     double stunden;
     String[][] stempel;
 
-    stunden = berechneArbeitszeit(mid,tag); // TODO: 19.09.2022  hier gegen get Austauschen
+    stunden = berechneArbeitszeit(mid,tag,con);
 
     if (!bch.ueberpruefeBuchungvorhanden(tag,mid,con)) return null;
     String bid = sql.select_arr(Einstellungen.mb_buchung,"B_ID","WHERE B_M_ID='"+mid+"' AND B_TAG='"+tag+"'",con)[0][0];
@@ -49,7 +46,6 @@ public class Buchungsdaten {
 
 
   public boolean setZeitintrag(String mid){
-    Connection con = sql_connect.extern_connect();
     if(!sql.select(Einstellungen.mb_buchung,"B_Tag","WHERE B_M_ID='"+mid+"' AND B_TAG='"+getHeute()+"'",con)){
       String[] daten ={mid,getHeute(),"-99"};
       if (!sql.insert(Einstellungen.mb_buchung,daten,con)) return false;
@@ -60,7 +56,6 @@ public class Buchungsdaten {
     return true;
   }
   public boolean setZeitintrag(String mid, String tag, String timestampp){
-    Connection con = sql_connect.extern_connect();
     if(!sql.select(Einstellungen.mb_buchung,"B_Tag","WHERE B_M_ID='"+mid+"' AND B_TAG='"+tag+"'",con)){
       String[] daten ={mid,tag,"-99"};
       if (!sql.insert(Einstellungen.mb_buchung,daten,con)) return false;
@@ -86,10 +81,9 @@ public class Buchungsdaten {
 
  */
 
-  public ArrayList<TimeEntry> getAllTimeentries(String bid){
+  public ArrayList<TimeEntry> getAllTimeentries(String bid, Connection con){
     ArrayList<TimeEntry> entries = new ArrayList<>();
     try{
-      Connection con = sql_connect.intern_connect();
       String bedingungen = String.format("WHERE BZ_B_ID = %d ORDER BY `bz_zeitsteintrag`.`BZ_Zeiteintrag` ASC", Integer.parseInt(bid));
       ResultSet rs = sql.fetchAll("bz_zeitsteintrag", bedingungen, con);
 
@@ -105,27 +99,43 @@ public class Buchungsdaten {
     return entries;
   }
 
+  public TimeEntry getEntryById(String id, Connection con){
+    String bedingung = String.format("WHERE `BZ_ID` = %s", id);
 
+    String[][] entry = sql.select_arr(Einstellungen.mb_zeiteintrag, "*", bedingung, con);
+    TimeEntry timeEntry = new TimeEntry(entry[0][0], entry[0][1], entry[0][2]);
+    return timeEntry;
+  }
 
-  public double getArbeitszeit(String mid){
-    Connection con = sql_connect.extern_connect();
+  public boolean deleteEntry(String zid,Connection con){
+    Buchung b = new Buchung();
+    TimeEntry entry = getEntryById(zid, con);
+
+    if(getAllTimeentries(entry.getBid(),con).size() <= 1){
+      return b.loescheZeiteintraege(entry.getBid(),con) && b.loescheBuchung(entry.getBid(), con);
+    }
+    else {
+      String bedingung = String.format("BZ_ID = %s", zid);
+      return sql.delete(Einstellungen.mb_zeiteintrag, bedingung, con);
+    }
+  }
+
+  public double getArbeitszeit(String mid, Connection con){
     if(!sql.select(Einstellungen.mb_buchung,"*","WHERE B_TAG='"+getHeute()+"' AND B_M_ID='"+mid+"' ",con)) return 0;
-    if(Double.parseDouble(sql.select_arr(Einstellungen.mb_buchung,"B_Stunden","WHERE B_TAG='"+getHeute()+"' AND B_M_ID='"+mid+"' ",con)[0][0])== -99.00) return berechneArbeitszeit(mid,getHeute());
-    if(!sql.select(Einstellungen.mb_buchung,"B_Stunden","WHERE B_TAG='"+getHeute()+"' AND B_M_ID='"+mid+"' ",con)) return berechneArbeitszeit(mid,getHeute());
+    if(Double.parseDouble(sql.select_arr(Einstellungen.mb_buchung,"B_Stunden","WHERE B_TAG='"+getHeute()+"' AND B_M_ID='"+mid+"' ",con)[0][0])== -99.00) return berechneArbeitszeit(mid,getHeute(),con);
+    if(!sql.select(Einstellungen.mb_buchung,"B_Stunden","WHERE B_TAG='"+getHeute()+"' AND B_M_ID='"+mid+"' ",con)) return berechneArbeitszeit(mid,getHeute(),con);
     else return Double.parseDouble(sql.select_arr(Einstellungen.mb_buchung,"B_Stunden","WHERE B_TAG='"+getHeute()+"' AND B_M_ID='"+mid+"' ",con)[0][0]);
   }// get ArbeitszeitHeute
 
-  public double getArbeitszeit(String mid, String tag){
-    Connection con = sql_connect.extern_connect();
+  public double getArbeitszeit(String mid, String tag, Connection con){
     if(!sql.select(Einstellungen.mb_buchung,"*","WHERE B_TAG='"+tag+"' AND B_M_ID='"+mid+"' ",con)) return 0;
-    if(Double.parseDouble(sql.select_arr(Einstellungen.mb_buchung,"B_Stunden","WHERE B_TAG='"+tag+"' AND B_M_ID='"+mid+"' ",con)[0][0])==-99.00) return berechneArbeitszeit(mid,tag);
-    if(!sql.select(Einstellungen.mb_buchung,"B_Stunden","WHERE B_TAG='"+tag+"' AND B_M_ID='"+mid+"' ",con)) return berechneArbeitszeit(mid,tag);
+    if(Double.parseDouble(sql.select_arr(Einstellungen.mb_buchung,"B_Stunden","WHERE B_TAG='"+tag+"' AND B_M_ID='"+mid+"' ",con)[0][0])==-99.00) return berechneArbeitszeit(mid,tag,con);
+    if(!sql.select(Einstellungen.mb_buchung,"B_Stunden","WHERE B_TAG='"+tag+"' AND B_M_ID='"+mid+"' ",con)) return berechneArbeitszeit(mid,tag, con);
     else return Double.parseDouble(sql.select_arr(Einstellungen.mb_buchung,"B_Stunden","WHERE B_TAG='"+tag+"' AND B_M_ID='"+mid+"' ",con)[0][0]);
   }// get Arbeitszeit AM Tag X
 
-  private double berechneArbeitszeit(String mid,String Tag){
-    Connection con = sql_connect.extern_connect();
-    if (!nzv.existiertNutzer(mid)) return -1;
+  private double berechneArbeitszeit(String mid,String Tag, Connection con){
+    if (!nzv.existiertNutzer(mid,con)) return -1;
     String[][] arbzeit = sql.select_arr(Einstellungen.mb_zeiteintrag+","+Einstellungen.mb_buchung,"*"," WHERE B_ID = BZ_B_ID AND B_M_ID='"+mid+"' AND B_Tag='"+Tag+"' ORDER BY BZ_Zeiteintrag ASC ",con);
     if((arbzeit.length%2)==1){
       System.err.println("!ERROR! Es fehlt ein Zeiteintrag");
@@ -150,6 +160,13 @@ public class Buchungsdaten {
     String[] wert ={Double.toString(Arbeitszeit)};
     sql.update(Einstellungen.mb_buchung,ziel,wert,"WHERE B_M_ID='"+mid+"' AND B_Tag='"+Tag+"'",con);
     return Arbeitszeit;
+  }
+
+  public boolean updateEntry(TimeEntry timeEntry, Connection con){
+    String[] ziel = {"BZ_Zeiteintrag"};
+    String[] wert = {timeEntry.getTimestamp()};
+    String bedingung = String.format("WHERE BZ_ID = %s", timeEntry.getZid());
+    return sql.update(Einstellungen.mb_zeiteintrag, ziel, wert, bedingung, con);
   }
 
   public String getDatumVonTimestamp(String timestamp){
