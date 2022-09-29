@@ -24,8 +24,16 @@ public class ArbeitstagController {
    */
   @PostMapping ("/arbeitstage")
   public Arbeitstag[] getArbeitstagsliste(@RequestBody String mid){
-    ArbeitstagListe arbeitstagListe = new ArbeitstagListe(mid);
-    return arbeitstagListe.getArbeitstage();
+
+    try {
+      ArbeitstagListe arbeitstagListe = new ArbeitstagListe(mid);
+      System.err.println("Folgende Ausgabe:"+arbeitstagListe.arbeitstage[0].getArbeitszeit());
+      return arbeitstagListe.getArbeitstage();
+    } catch (Exception e){
+      System.err.println("!ERROR! in getArbeitstageListe: "+e);
+      return null;
+    }
+
   }
 
 }

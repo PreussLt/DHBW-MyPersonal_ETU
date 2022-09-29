@@ -13,11 +13,10 @@ import java.time.format.DateTimeFormatter;
 @Data
 public class ArbeitstagListe {
   // Hier die anderen Nötigen Klassen
-  private sql_connect sql_conn = new sql_connect();
   private Einstellungen cnf = new Einstellungen();
   private sql_statment sql_statment = new sql_statment();
   private Buchungsdaten bch = new Buchungsdaten();
-  private Connection con = sql_conn.extern_connect();
+  private static Connection con = sql_connect.extern_connect();
   // Globale Variabeln
   public Arbeitstag[] arbeitstage;
   private String mid;
@@ -28,12 +27,14 @@ public class ArbeitstagListe {
       getArbeitstage(getAnzahlArbeitstage(getHeute(),"2000-01-01"));
 
     }catch (Exception e){
-      System.err.println("!ERROR! Folgender Fehler ist aufgetreten: "+e);
+      System.err.println("!ERROR! Folgender Fehler ist im Cosntructor arbeittage Liste aufgetreten: "+e);
     }
 
   }// Constructor
 
-
+    public Arbeitstag[] getArbeitstage(){
+      return arbeitstage;
+    }
 
     private int getAnzahlArbeitstage(String eDatum, String aDatum){
     try {
@@ -50,13 +51,14 @@ public class ArbeitstagListe {
   }// get AnzahlArbeitstage
 
   private boolean getArbeitstage(int laengeListe){
-    System.err.println("*INFO* Länge:"+laengeListe);
-    arbeitstage = new Arbeitstag[laengeListe];
-    if (!sql_statment.select(cnf.mb_buchung,"*","WHERE B_M_ID=\'"+mid+"\'",con)) return false;
-    String[][] arbt_tage = sql_statment.select_arr(cnf.mb_buchung,"B_TAG","WHERE B_M_ID=\'"+mid+"\'",con);
-    String[][] gleit_tage = sql_statment.select_arr(cnf.gleitzeittage,"MG_TAG","WHERE MG_M_ID=\'"+mid+"\'", con);
-    int count_gleitzzeit =0;
+
     try {
+      System.err.println("*INFO* Länge:"+laengeListe);
+      arbeitstage = new Arbeitstag[laengeListe];
+      if (!sql_statment.select(cnf.mb_buchung,"*","WHERE B_M_ID=\'"+mid+"\'",con)) return false;
+      String[][] arbt_tage = sql_statment.select_arr(cnf.mb_buchung,"B_TAG","WHERE B_M_ID=\'"+mid+"\'",con);
+      String[][] gleit_tage = sql_statment.select_arr(cnf.gleitzeittage,"MG_TAG","WHERE MG_M_ID=\'"+mid+"\'", con);
+      int count_gleitzzeit =0;
       for (int i = 0; i < arbeitstage.length;i++){
         if (i<arbt_tage.length){ // Es ist kein Gleitzeittag
           arbeitstage[i] = bch.getArbeitszeitEintrag(mid,arbt_tage[i][0]);
@@ -68,7 +70,7 @@ public class ArbeitstagListe {
       }
       return true;
     }catch (Exception e){
-      System.err.println("!ERROR! Es ist ein Fehler aufgetreten: "+e);
+      System.err.println("!ERROR! Fehler in getArbeitstage: "+e);
       e.printStackTrace();
       return false;
     }
