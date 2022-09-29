@@ -56,6 +56,10 @@ public class Arbeitstag {
   }// Constructor
 
   public void vorgabenAnwenden() {
+    // Überpüfe ob Tag Feiertag oder Gleitzeittag ist
+    feiertag = aTag.istTagFeiertag(this.tag);
+    gleitzeittag = aTag.istTagGleitzeitag(this.tag, mid, con);
+    if (feiertag || gleitzeittag) arbeitszeit = Sollarbetiszeit();
     arbeitszeitenEingehalten = ZeitGrenzen();
     pausenEingehalten = sindPausenEingehalten();
     maxArbeitszeitEingehalten = istMaxArbeitszeitEingehalten();
