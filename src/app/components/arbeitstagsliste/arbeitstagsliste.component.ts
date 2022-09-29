@@ -16,7 +16,7 @@ export class ArbeitstagslisteComponent implements OnInit {
   ngOnInit(): void {
     this.arbeitstagListeService.getArbeitstagliste().subscribe(data => {
       console.log(data);
-      this.arbeitstagListe = data
+      this.arbeitstagListe = data.sort((a, b) => a.tag.localeCompare(b.tag))
     });
   }
 
@@ -29,7 +29,6 @@ export class ArbeitstagslisteComponent implements OnInit {
     };
 
     this.router.navigate(['/overview'], navigationExtras)
-
   }
 
 

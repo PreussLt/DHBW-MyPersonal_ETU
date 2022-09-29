@@ -7,6 +7,7 @@ import {AppComponent} from "./components/app.component";
 import {OverviewTimeentriesComponent} from "./components/overview-timeentries/overview-timeentries.component";
 import {NewentryfieldComponent} from "./components/newentryfield/newentryfield.component";
 import {ArbeitstagslisteComponent} from "./components/arbeitstagsliste/arbeitstagsliste.component";
+import {EditEntryComponent} from "./components/edit-entry/edit-entry/edit-entry.component";
 
 //Für verschiedene Request-Urls Ergebniskomponenten setzen
 const routes: Routes = [
@@ -15,6 +16,7 @@ const routes: Routes = [
   {path: 'overview', component: OverviewTimeentriesComponent, canActivate:[AuthGuard]},
   {path: 'newEntry', component: NewentryfieldComponent, canActivate:[AuthGuard]},
   {path: 'arbeitstage', component: ArbeitstagslisteComponent, canActivate:[AuthGuard]},
+  {path: 'editEntry/:id', component: EditEntryComponent, canActivate:[AuthGuard]},
   {path: '', component: AppComponent, canActivate:[AuthGuard]}
 ];
 
