@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
-import {TimeEntryService} from "../../../services/time-entry/time-entry.service";
+import {TimeEntryService} from "../../services/time-entry/time-entry.service";
 
 @Component({
   selector: 'app-edit-entry',

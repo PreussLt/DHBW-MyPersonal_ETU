@@ -15,7 +15,7 @@ import { OverviewTimeentriesComponent } from './components/overview-timeentries/
 import { NewentryfieldComponent } from './components/newentryfield/newentryfield.component';
 import { ChangePwComponent } from './components/change-pw/change-pw.component';
 import { ArbeitstagslisteComponent } from './components/arbeitstagsliste/arbeitstagsliste.component';
-import {EditEntryComponent} from "./components/edit-entry/edit-entry/edit-entry.component";
+import {EditEntryComponent} from "./components/edit-entry/edit-entry.component";
 
 @NgModule({
   declarations: [

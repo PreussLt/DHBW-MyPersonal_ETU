@@ -2,6 +2,7 @@ package backend;
 
 import DatenKlassen.BuchungModel;
 import DatenKlassen.Entry;
+import DatenKlassen.NewDay;
 import DatenKlassen.TimeEntry;
 import db.Buchung;
 import db.Buchungsdaten;
@@ -61,6 +62,13 @@ public class TimeEntryController {
       return buchungsdaten.setZeitintrag(entry.getMid(), entry.getDate(), timestamp);
     }
     return false;
+  }
+
+  @PostMapping("/newDay")
+  public boolean newDay(@RequestBody NewDay newDay){
+    Entry stamp1 = new Entry(newDay.getMid(), newDay.getDate(), newDay.getTimeBegin());
+    Entry stamp2 = new Entry(newDay.getMid(), newDay.getDate(), newDay.getTimeEnd());
+    return newEntry(stamp1) && newEntry(stamp2);
   }
 
   @PostMapping("/getEntry")
