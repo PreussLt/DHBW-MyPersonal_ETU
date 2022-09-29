@@ -19,7 +19,6 @@ public class Controller {
       //System.out.println(bcd.getArbeitszeit("6","2022-09-18"));
       //Arbeitstag t1 = bcd.getArbeitszeiteintrag("6","2022-09-18");
       ArbeitstagListe aL = new ArbeitstagListe("6");
-      aL.arbeitstage[0].istMaxArbeitszeitEingehalten();
     }catch (Exception e){
       System.err.println(e);
     }
