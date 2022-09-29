@@ -74,4 +74,10 @@ public class TimeEntryController {
     Buchungsdaten bd = new Buchungsdaten();
     return bd.updateEntry(timeEntry);
   }
+
+  @PostMapping("/deleteEntry")
+  public boolean deleteEntry(@RequestBody String zid){
+    Buchungsdaten bd = new Buchungsdaten();
+    return bd.deleteEntry(zid);
+  }
 }

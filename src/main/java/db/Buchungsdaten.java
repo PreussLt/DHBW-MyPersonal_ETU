@@ -3,10 +3,7 @@ package db;
 import DatenKlassen.Arbeitstag;
 import DatenKlassen.TimeEntry;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Timestamp;
+import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -111,6 +108,20 @@ public class Buchungsdaten {
     String[][] entry = sql.select_arr(Einstellungen.mb_zeiteintrag, "*", bedingung, con);
     TimeEntry timeEntry = new TimeEntry(entry[0][0], entry[0][1], entry[0][2]);
     return timeEntry;
+  }
+
+  public boolean deleteEntry(String zid){
+    Connection con = sql_connect.intern_connect();
+    Buchung b = new Buchung();
+    TimeEntry entry = getEntryById(zid);
+
+    if(getAllTimeentries(entry.getBid()).size() <= 1){
+      return b.loescheZeiteintraege(entry.getBid()) && b.loescheBuchung(entry.getBid());
+    }
+    else {
+      String bedingung = String.format("BZ_ID = %s", zid);
+      return sql.delete(Einstellungen.mb_zeiteintrag, bedingung, con);
+    }
   }
 
   public double getArbeitszeit(String mid){
