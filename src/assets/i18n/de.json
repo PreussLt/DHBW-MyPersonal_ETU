@@ -44,6 +44,27 @@
     "overtime": "Gleitzeit",
     "holiday": "Feiertag",
     "flexibleday": "Gleitzeittag"
+  },
+
+  "newentry":
+  {
+    "type": "Eintragsart wählen",
+    "stamp": "Zeitstempel",
+    "day": "Arbeitstag",
+    "flexibleday": "Gleitzeittag",
+    "vacation": "Urlaub",
+    "date": "Datum",
+    "dateBegin": "Datum Start",
+    "dateEnd": "Datum Ende",
+    "time": "Zeit",
+    "timeBegin": "Zeit Start",
+    "timeEnd": "Zeit Ende",
+    "create": "Neuen Eintrag erstellen",
+    "confirm": "Bestätigen",
+    "confirmStamp": "Zeitstempel bestätigen",
+    "confirmDay": "Arbeitstag bestätigen",
+    "confirmFlexible": "Gleitzeittag bestätigen",
+    "confirmVacation": "Urlaub bestätigen"
   }
 
 }
