@@ -27,7 +27,7 @@ public class Buchungsdaten {
 
     if (!bch.ueberpruefeBuchungvorhanden(tag,mid,con)) return null;
     String bid = sql.select_arr(Einstellungen.mb_buchung,"B_ID","WHERE B_M_ID='"+mid+"' AND B_TAG='"+tag+"'",con)[0][0];
-    stempel = sql.select_arr(Einstellungen.mb_zeiteintrag,"*","WHERE BZ_B_ID='"+bid+"' ORDER BY BZ_Zeiteintrag",con);
+    stempel = sql.select_arr(Einstellungen.mb_zeiteintrag,"*","WHERE BZ_B_ID='"+bid+"' ORDER BY BZ_Zeiteintrag ",con);
     eStempel = stempel[0][2];
     lStempel=stempel[(stempel.length-1)][2];
     String[][] timestamps = new String[stempel.length][2];
