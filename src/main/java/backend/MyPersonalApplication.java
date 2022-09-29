@@ -8,12 +8,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @version 1.0
  */
 @SpringBootApplication
-public class MyPersonalService {
+public class MyPersonalApplication {
   /**
    * @param args args.
    * Methode zum Starten des Backends
    */
   public static void main(String[] args) {
-    SpringApplication.run(MyPersonalService.class, args);
+    SpringApplication.run(MyPersonalApplication.class, args);
   }
 }

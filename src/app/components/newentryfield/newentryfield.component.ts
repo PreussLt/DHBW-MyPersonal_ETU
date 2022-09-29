@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {TimeEntryService} from "../../services/time-entry/time-entry.service";
 import {Router} from "@angular/router";
+import {VacationService} from "../../services/vacation/vacation.service";
 
 @Component({
   selector: 'app-newentryfield',
@@ -10,10 +11,15 @@ import {Router} from "@angular/router";
 })
 export class NewentryfieldComponent implements OnInit {
   newTimeEntryForm: FormGroup;
-  newEntryUrl: string;
+  showModal: boolean;
 
-  constructor(private formBuilder: FormBuilder, private timeEntryService: TimeEntryService, private router:Router) {
-    this.newEntryUrl = "http://localhost:8080/newEntry"
+  constructor(
+    private formBuilder: FormBuilder,
+    private timeEntryService: TimeEntryService,
+    private router:Router,
+    private vacationService: VacationService
+    ) {
+    this.showModal = false;
   }
 
   ngOnInit(): void {
@@ -36,6 +42,10 @@ export class NewentryfieldComponent implements OnInit {
 
   get f() { return this.newTimeEntryForm.controls; }
 
+  toggleModal(){
+    this.showModal = !this.showModal;
+  }
+
   submit(){
     switch (this.f['entryType'].value){
       case '0':
@@ -52,8 +62,24 @@ export class NewentryfieldComponent implements OnInit {
         });
         break;
       case '2':
+        this.vacationService.setGleitzeittag(this.f['dateFlexibleday'].value).subscribe(created => {
+          if(created){
+            this.router.navigate(["/home"])
+          }
+          else {
+            console.log("Failure")
+          }
+        })
         break;
       case '3':
+        this.vacationService.setVacation(this.f['dateBeginVacation'].value, this.f['dateEndVacation'].value).subscribe(created => {
+          if(created){
+            this.router.navigate(["/home"])
+          }
+          else {
+            console.log("Failure")
+          }
+        })
         break;
     }
   }

@@ -1,22 +1,21 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './components/app.component';
+import {AppRoutingModule} from './app-routing.module';
+import {AppComponent} from './components/app.component';
 import {TimeEntryService} from "./services/time-entry/time-entry.service";
-import {HttpClientModule} from "@angular/common/http";
+import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
-import {HttpClient} from '@angular/common/http';
-import { HomeComponent } from './components/home/home.component';
-import { LoginComponent } from './components/login/login.component';
-import { OverviewTimeentriesComponent } from './components/overview-timeentries/overview-timeentries.component';
-import { NewentryfieldComponent } from './components/newentryfield/newentryfield.component';
-import { ChangePwComponent } from './components/change-pw/change-pw.component';
-import { ArbeitstagslisteComponent } from './components/arbeitstagsliste/arbeitstagsliste.component';
+import {HomeComponent} from './components/home/home.component';
+import {LoginComponent} from './components/login/login.component';
+import {OverviewTimeentriesComponent} from './components/overview-timeentries/overview-timeentries.component';
+import {NewentryfieldComponent} from './components/newentryfield/newentryfield.component';
+import {ChangePwComponent} from './components/change-pw/change-pw.component';
+import {ArbeitstagslisteComponent} from './components/arbeitstagsliste/arbeitstagsliste.component';
 import {EditEntryComponent} from "./components/edit-entry/edit-entry.component";
-import { SettingsComponent } from './components/settings/settings/settings.component';
+import {SettingsComponent} from './components/settings/settings/settings.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +27,7 @@ import { SettingsComponent } from './components/settings/settings/settings.compo
     ChangePwComponent,
     ArbeitstagslisteComponent,
     EditEntryComponent,
-    SettingsComponent
+    SettingsComponent,
   ],
   imports: [
     BrowserModule,
