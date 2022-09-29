@@ -7,7 +7,6 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -105,7 +104,14 @@ public class Buchungsdaten {
     return entries;
   }
 
+  public TimeEntry getEntryById(String id){
+    Connection con = sql_connect.intern_connect();
+    String bedingung = String.format("WHERE `BZ_ID` = %s", id);
 
+    String[][] entry = sql.select_arr(Einstellungen.mb_zeiteintrag, "*", bedingung, con);
+    TimeEntry timeEntry = new TimeEntry(entry[0][0], entry[0][1], entry[0][2]);
+    return timeEntry;
+  }
 
   public double getArbeitszeit(String mid){
     Connection con = sql_connect.extern_connect();
@@ -150,6 +156,14 @@ public class Buchungsdaten {
     String[] wert ={Double.toString(Arbeitszeit)};
     sql.update(Einstellungen.mb_buchung,ziel,wert,"WHERE B_M_ID='"+mid+"' AND B_Tag='"+Tag+"'",con);
     return Arbeitszeit;
+  }
+
+  public boolean updateEntry(TimeEntry timeEntry){
+    Connection con = sql_connect.intern_connect();
+    String[] ziel = {"BZ_Zeiteintrag"};
+    String[] wert = {timeEntry.getTimestamp()};
+    String bedingung = String.format("WHERE BZ_ID = %s", timeEntry.getZid());
+    return sql.update(Einstellungen.mb_zeiteintrag, ziel, wert, bedingung, con);
   }
 
   public String getDatumVonTimestamp(String timestamp){

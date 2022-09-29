@@ -1,0 +1,6 @@
+<form [formGroup]="editEntry">
+  <input type="text" formControlName="id" readonly>
+  <input type="text" formControlName="date" readonly>
+  <input type="time" formControlName="time">
+  <button (click)="edit()">Änderungen übernehmen</button>
+</form>

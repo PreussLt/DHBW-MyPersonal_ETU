@@ -8,22 +8,26 @@ import {TimeEntry} from "../../models/timeEntry/time-entry";
 })
 export class TimeEntryService {
 
-  private userUrl: string;
+  private entryUrl: string;
   private newEntryUrl: string;
-
+  private updateEntryUrl: string;
 
   constructor(private http: HttpClient) {
-    this.userUrl = "http://localhost:8080/entries"
+    this.entryUrl = "http://localhost:8080/getEntry"
     this.newEntryUrl = "http://localhost:8080/newEntry"
+    this.updateEntryUrl = "http://localhost:8080/updateEntry"
   }
 
-  //Get-Request an Spring-Endpoint senden
-  public findAll(): Observable<TimeEntry[]>{
-    let mid = sessionStorage.getItem("mid");
-    return this.http.post<TimeEntry[]>(this.userUrl, mid);
+  public getEntry(id: string): Observable<TimeEntry>{
+    return this.http.post<TimeEntry>(this.entryUrl, id);
   }
 
   public newEntry(mId: string, date: string, time: string): Observable<boolean>{
     return this.http.post<boolean>(this.newEntryUrl, {"mid":mId, "date":date, "time":time});
+  }
+
+  public updateEntry(zid: string, date: string, time: string): Observable<boolean>{
+    let timestamp = date + " " + time + ":00";
+    return this.http.post<boolean>(this.updateEntryUrl, {"zid":zid, "bid":"-1", "timestamp": timestamp})
   }
 }

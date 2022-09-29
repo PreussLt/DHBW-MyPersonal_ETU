@@ -28,7 +28,6 @@ public class TimeEntryController {
    */
   @PostMapping("/entries")
   public TimeEntry[] getEntries(@RequestBody String mid){
-
     Buchung b = new Buchung();
     Buchungsdaten bd = new Buchungsdaten();
     ArrayList<BuchungModel> buchungen = b.getAllBuchungen(mid);
@@ -64,4 +63,15 @@ public class TimeEntryController {
     return false;
   }
 
+  @PostMapping("/getEntry")
+  public TimeEntry getEntry(@RequestBody String id){
+    Buchungsdaten bd = new Buchungsdaten();
+    return bd.getEntryById(id);
+  }
+
+  @PostMapping("/updateEntry")
+  public boolean updateEntry(@RequestBody TimeEntry timeEntry){
+    Buchungsdaten bd = new Buchungsdaten();
+    return bd.updateEntry(timeEntry);
+  }
 }
