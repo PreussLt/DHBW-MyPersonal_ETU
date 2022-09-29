@@ -37,7 +37,13 @@
     "firstStamp": "Erster Stempel",
     "lastStamp": "Letzter Stempel",
     "worktime": "Arbeitszeit",
-    "allentries": "Alle Stempel"
+    "allentries": "Alle Stempel",
+    "warning": "Warnungen",
+    "missingStamp": "Stempel fehlt",
+    "timeoutofbounds": "Stempel außerhalb der erlaubten Zeiten",
+    "overtime": "Gleitzeit",
+    "holiday": "Feiertag",
+    "flexibleday": "Gleitzeittag"
   }
 
 }

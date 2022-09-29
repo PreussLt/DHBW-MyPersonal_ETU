@@ -1,6 +1,4 @@
 export class Arbeitstag {
-  aTag: any;
-
   ersterStempel: string;
   letzterStempel: string;
   mid: string;

@@ -10,12 +10,16 @@ import {NavigationExtras, Router} from "@angular/router";
 })
 export class ArbeitstagslisteComponent implements OnInit {
   arbeitstagListe: Arbeitstag[];
+  sollarbeitszeit: number;
 
   constructor(private arbeitstagListeService: ArbeitslisteService, private router: Router) { }
 
   ngOnInit(): void {
     this.arbeitstagListeService.getArbeitstagliste().subscribe(data => {
-      this.arbeitstagListe = data.sort((a, b) => a.tag.localeCompare(b.tag))
+      this.arbeitstagListeService.getSollarbeitszeit().subscribe(sollarbeitszeit => {
+        this.sollarbeitszeit = sollarbeitszeit;
+        this.arbeitstagListe = data.sort((a, b) => a.tag.localeCompare(b.tag))
+      })
     });
   }
 
