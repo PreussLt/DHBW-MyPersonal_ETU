@@ -12,6 +12,7 @@ export class EditEntryComponent implements OnInit {
 
   editEntry: FormGroup;
   id: string;
+  showModal: boolean;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -62,4 +63,7 @@ export class EditEntryComponent implements OnInit {
     })
   }
 
+  toggleModal() {
+    this.showModal = !this.showModal;
+  }
 }
