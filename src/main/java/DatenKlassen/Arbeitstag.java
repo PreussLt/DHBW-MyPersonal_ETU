@@ -1,13 +1,16 @@
 package DatenKlassen;
 
 import db.ArbeitstagPruefen;
+import db.sql_connect;
 import lombok.Data;
 
+import java.sql.Connection;
 import java.sql.Timestamp;
 
 @Data
 public class Arbeitstag {
   private ArbeitstagPruefen aTag = new ArbeitstagPruefen();
+  private static Connection con = new sql_connect().extern_connect();
   public String ersterStempel;
   public String letzterStempel;
   public String mid;
@@ -42,7 +45,7 @@ public class Arbeitstag {
   public void vorgabenAnwenden() {
     // Überpüfe ob Tag Feiertag oder Gleitzeittag ist
     feiertag = aTag.istTagFeiertag(this.tag);
-    gleitzeittag = aTag.istTagGleitzeitag(this.tag, mid);
+    gleitzeittag = aTag.istTagGleitzeitag(this.tag, mid, con);
     if (feiertag || gleitzeittag) arbeitszeit = Sollarbetiszeit();
     arbeitszeitenEingehalten = ZeitGrenzen();
     pausenEingehalten = sindPausenEingehalten();
