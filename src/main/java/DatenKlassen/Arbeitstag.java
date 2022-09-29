@@ -1,7 +1,9 @@
 package DatenKlassen;
 
 import db.ArbeitstagPruefen;
+import db.Einstellungen;
 import db.sql_connect;
+import db.sql_statment;
 import lombok.Data;
 
 import java.sql.Connection;
@@ -11,6 +13,8 @@ import java.sql.Timestamp;
 public class Arbeitstag {
   private ArbeitstagPruefen aTag = new ArbeitstagPruefen();
   private static Connection con = new sql_connect().extern_connect();
+  private Einstellungen cnf = new Einstellungen();
+  private sql_statment sql = new sql_statment();
   public String ersterStempel;
   public String letzterStempel;
   public String mid;
@@ -29,6 +33,9 @@ public class Arbeitstag {
   public boolean pausenEingehalten;
   public boolean maxArbeitszeitEingehalten;
 
+  //private double
+  private double maxArbeitszeit=10;
+  public double sollArbeitszeit;
 
 
   public Arbeitstag(String tag, double arbeitszeit, String[][] zeitstempel, String ersterStempel, String letzterStempel, String mid) {
@@ -39,6 +46,8 @@ public class Arbeitstag {
     this.ersterStempel = ersterStempel;
     this.letzterStempel = letzterStempel;
     this.mid = mid;
+    this.maxArbeitszeit = getMaxArbeitszeit();
+    this.sollArbeitszeit = getSollarbeitszeit();
     vorgabenAnwenden();
   }// Constructor
 
@@ -60,7 +69,6 @@ public class Arbeitstag {
   }
 
   private boolean istMaxArbeitszeitEingehalten() {
-    double maxArbeitszeit = 10; // TODO: 19.09.2022 Aus datenbank ziehen
     if (arbeitszeit > maxArbeitszeit) {
       arbeitszeit = maxArbeitszeit;
       return false;
@@ -81,7 +89,35 @@ public class Arbeitstag {
     return false;
   }
 
+  private double getMaxArbeitszeit(){
+    try {
+      if (!sql.select(""+cnf.mb_konto+","+cnf.mb_arbeitsmodell+","+cnf.mitarbeiter+","+cnf.mb_grenzwerte,"G_TAG"," WHERE M_ID = MK_M_ID AND MK_A_ID = A_ID AND A_G_ID = G_ID AND M_ID=\'"+mid+"\'",con)) {
+        System.err.println("!ERROR! Fehler in getMaxarbeitszeit: Keine Zeit Angegeben");
+        return -1;
+      }// End If
+      // Wert Vorhanden
+      return Double.parseDouble(sql.select_arr(""+cnf.mb_konto+","+cnf.mb_arbeitsmodell+","+cnf.mitarbeiter+","+cnf.mb_grenzwerte,"G_TAG"," WHERE M_ID = MK_M_ID AND MK_A_ID = A_ID AND A_G_ID = G_ID AND M_ID=\'"+mid+"\'",con)[0][0]);
+    }catch (Exception e){
+      System.err.println("!ERROR! Fehler in getMaxarbeitszeit: "+e);
+      return -1;
+    }// try Catc
+  }// End getMAxArbeitszeit
+
+  private double getSollarbeitszeit(){
+    try {
+      if (!sql.select(""+cnf.mb_konto+","+cnf.mb_arbeitsmodell+","+cnf.mitarbeiter+","+cnf.mb_grenzwerte,"A_Sollstunden/A_Solltage"," WHERE M_ID = MK_M_ID AND MK_A_ID = A_ID AND A_G_ID = G_ID AND M_ID=\'"+mid+"\'",con)) {
+        System.err.println("!ERROR! Fehler in getMaxarbeitszeit: Keine Zeit Angegeben");
+        return -1;
+      }// End If
+      // Wert Vorhanden
+      return Double.parseDouble(sql.select_arr(""+cnf.mb_konto+","+cnf.mb_arbeitsmodell+","+cnf.mitarbeiter+","+cnf.mb_grenzwerte,"A_Sollstunden/A_Solltage"," WHERE M_ID = MK_M_ID AND MK_A_ID = A_ID AND A_G_ID = G_ID AND M_ID=\'"+mid+"\'",con)[0][0]);
+    }catch (Exception e){
+      System.err.println("!ERROR! Fehler in getMaxarbeitszeit: "+e);
+      return -1;
+    }// try Catc
+  }// End get sollarbeitszeit
+
   private double Sollarbetiszeit() {
-    return 7.6; // TODO: 19.09.2022 Hier die Datenbank verbindung aufbauen und den Berechneten Wert ausgeben
+    return this.sollArbeitszeit;
   }
 }
