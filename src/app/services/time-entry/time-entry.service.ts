@@ -12,10 +12,12 @@ export class TimeEntryService {
   private newEntryUrl: string;
   private updateEntryUrl: string;
   private deleteEntryUrl: string;
+  newDayUrl: string
 
   constructor(private http: HttpClient) {
     this.entryUrl = "http://localhost:8080/getEntry"
     this.newEntryUrl = "http://localhost:8080/newEntry"
+    this.newDayUrl = "http://localhost:8080/newDay"
     this.updateEntryUrl = "http://localhost:8080/updateEntry"
     this.deleteEntryUrl = "http://localhost:8080/deleteEntry"
   }
@@ -27,6 +29,11 @@ export class TimeEntryService {
   public newEntry(date: string, time: string): Observable<boolean>{
     let mid = sessionStorage.getItem("mid");
     return this.http.post<boolean>(this.newEntryUrl, {"mid":mid, "date":date, "time":time});
+  }
+
+  public newDay(date: string, timeBegin: string, timeEnd: string): Observable<boolean>{
+    let mid = sessionStorage.getItem("mid");
+    return this.http.post<boolean>(this.newDayUrl, {"mid":mid, "date":date, "timeBegin":timeBegin, "timeEnd":timeEnd})
   }
 
   public updateEntry(zid: string, date: string, time: string): Observable<boolean>{
