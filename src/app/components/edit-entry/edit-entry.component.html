@@ -1,20 +1,29 @@
 <form [formGroup]="editEntry">
   <div class="fields" style="width: 50%; margin: auto;">
     <div class="field half">
-      <label for="id">Zeiteintrags-ID</label>
+      <label for="id">{{'editentry.id'|translate}}</label>
       <input type="text" id="id" formControlName="id" readonly>
     </div>
     <div class="field half">
-      <label for="date">Datum</label>
+      <label for="date">{{'editentry.date'|translate}}</label>
       <input id="date" type="text" formControlName="date" readonly>
     </div>
     <div class="field">
-      <label for="time">Zeitstempel</label>
+      <label for="time">{{'editentry.timestamp'|translate}}</label>
       <input id="time" type="time" formControlName="time">
     </div>
     <div class="field">
-      <button (click)="edit()">Änderungen übernehmen</button>
-      <button (click)="delete()">Eintrag löschen</button>
+      <button (click)="edit()">{{'editentry.confirmchange'|translate}}</button>
+      <button (click)="toggleModal()">{{'editentry.confirmdelete'|translate}}</button>
+    </div>
+  </div>
+
+  <div *ngIf="showModal" id="myModal" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+      <span class="close" (click)="toggleModal()">&times;</span>
+      <div>{{'editentry.confirmdeletemsg'|translate}}</div>
+      <button (click)="delete()">{{'editentry.confirm'|translate}}</button>
     </div>
   </div>
 </form>

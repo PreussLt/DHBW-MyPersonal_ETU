@@ -65,6 +65,17 @@
     "confirmDay": "Arbeitstag bestätigen",
     "confirmFlexible": "Gleitzeittag bestätigen",
     "confirmVacation": "Urlaub bestätigen"
+  },
+
+  "editentry":
+  {
+    "id": "Zeitstempel-ID",
+    "date": "Datum",
+    "timestamp": "Zeitstempel-Uhrzeit",
+    "confirmchange": "Änderungen übernehmen",
+    "confirmdelete": "Stempel löschen",
+    "confirmdeletemsg": "Möchten Sie diesen Zeitstempel wirklich löschen?",
+    "confirm": "Bestätigen"
   }
 
 }
