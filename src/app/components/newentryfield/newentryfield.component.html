@@ -1,50 +1,54 @@
 <form [formGroup]="newTimeEntryForm">
+  <div class="fields" style="width: 50%; margin: auto;">
+    <div class="field">
+      <select formControlName="entryType">
+        <option disabled [value]="-1" style="color: dimgrey">Eintragsart wählen</option>
+        <option [value]="0">Zeitstempel</option>
+        <option [value]="1">Arbeitstag</option>
+        <option [value]="2">Gleitzeittag</option>
+        <option [value]="3">Urlaub</option>
+      </select>
+    </div>
 
-  <select formControlName="entryType">
-    <option disabled [value]="-1">Eintragsart wählen</option>
-    <option [value]="0">Zeitstempel</option>
-    <option [value]="1">Arbeitstag</option>
-    <option [value]="2">Gleitzeittag</option>
-    <option [value]="3">Urlaub</option>
-  </select>
+    <!--Zeitstempel-->
+      <div *ngIf="f['entryType'].value === '0'" class="field">
+        <label for="date">Datum</label>
+        <input type="date" id="date" formControlName="dateStamp">
+        <label for="timeBegin">Zeit</label>
+        <input type="time" id="timeBegin" formControlName="timeStamp">
+      </div>
 
-  <!--Zeitstempel-->
-  <div *ngIf="f['entryType'].value === '0'">
-    <label for="date">Datum</label>
-    <input type="date" id="date" formControlName="dateStamp">
-    <label for="timeBegin">Zeit</label>
-    <input type="time" id="timeBegin" formControlName="timeStamp">
+    <!--Arbeitstag-->
+    <div *ngIf="f['entryType'].value === '1'" class="field">
+      <label for="dateDay">Datum</label>
+      <input type="date" id="dateDay" formControlName="dateDay">
+
+      <label for="timeBeginDay">Zeit Beginn</label>
+      <input type="time" id="timeBeginDay" formControlName="timeBeginDay">
+
+      <label for="timeEndDay">Zeit Ende</label>
+      <input type="time" id="timeEndDay" formControlName="timeEndDay">
+    </div>
+
+    <!--Gleitzeittag-->
+    <div *ngIf="f['entryType'].value === '2'" class="field">
+      <label for="gleitzeitTag">Datum</label>
+      <input type="date" id="gleitzeitTag" formControlName="dateFlexibleday">
+    </div>
+
+    <!--Urlaub-->
+    <div *ngIf="f['entryType'].value === '3'" class="field">
+      <label for="urlaubStart">Datum Beginn</label>
+      <input type="date" id="urlaubStart" formControlName="dateBeginVacation">
+      <label for="urlaubEnde">Datum Ende</label>
+      <input type="date" id="urlaubEnde" formControlName="dateEndVacation">
+    </div>
+
+    <!--Submit-->
+    <br>
+    <br>
+    <div class="field" *ngIf="f['entryType'].value != '-1'">
+      <button (click)="submit()">Neuen Eintrag erstellen</button>
+    </div>
   </div>
-
-  <!--Arbeitstag-->
-  <div *ngIf="f['entryType'].value === '1'">
-    <label for="dateDay">Datum</label>
-    <input type="date" id="dateDay" formControlName="dateDay">
-
-    <label for="timeBeginDay">Zeit Beginn</label>
-    <input type="time" id="timeBeginDay" formControlName="timeBeginDay">
-
-    <label for="timeEndDay">Zeit Ende</label>
-    <input type="time" id="timeEndDay" formControlName="timeEndDay">
-  </div>
-
-  <!--Gleitzeittag-->
-  <div *ngIf="f['entryType'].value === '2'">
-    <label for="gleitzeitTag">Datum</label>
-    <input type="date" id="gleitzeitTag" formControlName="dateFlexibleday">
-  </div>
-
-  <!--Urlaub-->
-  <div *ngIf="f['entryType'].value === '3'">
-    <label for="urlaubStart">Datum Beginn</label>
-    <input type="date" id="urlaubStart" formControlName="dateBeginVacation">
-    <label for="urlaubEnde">Datum Ende</label>
-    <input type="date" id="urlaubEnde" formControlName="dateEndVacation">
-  </div>
-
-  <!--Submit-->
-  <br>
-  <br>
-  <button (click)="submit()">Neuen Eintrag erstellen</button>
-
 </form>
