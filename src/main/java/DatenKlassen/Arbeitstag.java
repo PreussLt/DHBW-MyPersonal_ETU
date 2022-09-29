@@ -15,9 +15,12 @@ public class Arbeitstag {
   @JsonIgnore
   private ArbeitstagPruefen aTag = new ArbeitstagPruefen();
   @JsonIgnore
-  private Connection con = sql_connect.intern_connect();
+  private static Einstellungen cnf = new Einstellungen();
   @JsonIgnore
-  private sql_statment sql = new sql_statment();
+  private static Connection con = sql_connect.intern_connect();
+  @JsonIgnore
+  private static sql_statment sql = new sql_statment();
+
 
   public String ersterStempel;
   public String letzterStempel;
@@ -33,6 +36,7 @@ public class Arbeitstag {
   // Boolens
   public boolean feiertag = false;
   public boolean gleitzeittag = false;
+  public boolean urlaubstag = false;
   public boolean arbeitszeitenEingehalten;
   public boolean pausenEingehalten;
   public boolean maxArbeitszeitEingehalten;
@@ -44,20 +48,29 @@ public class Arbeitstag {
 
   public Arbeitstag(String tag, double arbeitszeit, String[][] zeitstempel, String ersterStempel, String letzterStempel, String mid) {
 
+    try {
+      this.tag = tag;
+      this.arbeitszeit = arbeitszeit;
+      this.zeitstempel = zeitstempel;
+      this.ersterStempel = ersterStempel;
+      this.letzterStempel = letzterStempel;
+      this.mid = mid;
+      this.sollArbeitszeit = getSollarbeitszeit();
+      this.maxArbeitszeit = getMaxArbeitszeit();
 
-    this.tag = tag;
-    this.arbeitszeit = arbeitszeit;
-    this.zeitstempel = zeitstempel;
-    this.ersterStempel = ersterStempel;
-    this.letzterStempel = letzterStempel;
-    this.mid = mid;
-    if (this.zeitstempel != null){
-      vorgabenAnwenden();
-    } else {
-      // Überpüfe ob Tag Feiertag oder Gleitzeittag ist
-      feiertag = aTag.istTagFeiertag(this.tag,con);
-      gleitzeittag = aTag.istTagGleitzeitag(this.tag, mid, con);
-      if (feiertag || gleitzeittag) this.arbeitszeit = Sollarbeitszeit();
+      if (this.zeitstempel != null){
+        vorgabenAnwenden();
+      } else {
+        // Überpüfe ob Tag Feiertag oder Gleitzeittag ist
+        feiertag = aTag.istTagFeiertag(this.tag,con);
+        urlaubstag = aTag.istTagUrlaubstag(this.tag,mid,con);
+        if (!urlaubstag){
+          gleitzeittag = aTag.istTagGleitzeitag(this.tag, mid, con);
+        }
+        if (feiertag || gleitzeittag || urlaubstag ) this.arbeitszeit = sollArbeitszeit;
+      }
+    }catch (Exception e){
+      System.err.println("!ERROR! Fehler im Arbeitstag Constructor: "+e);
     }
 
 
