@@ -4,13 +4,22 @@
     <th>{{'arbeitstagliste.firstStamp'|translate}}</th>
     <th>{{'arbeitstagliste.lastStamp'|translate}}</th>
     <th>{{'arbeitstagliste.worktime'|translate}}</th>
+    <th>{{'arbeitstagliste.warning'|translate}}</th>
     <th></th>
+    <th>{{'arbeitstagliste.overtime'|translate}}</th>
   </tr>
   <tr *ngFor="let arbeitstag of arbeitstagListe">
     <td>{{arbeitstag.tag}}</td>
     <td>{{arbeitstag.ersterStempel.substring(10)}}</td>
     <td>{{arbeitstag.letzterStempel.substring(10)}}</td>
-    <td>{{arbeitstag.arbeitszeit}}</td>
+    <td>{{arbeitstag.arbeitszeit.toFixed(2)}}</td>
+    <td>
+      <div class="holiday" *ngIf="arbeitstag.feiertag">{{'arbeitstagliste.holiday'|translate}}</div>
+      <div class="holiday" *ngIf="arbeitstag.gleitzeittag">{{'arbeitstagliste.flexibleday'|translate}}</div>
+      <div class="warning" *ngIf="arbeitstag.zeitstempel.length % 2 != 0">{{'arbeitstagliste.missingStamp'|translate}}</div>
+      <div class="warning" *ngIf="!arbeitstag.arbeitszeitenEingehalten">{{'arbeitstagliste.timeoutofbounds'|translate}}</div>
+    </td>
     <td><button (click)="openEntries(arbeitstag.zeitstempel)">{{'arbeitstagliste.allentries'|translate}}</button></td>
+    <td>{{(arbeitstag.arbeitszeit - sollarbeitszeit).toFixed(2)}}</td>
   </tr>
 </table>
