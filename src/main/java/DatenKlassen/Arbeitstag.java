@@ -1,5 +1,6 @@
 package DatenKlassen;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import db.ArbeitstagPruefen;
 import db.Einstellungen;
 import db.sql_connect;
@@ -11,10 +12,15 @@ import java.sql.Timestamp;
 
 @Data
 public class Arbeitstag {
+  @JsonIgnore
   private ArbeitstagPruefen aTag = new ArbeitstagPruefen();
-  private static Connection con = sql_connect.intern_connect();
-  private static sql_statment sql = new sql_statment();
+  @JsonIgnore
   private static Einstellungen cnf = new Einstellungen();
+  @JsonIgnore
+  private static Connection con = sql_connect.intern_connect();
+  @JsonIgnore
+  private static sql_statment sql = new sql_statment();
+
 
   public String ersterStempel;
   public String letzterStempel;
@@ -41,6 +47,7 @@ public class Arbeitstag {
 
 
   public Arbeitstag(String tag, double arbeitszeit, String[][] zeitstempel, String ersterStempel, String letzterStempel, String mid) {
+
     try {
       this.tag = tag;
       this.arbeitszeit = arbeitszeit;
@@ -71,10 +78,9 @@ public class Arbeitstag {
 
   public void vorgabenAnwenden() {
     // Überpüfe ob Tag Feiertag oder Gleitzeittag ist
-    Connection con = new sql_connect().intern_connect();
     feiertag = aTag.istTagFeiertag(this.tag, con);
     gleitzeittag = aTag.istTagGleitzeitag(this.tag, mid, con);
-    if (feiertag || gleitzeittag) arbeitszeit = Sollarbetiszeit();
+    if (feiertag || gleitzeittag) arbeitszeit = Sollarbeitszeit();
     arbeitszeitenEingehalten = ZeitGrenzen();
     pausenEingehalten = sindPausenEingehalten();
     maxArbeitszeitEingehalten = istMaxArbeitszeitEingehalten();
@@ -110,13 +116,12 @@ public class Arbeitstag {
 
   private double getMaxArbeitszeit(){
     try {
-      Connection con = new sql_connect().intern_connect();
-      if (!sql.select(""+cnf.mb_konto+","+cnf.mb_arbeitsmodell+","+cnf.mitarbeiter+","+cnf.mb_grenzwerte,"G_TAG"," WHERE M_ID = MK_M_ID AND MK_A_ID = A_ID AND A_G_ID = G_ID AND M_ID=\'"+mid+"\'",con)) {
+      if (!sql.select(""+Einstellungen.mb_konto+","+Einstellungen.mb_arbeitsmodell+","+Einstellungen.mitarbeiter+","+Einstellungen.mb_grenzwerte,"G_TAG"," WHERE M_ID = MK_M_ID AND MK_A_ID = A_ID AND A_G_ID = G_ID AND M_ID='"+mid+"'",con)) {
         System.err.println("!ERROR! Fehler in getMaxarbeitszeit: Keine Zeit Angegeben");
         return -1;
       }// End If
       // Wert Vorhanden
-      return Double.parseDouble(sql.select_arr(""+cnf.mb_konto+","+cnf.mb_arbeitsmodell+","+cnf.mitarbeiter+","+cnf.mb_grenzwerte,"G_TAG"," WHERE M_ID = MK_M_ID AND MK_A_ID = A_ID AND A_G_ID = G_ID AND M_ID=\'"+mid+"\'",con)[0][0]);
+      return Double.parseDouble(sql.select_arr(""+Einstellungen.mb_konto+","+Einstellungen.mb_arbeitsmodell+","+Einstellungen.mitarbeiter+","+Einstellungen.mb_grenzwerte,"G_TAG"," WHERE M_ID = MK_M_ID AND MK_A_ID = A_ID AND A_G_ID = G_ID AND M_ID='"+mid+"'",con)[0][0]);
     }catch (Exception e){
       System.err.println("!ERROR! Fehler in getMaxarbeitszeit: "+e);
       return -1;
@@ -125,78 +130,19 @@ public class Arbeitstag {
 
   private double getSollarbeitszeit(){
     try {
-      Connection con = new sql_connect().intern_connect();
-      if (!sql.select(""+cnf.mb_konto+","+cnf.mb_arbeitsmodell+","+cnf.mitarbeiter+","+cnf.mb_grenzwerte,"A_Sollstunden/A_Solltage"," WHERE M_ID = MK_M_ID AND MK_A_ID = A_ID AND A_G_ID = G_ID AND M_ID=\'"+mid+"\'",con)) {
+      if (!sql.select(""+Einstellungen.mb_konto+","+Einstellungen.mb_arbeitsmodell+","+Einstellungen.mitarbeiter+","+Einstellungen.mb_grenzwerte,"A_Sollstunden/A_Solltage"," WHERE M_ID = MK_M_ID AND MK_A_ID = A_ID AND A_G_ID = G_ID AND M_ID='"+mid+"'",con)) {
         System.err.println("!ERROR! Fehler in getMaxarbeitszeit: Keine Zeit Angegeben");
         return -1;
       }// End If
       // Wert Vorhanden
-      return Double.parseDouble(sql.select_arr(""+cnf.mb_konto+","+cnf.mb_arbeitsmodell+","+cnf.mitarbeiter+","+cnf.mb_grenzwerte,"A_Sollstunden/A_Solltage"," WHERE M_ID = MK_M_ID AND MK_A_ID = A_ID AND A_G_ID = G_ID AND M_ID=\'"+mid+"\'",con)[0][0]);
+      return Double.parseDouble(sql.select_arr(""+Einstellungen.mb_konto+","+Einstellungen.mb_arbeitsmodell+","+Einstellungen.mitarbeiter+","+Einstellungen.mb_grenzwerte,"A_Sollstunden/A_Solltage"," WHERE M_ID = MK_M_ID AND MK_A_ID = A_ID AND A_G_ID = G_ID AND M_ID='"+mid+"'",con)[0][0]);
     }catch (Exception e){
       System.err.println("!ERROR! Fehler in getMaxarbeitszeit: "+e);
       return -1;
     }// try Catc
   }// End get sollarbeitszeit
 
-  private double Sollarbetiszeit() {
+  private double Sollarbeitszeit() {
     return this.sollArbeitszeit;
-  }
-
-
-  // Getter und Setter @AutoGenerarated
-  public String getTag() {
-    return tag;
-  }
-
-  public void setTag(String tag) {
-    this.tag = tag;
-  }
-
-  public double getArbeitszeit() {
-    return arbeitszeit;
-  }
-
-  public void setArbeitszeit(double arbeitszeit) {
-    this.arbeitszeit = arbeitszeit;
-  }
-
-  public String[][] getZeistempel() {
-    return this.zeitstempel;
-  }
-
-  public void setZeistempel(String[][] zeistempel) {
-    this.zeitstempel = zeistempel;
-  }
-
-  public String getErsterStempel() {
-    return ersterStempel;
-  }
-
-  public void setErsterStempel(String ersterStempel) {
-    this.ersterStempel = ersterStempel;
-  }
-
-  public String getLetzterStempel() {
-    return letzterStempel;
-  }
-
-  public void setLetzterStempel(String letzterStempel) {
-    this.letzterStempel = letzterStempel;
-  }
-
-  public boolean isFeiertag() {
-    return feiertag;
-  }
-
-  public void setFeiertag(boolean feiertag) {
-    this.feiertag = feiertag;
-  }
-
-  public boolean isGleitzeittag() {
-    return gleitzeittag;
-  }
-
-  public void setGleitzeittag(boolean gleitzeittag) {
-    this.gleitzeittag = gleitzeittag;
   }
 }
