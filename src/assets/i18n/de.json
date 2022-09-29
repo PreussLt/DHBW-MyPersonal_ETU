@@ -15,9 +15,9 @@
   },
 
   "overview": {
-    "bid": "Buchungs-ID",
     "zid": "Zeiteintrag-ID",
-    "timestamp": "Zeitstempel"
+    "timestamp": "Zeitstempel",
+    "edit": "Bearbeiten"
   },
 
   "changepw":

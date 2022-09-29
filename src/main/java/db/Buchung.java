@@ -13,9 +13,8 @@ public class Buchung {
   private final sql_statment sql = new sql_statment();
 
 // Neuer Zeiteintrag für dne Heutigen Tag
-  public boolean neuerZeiteintrag(String mID){
-    // NEue Datenbnak Verbindung
-    Connection con = sql_connect.intern_connect();
+  public boolean neuerZeiteintrag(String mID, Connection con){
+
     if (!ueberpruefeBuchungvorhanden(getHeute(),mID,con)){
       System.err.println("!ERROR! Buchung für heute existiert nicht");
       return false;
@@ -32,9 +31,8 @@ public class Buchung {
   }
 
 // Neuer Zeiteintrag für speziellen Tag
-public boolean neuerZeiteintrag(String mID,String tag,String Zeitstempel){
-  // NEue Datenbnak Verbindung
-  Connection con = sql_connect.intern_connect();
+public boolean neuerZeiteintrag(String mID,String tag,String Zeitstempel, Connection con){
+
   if (!ueberpruefeBuchungvorhanden(tag,mID,con)){
     System.err.println("!ERROR! Buchung für heute existiert nicht");
     return false;
@@ -51,9 +49,7 @@ public boolean neuerZeiteintrag(String mID,String tag,String Zeitstempel){
 }
 
   // Buchung für den Heutigen Tag
-  public boolean neueBuchung(String mID) {
-    // NEue Datenbnak Verbindung
-    Connection con = sql_connect.intern_connect();
+  public boolean neueBuchung(String mID, Connection con) {
 
     boolean flag = ueberpruefeBuchungvorhanden(getHeute(),mID,con); // Falg für Bucung nicht schon Vorhanden
 
@@ -70,9 +66,8 @@ public boolean neuerZeiteintrag(String mID,String tag,String Zeitstempel){
   }// Neue Bucung
 
   // Neue Buchung für speziellen Tag
-  public boolean neueBuchung(String mID,String tag) {
+  public boolean neueBuchung(String mID,String tag, Connection con) {
     // NEue Datenbnak Verbindung
-    Connection con = sql_connect.intern_connect();
 
     boolean flag = ueberpruefeBuchungvorhanden(tag,mID,con); // Falg für Bucung nicht schon Vorhanden
 
@@ -87,9 +82,8 @@ public boolean neuerZeiteintrag(String mID,String tag,String Zeitstempel){
     return true;
   }// Neue Buchung
 
-  public boolean loescheBuchung(String bid){
+  public boolean loescheBuchung(String bid, Connection con){
     // NEue Datenbnak Verbindung
-    Connection con = sql_connect.intern_connect();
     Boolean zeiteintraege = sql.select(Einstellungen.mb_zeiteintrag,"*","BZ_B_ID='"+bid+"'",con);
     System.out.println("r");
     if (!sql.delete(Einstellungen.mb_zeiteintrag,"BZ_B_ID='"+bid+"'",con)) return false;
@@ -99,15 +93,13 @@ public boolean neuerZeiteintrag(String mID,String tag,String Zeitstempel){
 
   }// lösche Buchung und damit auch die Zeiteinträge
 
-  public boolean loescheZeiteintraege(String bz_id){
-    Connection con = sql_connect.intern_connect();
+  public boolean loescheZeiteintraege(String bz_id, Connection con){
     return sql.delete(Einstellungen.mb_zeiteintrag, "BZ_B_ID='" + bz_id + "'", con);
   }
 
 
-  public ArrayList<BuchungModel> getAllBuchungen(String mid){
+  public ArrayList<BuchungModel> getAllBuchungen(String mid, Connection con){
     ArrayList<BuchungModel> buchungen = new ArrayList<>();
-      Connection con = sql_connect.intern_connect();
       String bedingungen = String.format("WHERE B_M_ID = %d ORDER BY `b_buchung`.`B_Tag` ASC", Integer.parseInt(mid));
       ResultSet rs = sql.fetchAll(Einstellungen.mb_buchung, bedingungen, con);
     try {

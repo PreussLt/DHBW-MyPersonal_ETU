@@ -45,8 +45,7 @@ public class ArbeitstagPruefen {
   }
 
 
-  public  boolean istTagFeiertag(String tag){
-    Connection con = sql_connect.extern_connect();
+  public  boolean istTagFeiertag(String tag,Connection con){
     return sql.select(Einstellungen.feiertag, "f_tag", "WHERE f_tag='" + tag + "'", con);
   }// ISt der Tag ein Feiertag
 
@@ -58,7 +57,7 @@ public class ArbeitstagPruefen {
   public double sindZeiteneingehalten(String[][] zEintrag, Timestamp tMin,Timestamp tMax){ // gibt für true 0 zurück
     double abzugZeit=0;
     if (stringToTS(zEintrag[0][0]).before(tMin)) abzugZeit += getDifTime(stringToTS(zEintrag[0][0]),tMin);
-    if (stringToTS(zEintrag[3][0]).after(tMax)) abzugZeit+= getDifTime(tMax,stringToTS(zEintrag[(zEintrag.length-1)][0]));
+    if (stringToTS(zEintrag[zEintrag.length-1][0]).after(tMax)) abzugZeit+= getDifTime(tMax,stringToTS(zEintrag[(zEintrag.length-1)][0]));
     return abzugZeit;
   }
 
