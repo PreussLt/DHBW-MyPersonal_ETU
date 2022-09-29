@@ -34,7 +34,6 @@ public class Einstellungen {
   public static String mb_grenzwerte ="g_grenzwerte"; // Grenzwerte der Arbeitsmodelle
 
 
-
   //  Passwort sicherheits einstellungen
   public static boolean pw_gk_schreibung = false; // Mindest eins Char muss groß / klein sein
   public static boolean pw_Zahl = false; // Mindestens eine Zahl muss dabei sein
