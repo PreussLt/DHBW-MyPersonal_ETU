@@ -11,9 +11,14 @@ export class AppComponent implements OnInit{
   constructor(private router: Router, private translate:TranslateService) {
     translate.setDefaultLang('de');
     translate.use('de');
+    window.scrollTo(0,0)
   }
 
   ngOnInit(): void {
     this.router.navigate(["/home"]);
+  }
+
+  useLanguage(lg: string): void{
+    this.translate.use(lg);
   }
 }

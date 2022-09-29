@@ -58,4 +58,8 @@ export class LoginComponent implements OnInit {
       });
     }
   }
+
+  setLanguage(lg: string): void{
+    this.translate.use(lg);
+  }
   }

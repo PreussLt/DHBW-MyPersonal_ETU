@@ -5,3 +5,15 @@
 .holiday{
   color:#ffe358;
 }
+
+tr:nth-child(even){
+  background-color:#3e4094;
+}
+
+h1{
+  width: 70%;
+  margin-left: 0.5%;
+}
+th{
+  background-color: #3c2c62;
+}

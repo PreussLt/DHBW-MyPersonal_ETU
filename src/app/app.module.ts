@@ -16,6 +16,7 @@ import { NewentryfieldComponent } from './components/newentryfield/newentryfield
 import { ChangePwComponent } from './components/change-pw/change-pw.component';
 import { ArbeitstagslisteComponent } from './components/arbeitstagsliste/arbeitstagsliste.component';
 import {EditEntryComponent} from "./components/edit-entry/edit-entry.component";
+import { SettingsComponent } from './components/settings/settings/settings.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import {EditEntryComponent} from "./components/edit-entry/edit-entry.component";
     NewentryfieldComponent,
     ChangePwComponent,
     ArbeitstagslisteComponent,
-    EditEntryComponent
+    EditEntryComponent,
+    SettingsComponent
   ],
   imports: [
     BrowserModule,

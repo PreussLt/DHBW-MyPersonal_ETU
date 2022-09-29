@@ -1,7 +1,20 @@
 <form [formGroup]="editEntry">
-  <input type="text" formControlName="id" readonly>
-  <input type="text" formControlName="date" readonly>
-  <input type="time" formControlName="time">
-  <button (click)="edit()">Änderungen übernehmen</button>
-  <button (click)="delete()">Eintrag löschen</button>
+  <div class="fields" style="width: 50%; margin: auto;">
+    <div class="field half">
+      <label for="id">Zeiteintrags-ID</label>
+      <input type="text" id="id" formControlName="id" readonly>
+    </div>
+    <div class="field half">
+      <label for="date">Datum</label>
+      <input id="date" type="text" formControlName="date" readonly>
+    </div>
+    <div class="field">
+      <label for="time">Zeitstempel</label>
+      <input id="time" type="time" formControlName="time">
+    </div>
+    <div class="field">
+      <button (click)="edit()">Änderungen übernehmen</button>
+      <button (click)="delete()">Eintrag löschen</button>
+    </div>
+  </div>
 </form>
