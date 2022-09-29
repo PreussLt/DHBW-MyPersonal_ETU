@@ -63,12 +63,24 @@ public class TimeEntryController {
     return false;
   }
 
+  /**
+   * Requesthandler zum Abrufen eines bestimmten Zeiteintrags anhand der ID
+   * @param id ID des Zeiteintrags
+   * @see TimeEntry
+   * @return TimeEntry Zeiteintrag aus DB
+   */
   @PostMapping("/getEntry")
   public TimeEntry getEntry(@RequestBody String id){
     Buchungsdaten bd = new Buchungsdaten();
     return bd.getEntryById(id);
   }
 
+  /**
+   * Requesthandler zum Beabeiten eines Zeiteintrags
+   * @param timeEntry Der zu bearbeitende Eintrag
+   * @see TimeEntry
+   * @return boolean - War die Aenderung erfolgreich?
+   */
   @PostMapping("/updateEntry")
   public boolean updateEntry(@RequestBody TimeEntry timeEntry){
     Buchungsdaten bd = new Buchungsdaten();
