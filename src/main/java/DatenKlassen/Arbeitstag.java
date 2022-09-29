@@ -12,7 +12,7 @@ import java.sql.Timestamp;
 @Data
 public class Arbeitstag {
   private ArbeitstagPruefen aTag = new ArbeitstagPruefen();
-  private Connection con = sql_connect.intern_connect();
+  //private static Connection con = sql_connect.intern_connect();
   private sql_statment sql = new sql_statment();
   private Einstellungen cnf = new Einstellungen();
 
@@ -40,27 +40,32 @@ public class Arbeitstag {
 
 
   public Arbeitstag(String tag, double arbeitszeit, String[][] zeitstempel, String ersterStempel, String letzterStempel, String mid) {
-
-
-    this.tag = tag;
-    this.arbeitszeit = arbeitszeit;
-    this.zeitstempel = zeitstempel;
-    this.ersterStempel = ersterStempel;
-    this.letzterStempel = letzterStempel;
-    this.mid = mid;
-    if (this.zeitstempel != null){
-      vorgabenAnwenden();
-    } else {
-      // Überpüfe ob Tag Feiertag oder Gleitzeittag ist
-      feiertag = aTag.istTagFeiertag(this.tag,con);
-      gleitzeittag = aTag.istTagGleitzeitag(this.tag, mid, con);
-      if (feiertag || gleitzeittag) this.arbeitszeit = Sollarbetiszeit();
+    try {
+      this.tag = tag;
+      this.arbeitszeit = arbeitszeit;
+      this.zeitstempel = zeitstempel;
+      this.ersterStempel = ersterStempel;
+      this.letzterStempel = letzterStempel;
+      this.mid = mid;
+      Connection con = new sql_connect().intern_connect();
+      if (this.zeitstempel != null){
+        vorgabenAnwenden();
+      } else {
+        // Überpüfe ob Tag Feiertag oder Gleitzeittag ist
+        feiertag = aTag.istTagFeiertag(this.tag,con);
+        gleitzeittag = aTag.istTagGleitzeitag(this.tag, mid, con);
+        if (feiertag || gleitzeittag) this.arbeitszeit = Sollarbetiszeit();
+      }
+    }catch (Exception e){
+      System.err.println("!ERROR! Fehler im Arbeitstag Constructor: "+e);
     }
+
 
   }// Constructor
 
   public void vorgabenAnwenden() {
     // Überpüfe ob Tag Feiertag oder Gleitzeittag ist
+    Connection con = new sql_connect().intern_connect();
     feiertag = aTag.istTagFeiertag(this.tag, con);
     gleitzeittag = aTag.istTagGleitzeitag(this.tag, mid, con);
     if (feiertag || gleitzeittag) arbeitszeit = Sollarbetiszeit();
@@ -99,6 +104,7 @@ public class Arbeitstag {
 
   private double getMaxArbeitszeit(){
     try {
+      Connection con = new sql_connect().intern_connect();
       if (!sql.select(""+cnf.mb_konto+","+cnf.mb_arbeitsmodell+","+cnf.mitarbeiter+","+cnf.mb_grenzwerte,"G_TAG"," WHERE M_ID = MK_M_ID AND MK_A_ID = A_ID AND A_G_ID = G_ID AND M_ID=\'"+mid+"\'",con)) {
         System.err.println("!ERROR! Fehler in getMaxarbeitszeit: Keine Zeit Angegeben");
         return -1;
@@ -113,6 +119,7 @@ public class Arbeitstag {
 
   private double getSollarbeitszeit(){
     try {
+      Connection con = new sql_connect().intern_connect();
       if (!sql.select(""+cnf.mb_konto+","+cnf.mb_arbeitsmodell+","+cnf.mitarbeiter+","+cnf.mb_grenzwerte,"A_Sollstunden/A_Solltage"," WHERE M_ID = MK_M_ID AND MK_A_ID = A_ID AND A_G_ID = G_ID AND M_ID=\'"+mid+"\'",con)) {
         System.err.println("!ERROR! Fehler in getMaxarbeitszeit: Keine Zeit Angegeben");
         return -1;
