@@ -1,13 +1,20 @@
 package DatenKlassen;
 
 import db.ArbeitstagPruefen;
+import db.Einstellungen;
+import db.sql_connect;
+import db.sql_statment;
 import lombok.Data;
 
+import java.sql.Connection;
 import java.sql.Timestamp;
 
 @Data
 public class Arbeitstag {
   private ArbeitstagPruefen aTag = new ArbeitstagPruefen();
+  private Connection con = sql_connect.intern_connect();
+  private sql_statment sql = new sql_statment();
+  private Einstellungen cnf = new Einstellungen();
   public String ersterStempel;
   public String letzterStempel;
   public String mid;
@@ -41,8 +48,8 @@ public class Arbeitstag {
       vorgabenAnwenden();
     } else {
       // Überpüfe ob Tag Feiertag oder Gleitzeittag ist
-      feiertag = aTag.istTagFeiertag(this.tag);
-      gleitzeittag = aTag.istTagGleitzeitag(this.tag, mid);
+      feiertag = aTag.istTagFeiertag(this.tag,con);
+      gleitzeittag = aTag.istTagGleitzeitag(this.tag, mid, con);
       if (feiertag || gleitzeittag) this.arbeitszeit = Sollarbetiszeit();
     }
 
@@ -61,8 +68,8 @@ public class Arbeitstag {
     return true;
   }
 
-  private boolean istMaxArbeitszeitEingehalten() {
-    double maxArbeitszeit = 10; // TODO: 19.09.2022 Aus datenbank ziehen
+  public boolean istMaxArbeitszeitEingehalten() {
+    double maxArbeitszeit = getMaxArbeitszeit();
     if (arbeitszeit > maxArbeitszeit) {
       arbeitszeit = maxArbeitszeit;
       return false;
@@ -87,7 +94,15 @@ public class Arbeitstag {
     return 7.6; // TODO: 19.09.2022 Hier die Datenbank verbindung aufbauen und den Berechneten Wert ausgeben
   }
 
-
+  private double getMaxArbeitszeit(){
+    try {
+      String sql_stm = "WHERE M_ID = MK_M_ID AND MK_A_ID = A_ID AND A_G_ID = G_ID AND M_ID=\'"+mid+"\';";
+      return Double.parseDouble(sql.select_arr(""+cnf.mb_konto+","+cnf.mb_arbeitsmodell+","+cnf.mitarbeiter+","+cnf.mb_grenzwerte,"G_TAG",sql_stm,con)[0][0]);
+    }catch (Exception e){
+      System.err.println("!ERROR! Fehler in getMaxArbeitszeit: "+e);
+      return -1;
+    }
+  }
 
 
   // Getter und Setter @AutoGenerarated

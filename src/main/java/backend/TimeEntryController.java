@@ -6,11 +6,13 @@ import DatenKlassen.NewDay;
 import DatenKlassen.TimeEntry;
 import db.Buchung;
 import db.Buchungsdaten;
+import db.sql_connect;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -21,7 +23,7 @@ import java.util.Collections;
 @RestController
 @CrossOrigin (origins = "http://localhost:4200")
 public class TimeEntryController {
-
+  private static Connection con = new sql_connect().intern_connect();
   /**
    * Requesthandler zum Ausgeben aller Zeiteinträge eines Mitarbeiters.
    * @param mid MitarbeiterID als String.
@@ -31,11 +33,11 @@ public class TimeEntryController {
   public TimeEntry[] getEntries(@RequestBody String mid){
     Buchung b = new Buchung();
     Buchungsdaten bd = new Buchungsdaten();
-    ArrayList<BuchungModel> buchungen = b.getAllBuchungen(mid);
+    ArrayList<BuchungModel> buchungen = b.getAllBuchungen(mid, con);
     ArrayList<TimeEntry> entries = new ArrayList<>();
 
     for(BuchungModel buchung : buchungen){
-      entries.addAll(bd.getAllTimeentries(buchung.getBid()));
+      entries.addAll(bd.getAllTimeentries(buchung.getBid(),con));
     }
 
     Collections.sort(entries);
@@ -58,7 +60,7 @@ public class TimeEntryController {
     Buchung buchung = new Buchung();
     Buchungsdaten buchungsdaten = new Buchungsdaten();
     String timestamp = String.format("%s %s:00", entry.getDate(), entry.getTime());
-    if(buchung.neueBuchung(entry.getMid(), entry.getDate())){
+    if(buchung.neueBuchung(entry.getMid(), entry.getDate(),con)){
       return buchungsdaten.setZeitintrag(entry.getMid(), entry.getDate(), timestamp);
     }
     return false;
@@ -74,18 +76,18 @@ public class TimeEntryController {
   @PostMapping("/getEntry")
   public TimeEntry getEntry(@RequestBody String id){
     Buchungsdaten bd = new Buchungsdaten();
-    return bd.getEntryById(id);
+    return bd.getEntryById(id,con);
   }
 
   @PostMapping("/updateEntry")
   public boolean updateEntry(@RequestBody TimeEntry timeEntry){
     Buchungsdaten bd = new Buchungsdaten();
-    return bd.updateEntry(timeEntry);
+    return bd.updateEntry(timeEntry,con);
   }
 
   @PostMapping("/deleteEntry")
   public boolean deleteEntry(@RequestBody String zid){
     Buchungsdaten bd = new Buchungsdaten();
-    return bd.deleteEntry(zid);
+    return bd.deleteEntry(zid,con);
   }
 }

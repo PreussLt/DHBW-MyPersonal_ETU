@@ -45,13 +45,11 @@ public class ArbeitstagPruefen {
   }
 
 
-  public  boolean istTagFeiertag(String tag){
-    Connection con = sql_connect.extern_connect();
+  public  boolean istTagFeiertag(String tag,Connection con){
     return sql.select(Einstellungen.feiertag, "f_tag", "WHERE f_tag='" + tag + "'", con);
   }// ISt der Tag ein Feiertag
 
-  public boolean istTagGleitzeitag(String tag, String mid){
-    Connection con = sql_connect.extern_connect();
+  public boolean istTagGleitzeitag(String tag, String mid, Connection con){
     return sql.select(Einstellungen.gleitzeittage, "MG_TAG", "WHERE  MG_TAG='" + tag + "' AND MG_M_ID='" + mid + "'", con);
   }// Ist der Tag ein Gleitzeit tag?
 
