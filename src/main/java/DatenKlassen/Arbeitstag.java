@@ -12,9 +12,9 @@ import java.sql.Timestamp;
 @Data
 public class Arbeitstag {
   private ArbeitstagPruefen aTag = new ArbeitstagPruefen();
-  //private static Connection con = sql_connect.intern_connect();
-  private sql_statment sql = new sql_statment();
-  private Einstellungen cnf = new Einstellungen();
+  private static Connection con = sql_connect.intern_connect();
+  private static sql_statment sql = new sql_statment();
+  private static Einstellungen cnf = new Einstellungen();
 
   public String ersterStempel;
   public String letzterStempel;
@@ -30,6 +30,7 @@ public class Arbeitstag {
   // Boolens
   public boolean feiertag = false;
   public boolean gleitzeittag = false;
+  public boolean urlaubstag = false;
   public boolean arbeitszeitenEingehalten;
   public boolean pausenEingehalten;
   public boolean maxArbeitszeitEingehalten;
@@ -47,14 +48,19 @@ public class Arbeitstag {
       this.ersterStempel = ersterStempel;
       this.letzterStempel = letzterStempel;
       this.mid = mid;
-      Connection con = new sql_connect().intern_connect();
+      this.sollArbeitszeit = getSollarbeitszeit();
+      this.maxArbeitszeit = getMaxArbeitszeit();
+
       if (this.zeitstempel != null){
         vorgabenAnwenden();
       } else {
         // Überpüfe ob Tag Feiertag oder Gleitzeittag ist
         feiertag = aTag.istTagFeiertag(this.tag,con);
-        gleitzeittag = aTag.istTagGleitzeitag(this.tag, mid, con);
-        if (feiertag || gleitzeittag) this.arbeitszeit = Sollarbetiszeit();
+        urlaubstag = aTag.istTagUrlaubstag(this.tag,mid,con);
+        if (!urlaubstag){
+          gleitzeittag = aTag.istTagGleitzeitag(this.tag, mid, con);
+        }
+        if (feiertag || gleitzeittag || urlaubstag ) this.arbeitszeit = sollArbeitszeit;
       }
     }catch (Exception e){
       System.err.println("!ERROR! Fehler im Arbeitstag Constructor: "+e);

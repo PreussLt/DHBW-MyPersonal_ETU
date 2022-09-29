@@ -49,6 +49,9 @@ public class ArbeitstagPruefen {
     return sql.select(Einstellungen.feiertag, "f_tag", "WHERE f_tag='" + tag + "'", con);
   }// ISt der Tag ein Feiertag
 
+  public boolean istTagUrlaubstag(String tag, String mid, Connection con){
+    return sql.select(Einstellungen.gleitzeittage, "MG_TAG", "WHERE  MG_TAG='" + tag + "'AND MG_Urlaub=\'1\' AND MG_M_ID='" + mid + "'", con);
+  }// Ist der Tag ein Urlaubstag tag?
 
   public boolean istTagGleitzeitag(String tag, String mid, Connection con){
     return sql.select(Einstellungen.gleitzeittage, "MG_TAG", "WHERE  MG_TAG='" + tag + "'AND MG_Urlaub=\'0\' AND MG_M_ID='" + mid + "'", con);
