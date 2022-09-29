@@ -51,4 +51,15 @@ export class EditEntryComponent implements OnInit {
     })
   }
 
+  delete(): void{
+    this.timeEntryService.deleteEntry(this.f['id'].value).subscribe(deleted => {
+      if(deleted){
+        this.router.navigate(["/arbeitstage"]);
+      }
+      else {
+        console.log("Failure");
+      }
+    })
+  }
+
 }

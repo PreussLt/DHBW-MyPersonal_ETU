@@ -31,7 +31,6 @@ export class OverviewTimeentriesComponent implements OnInit {
     else {
       this.entries = JSON.parse(array);
     }
-    console.log(this.entries)
   }
 
   editEntry(id: string): void{
