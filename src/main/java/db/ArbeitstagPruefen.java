@@ -50,10 +50,8 @@ public class ArbeitstagPruefen {
   }// ISt der Tag ein Feiertag
 
 
-
   public boolean istTagGleitzeitag(String tag, String mid, Connection con){
     return sql.select(Einstellungen.gleitzeittage, "MG_TAG", "WHERE  MG_TAG='" + tag + "'AND MG_Urlaub=\'0\' AND MG_M_ID='" + mid + "'", con);
-
   }// Ist der Tag ein Gleitzeit tag?
 
   public double sindZeiteneingehalten(String[][] zEintrag, Timestamp tMin,Timestamp tMax){ // gibt für true 0 zurück
