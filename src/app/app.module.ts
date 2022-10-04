@@ -16,6 +16,7 @@ import {ChangePwComponent} from './components/change-pw/change-pw.component';
 import {ArbeitstagslisteComponent} from './components/arbeitstagsliste/arbeitstagsliste.component';
 import {EditEntryComponent} from "./components/edit-entry/edit-entry.component";
 import {SettingsComponent} from './components/settings/settings/settings.component';
+import { GrenzwertSettingsComponent } from './components/grenzwert-settings/grenzwert-settings.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import {SettingsComponent} from './components/settings/settings/settings.compone
     ArbeitstagslisteComponent,
     EditEntryComponent,
     SettingsComponent,
+    GrenzwertSettingsComponent,
   ],
   imports: [
     BrowserModule,

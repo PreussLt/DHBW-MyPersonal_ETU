@@ -76,6 +76,27 @@
     "confirmdelete": "Stempel löschen",
     "confirmdeletemsg": "Möchten Sie diesen Zeitstempel wirklich löschen?",
     "confirm": "Bestätigen"
+  },
+  "newuser":
+  {
+    "name": "Vorname",
+    "surname": "Nachname",
+    "personellnumber": "Personalnummer",
+    "pw": "Passwort",
+    "pwconfirm": "Passwort bestätigen"
+  },
+  "grenzwerte":
+  {
+    "select": "Konfiguration wählen",
+    "maxtag": "Maximale Arbeitszeit/Tag",
+    "maxwoche": "Maximale Arbeitszeit/Woche",
+    "yellow": "Grenzwert Gelb",
+    "red": "Grenzwert Rot",
+    "confirm": "Änderungen übernehmen",
+    "failure": "Etwas ist schiefgelaufen. Bitte wenden Sie sich an einen Administrator",
+    "success": "Änderungen erfolgreich übernommen",
+    "yGr": "Gleitzeit Gelb größer als Gleitzeit Rot",
+    "dGw": "Max. Zeit/Tag größer als Max. Zeit/Woche"
   }
 
 }
