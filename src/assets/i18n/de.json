@@ -45,7 +45,15 @@
     "vacation": "Urlaub",
     "overtime": "Gleitzeit",
     "holiday": "Feiertag",
-    "flexibleday": "Gleitzeittag"
+    "flexibleday": "Gleitzeittag",
+    "deleteFreiertag": "Eintrag löschen",
+    "confirmDelete": "LÖSCHEN BESTÄTIGEN",
+    "kindOfFlexibleday": "Art: Gleitzeittag",
+    "kindOfVacation": "Art: Urlaub",
+    "confirm": "Löschen",
+    "failure": "FEHLER",
+    "failuremsg": "Es ist ein Fehler beim Löschen des Eintrags aufgetreten",
+    "confirmFailure": "Bestätigen"
   },
 
   "newentry":
