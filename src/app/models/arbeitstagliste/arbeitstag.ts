@@ -12,6 +12,7 @@ export class Arbeitstag {
 
   feiertag: boolean;
   gleitzeittag: boolean;
+  urlaubstag: boolean;
   arbeitszeitenEingehalten: boolean;
   pausenEingehalten: boolean;
   maxArbeitszeitEingehalten: boolean;

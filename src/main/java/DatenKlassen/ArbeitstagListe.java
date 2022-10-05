@@ -13,7 +13,6 @@ import java.time.format.DateTimeFormatter;
 @Data
 public class ArbeitstagListe {
   // Hier die anderen Nötigen Klassen
-  private Einstellungen cnf = new Einstellungen();
   private sql_statment sql_statment = new sql_statment();
   private Buchungsdaten bch = new Buchungsdaten();
   private static Connection con = sql_connect.extern_connect();
@@ -38,9 +37,9 @@ public class ArbeitstagListe {
 
     private int getAnzahlArbeitstage(String eDatum, String aDatum){
     try {
-      if (sql_statment.select_arr(cnf.mb_buchung,"count(*)","WHERE B_M_ID=\'"+mid+"\' AND B_TAG >\'"+aDatum+"\' AND B_TAG <=\'"+eDatum+"\'",con)[0][0].equals(0)) return -1;
-      int tage = Integer.parseInt(sql_statment.select_arr(cnf.mb_buchung,"count(*)","WHERE B_M_ID=\'"+mid+"\' AND B_TAG >\'"+aDatum+"\' AND B_TAG <=\'"+eDatum+"\'",con)[0][0]);
-//      tage += Integer.parseInt(sql_statment.select_arr(cnf.gleitzeittage,"count(*)","WHERE MG_M_ID=\'"+mid+"\' AND MG_TAG >\'"+aDatum+"\' AND MG_TAG <=\'"+eDatum+"\'",con)[0][0]);
+      if (sql_statment.select_arr(Einstellungen.mb_buchung,"count(*)","WHERE B_M_ID='"+mid+"' AND B_TAG >'"+aDatum+"' AND B_TAG <='"+eDatum+"'",con)[0][0].equals(0)) return -1;
+      int tage = Integer.parseInt(sql_statment.select_arr(Einstellungen.mb_buchung,"count(*)","WHERE B_M_ID='"+mid+"' AND B_TAG >'"+aDatum+"' AND B_TAG <='"+eDatum+"'",con)[0][0]);
+      tage += Integer.parseInt(sql_statment.select_arr(Einstellungen.gleitzeittage,"count(*)","WHERE MG_M_ID='"+mid+"' AND MG_TAG >'"+aDatum+"' AND MG_TAG <='"+eDatum+"'",con)[0][0]);
       return tage;
     } catch (Exception e){
       System.err.println("!ERROR! Fehler in der Anzahl Arbeitstag: " + e);
@@ -55,9 +54,9 @@ public class ArbeitstagListe {
     try {
       System.err.println("*INFO* Länge:"+laengeListe);
       arbeitstage = new Arbeitstag[laengeListe];
-      if (!sql_statment.select(cnf.mb_buchung,"*","WHERE B_M_ID=\'"+mid+"\'",con)) return false;
-      String[][] arbt_tage = sql_statment.select_arr(cnf.mb_buchung,"B_TAG","WHERE B_M_ID=\'"+mid+"\'",con);
-      String[][] gleit_tage = sql_statment.select_arr(cnf.gleitzeittage,"MG_TAG, MG_Urlaub","WHERE MG_M_ID=\'"+mid+"\'", con);
+      if (!sql_statment.select(Einstellungen.mb_buchung,"*","WHERE B_M_ID='"+mid+"'",con)) return false;
+      String[][] arbt_tage = sql_statment.select_arr(Einstellungen.mb_buchung,"B_TAG","WHERE B_M_ID='"+mid+"'",con);
+      String[][] gleit_tage = sql_statment.select_arr(Einstellungen.gleitzeittage,"MG_TAG, MG_Urlaub","WHERE MG_M_ID='"+mid+"'", con);
       int count_gleitzzeit =0;
       for (int i = 0; i < arbeitstage.length;i++){
         if (i<arbt_tage.length){ // Es ist kein Gleitzeittag

@@ -11,6 +11,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 export class OverviewTimeentriesComponent implements OnInit {
 
   entries: string[][] | null | undefined;
+  date:string;
 
   constructor(
     private translate: TranslateService,
@@ -24,12 +25,14 @@ export class OverviewTimeentriesComponent implements OnInit {
 
   ngOnInit(): void {
     const array = this.activatedRoute.snapshot.queryParamMap.get('entries');
-
     if(array == null){
       this.entries = null;
     }
     else {
       this.entries = JSON.parse(array);
+      console.log(this.entries)
+      // @ts-ignore
+      this.date = this.entries[0][0].substring(0,10)
     }
   }
 
