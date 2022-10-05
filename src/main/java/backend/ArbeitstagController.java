@@ -6,6 +6,10 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.threeten.extra.YearWeek;
+
+import java.time.Clock;
+import java.time.LocalDate;
 
 /**
  * @author Noah Dambacher
@@ -32,5 +36,11 @@ public class ArbeitstagController {
   public double getSollarbeitszeit(){
     //TODO Aus DB auslesen
     return 7.6;
+  }
+
+  @PostMapping("/getCW")
+  public String getCW() {
+    LocalDate localDate = LocalDate.now(Clock.systemDefaultZone());
+    return YearWeek.from(localDate).toString();
   }
 }

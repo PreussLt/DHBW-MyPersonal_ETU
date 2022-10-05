@@ -1,6 +1,8 @@
 export class Arbeitstag {
   ersterStempel: string;
   letzterStempel: string;
+  calendarWeek: number;
+  calendarYear: number;
   mid: string;
 
   // Public Boolens
