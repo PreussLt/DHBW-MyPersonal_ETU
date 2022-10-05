@@ -26,14 +26,14 @@ export class TimeEntryService {
     return this.http.post<TimeEntry>(this.entryUrl, id);
   }
 
-  public newEntry(date: string, time: string): Observable<boolean>{
+  public newEntry(date: string, time: string): Observable<string>{
     let mid = sessionStorage.getItem("mid");
-    return this.http.post<boolean>(this.newEntryUrl, {"mid":mid, "date":date, "time":time});
+    return this.http.post(this.newEntryUrl, {"mid":mid, "date":date, "time":time}, {responseType: 'text'});
   }
 
-  public newDay(date: string, timeBegin: string, timeEnd: string): Observable<boolean>{
+  public newDay(date: string, timeBegin: string, timeEnd: string): Observable<string>{
     let mid = sessionStorage.getItem("mid");
-    return this.http.post<boolean>(this.newDayUrl, {"mid":mid, "date":date, "timeBegin":timeBegin, "timeEnd":timeEnd})
+    return this.http.post(this.newDayUrl, {"mid":mid, "date":date, "timeBegin":timeBegin, "timeEnd":timeEnd}, {responseType: 'text'})
   }
 
   public updateEntry(zid: string, date: string, time: string): Observable<boolean>{

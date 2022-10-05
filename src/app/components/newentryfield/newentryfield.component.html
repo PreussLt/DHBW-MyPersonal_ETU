@@ -52,7 +52,7 @@
     </div>
   </div>
 
-  <!-- The Modal -->
+  <!-- The ConfirmModal -->
   <div *ngIf="showModal" id="myModal" class="modal">
     <!-- Modal content -->
     <div class="modal-content">
@@ -84,6 +84,28 @@
 
       <br>
       <button class="button medium" (click)="submit()">{{'newentry.confirm'|translate}}</button>
+    </div>
+  </div>
+
+  <!-- The WeekenderrorModal -->
+  <div *ngIf="weekend" id="weekendModal" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+        <h3>{{'newentry.error'|translate}}</h3>
+        <div>{{'newentry.weekenderror'|translate}}</div>
+      <br>
+      <button class="button medium" (click)="toggleWeekendModal()">{{'newentry.confirm'|translate}}</button>
+    </div>
+  </div>
+
+  <!-- The FailureModal -->
+  <div *ngIf="failure" id="failureModal" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+      <h3>{{'newentry.error'|translate}}</h3>
+      <div>{{'newentry.failure'|translate}}}}</div>
+      <br>
+      <button class="button medium" (click)="toggleFailureModal()">{{'newentry.confirm'|translate}}</button>
     </div>
   </div>
 

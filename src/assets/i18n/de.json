@@ -66,7 +66,10 @@
     "confirmStamp": "Zeitstempel bestätigen",
     "confirmDay": "Arbeitstag bestätigen",
     "confirmFlexible": "Gleitzeittag bestätigen",
-    "confirmVacation": "Urlaub bestätigen"
+    "confirmVacation": "Urlaub bestätigen",
+    "error": "FEHLER",
+    "weekenderror": "Tag des Eintrags liegt im Wochenende",
+    "failure": "Ein unbekannter Fehler ist aufgetreten. Bitte wenden Sie sich an einen Systemadministrator"
   },
 
   "editentry":

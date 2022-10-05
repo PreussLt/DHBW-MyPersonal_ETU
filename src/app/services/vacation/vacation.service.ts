@@ -21,8 +21,8 @@ export class VacationService {
     return this.http.post<boolean>(this.setVacationUrl, {"mid": mid, "dateBegin":dateBegin, "dateEnd": dateEnd})
   }
 
-  setGleitzeittag(date:string): Observable<boolean>{
+  setGleitzeittag(date:string): Observable<string>{
     let mid = sessionStorage.getItem("mid");
-    return this.http.post<boolean>(this.setFlexibledayUrl, {"mid": mid, "date":date})
+    return this.http.post(this.setFlexibledayUrl, {"mid": mid, "date":date}, {responseType: 'text'})
   }
 }

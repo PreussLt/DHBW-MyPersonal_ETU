@@ -19,7 +19,7 @@ public class VacationController {
   }
 
   @PostMapping("/setFlexibleday")
-  public boolean setFlexibleday(@RequestBody Gleitzeittag gleitzeittag){
+  public String setFlexibleday(@RequestBody Gleitzeittag gleitzeittag){
     Freietage freietage = new Freietage();
     return freietage.setGleitzeittag(gleitzeittag.getDate(), gleitzeittag.getMid());
   }
