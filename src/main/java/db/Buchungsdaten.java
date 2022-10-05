@@ -24,6 +24,7 @@ public class Buchungsdaten {
     String[][] stempel;
 
     stunden = berechneArbeitszeit(mid,tag,con);
+    System.out.println("*Info* Berechnete Stunden:"+stunden);
 
     if (!bch.ueberpruefeBuchungvorhanden(tag,mid,con)) return null;
     String bid = sql.select_arr(Einstellungen.mb_buchung,"B_ID","WHERE B_M_ID='"+mid+"' AND B_TAG='"+tag+"'",con)[0][0];

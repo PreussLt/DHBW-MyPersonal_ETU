@@ -57,7 +57,7 @@ public class ArbeitstagListe {
       arbeitstage = new Arbeitstag[laengeListe];
       if (!sql_statment.select(cnf.mb_buchung,"*","WHERE B_M_ID=\'"+mid+"\'",con)) return false;
       String[][] arbt_tage = sql_statment.select_arr(cnf.mb_buchung,"B_TAG","WHERE B_M_ID=\'"+mid+"\'",con);
-      String[][] gleit_tage = sql_statment.select_arr(cnf.gleitzeittage,"MG_TAG","WHERE MG_M_ID=\'"+mid+"\'", con);
+      String[][] gleit_tage = sql_statment.select_arr(cnf.gleitzeittage,"MG_TAG, MG_Urlaub","WHERE MG_M_ID=\'"+mid+"\'", con);
       int count_gleitzzeit =0;
       for (int i = 0; i < arbeitstage.length;i++){
         if (i<arbt_tage.length){ // Es ist kein Gleitzeittag

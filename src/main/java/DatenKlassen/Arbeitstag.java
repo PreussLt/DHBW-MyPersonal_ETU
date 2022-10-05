@@ -115,7 +115,7 @@ public class Arbeitstag {
     Timestamp tMax = Timestamp.valueOf(Max);
 
     if (aTag.sindZeiteneingehalten(getZeitstempel(), tMin, tMax) == 0) return true;
-
+    System.err.println("*INFO* Warscheinlich der Fehler");
     this.arbeitszeit = arbeitszeit - aTag.sindZeiteneingehalten(getZeitstempel(), tMin, tMax);
     return false;
   }
