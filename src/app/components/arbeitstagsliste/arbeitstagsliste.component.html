@@ -46,7 +46,7 @@
                     <div class="holiday" *ngIf="arbeitstag.gleitzeittag">{{'arbeitstagliste.flexibleday'|translate}}</div>
                   </td>
                   <td><button disabled (click)="openEntries(arbeitstag.zeitstempel)">{{'arbeitstagliste.allentries'|translate}}</button></td>
-                  <td *ngIf="arbeitstag.gleitzeittag">-{{arbeitstag.arbeitszeit}}</td>
+                  <td *ngIf="arbeitstag.gleitzeittag">-{{arbeitstag.arbeitszeit.toFixed(2)}}</td>
                   <td *ngIf="!arbeitstag.gleitzeittag">0.00</td>
                 </ng-container>
               </tr>

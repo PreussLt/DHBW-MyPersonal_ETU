@@ -16,6 +16,7 @@ public class Freietage {
   private final String WEEKEND = "WEEKEND";
   private final String SUCCESS = "SUCCESS";
   private final String FAILURE = "FAILURE";
+  private final String TAKEN = "TAKEN";
 
   public double getGleitzeitstand(ArbeitstagListe ab){
     double ausgabe = 0;
@@ -26,16 +27,19 @@ public class Freietage {
   }// GetGleitzeitstand
 
   public String setGleitzeittag(String tag,String mid){
-    try {
-      String[] Daten = {mid,"0",tag};
-      if(!isWeekend(tag)) {
-        if(sql.insert(Einstellungen.gleitzeittage, Daten, con)) return SUCCESS;
-        else return FAILURE;
+    if(isDayTaken(tag, mid)) return TAKEN;
+    else {
+      try {
+        String[] Daten = {mid, "0", tag};
+        if(!isWeekend(tag)) {
+          if(sql.insert(Einstellungen.gleitzeittage, Daten, con)) return SUCCESS;
+          else return FAILURE;
+        }
+        else return WEEKEND;
+      } catch(Exception e) {
+        System.err.println("!ERROR! Fehler in setGleitzeittag: " + e);
+        return FAILURE;
       }
-      else return WEEKEND;
-    }catch (Exception e){
-      System.err.println("!ERROR! Fehler in setGleitzeittag: "+e);
-      return FAILURE;
     }
   }// setGleitzeitata
 
@@ -62,7 +66,7 @@ public class Freietage {
       String date1 = sdf.format(c.getTime());
 
       while(!date1.equals(date2)){
-        if(!isWeekend(date1)){
+        if(!isWeekend(date1) && !isDayTaken(date1, mid)){
           setUrlaubstag(date1, mid);
         }
         c.add(Calendar.DATE, 1);  // number of days to add
@@ -80,5 +84,10 @@ public class Freietage {
     LocalDate localDate = LocalDate.parse(date);
     String day = localDate.getDayOfWeek().toString();
     return day.equals(SATURDAY) || day.equals(SUNDAY);
+  }
+
+  public boolean isDayTaken(String day, String mid){
+    Buchung buchung = new Buchung();
+    return (buchung.ueberpruefeBuchungvorhanden(day, mid, con));
   }
 }// Class
