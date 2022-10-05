@@ -23,4 +23,9 @@ public class VacationController {
     Freietage freietage = new Freietage();
     return freietage.setGleitzeittag(gleitzeittag.getDate(), gleitzeittag.getMid());
   }
+
+  @PostMapping("/deleteFreiertag")
+  public boolean deleteFreiertag(@RequestBody String date){
+    return Freietage.deleteFreiertag(date);
+  }
 }

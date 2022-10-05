@@ -9,6 +9,7 @@ import {NewentryfieldComponent} from "./components/newentryfield/newentryfield.c
 import {ArbeitstagslisteComponent} from "./components/arbeitstagsliste/arbeitstagsliste.component";
 import {EditEntryComponent} from "./components/edit-entry/edit-entry.component";
 import {SettingsComponent} from "./components/settings/settings/settings.component";
+import {LoadingComponent} from "./components/loading/loading.component";
 
 //Für verschiedene Request-Urls Ergebniskomponenten setzen
 const routes: Routes = [
@@ -19,6 +20,7 @@ const routes: Routes = [
   {path: 'arbeitstage', component: ArbeitstagslisteComponent, canActivate:[AuthGuard]},
   {path: 'settings', component: SettingsComponent, canActivate:[AuthGuard]},
   {path: 'editEntry/:id', component: EditEntryComponent, canActivate:[AuthGuard]},
+  {path: 'loading', component: LoadingComponent, canActivate:[AuthGuard]},
   {path: '', component: AppComponent, canActivate:[AuthGuard]}
 ];
 

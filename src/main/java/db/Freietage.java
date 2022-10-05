@@ -53,6 +53,17 @@ public class Freietage {
     }
   }// setGleitzeitata
 
+  public static boolean deleteFreiertag(String date){
+    try {
+      String bedingung = String.format("MG_TAG = '%s'",date);
+      return sql.delete(Einstellungen.gleitzeittage, bedingung, con);
+    }catch (Exception e){
+      System.err.println("!ERROR! Fehler in deleteFreiertag: "+e);
+      return false;
+    }
+
+  }
+
   public boolean setUrlaub(String dateBegin, String dateEnd, String mid){
     try {
       SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
