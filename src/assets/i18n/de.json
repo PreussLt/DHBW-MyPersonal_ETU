@@ -16,7 +16,7 @@
 
   "overview": {
     "zid": "Zeiteintrag-ID",
-    "timestamp": "Zeitstempel",
+    "timestamp": "Zeitstempel vom ",
     "edit": "Bearbeiten"
   },
 
@@ -42,6 +42,7 @@
     "warning": "Warnungen",
     "missingStamp": "Stempel fehlt",
     "timeoutofbounds": "Stempel außerhalb der erlaubten Zeiten",
+    "vacation": "Urlaub",
     "overtime": "Gleitzeit",
     "holiday": "Feiertag",
     "flexibleday": "Gleitzeittag"

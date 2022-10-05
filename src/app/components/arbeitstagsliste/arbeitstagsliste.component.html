@@ -18,21 +18,39 @@
               <th></th>
               <th>{{'arbeitstagliste.overtime'|translate}}</th>
             </tr>
+
             <ng-container *ngFor="let arbeitstag of arbeitstagListe">
-            <tr *ngIf="(arbeitstag.calendarWeek == calendarWeek) && (arbeitstag.calendarYear == yearSelect)">
-                <td>{{arbeitstag.tag}}</td>
-                <td>{{arbeitstag.ersterStempel.substring(10)}}</td>
-                <td>{{arbeitstag.letzterStempel.substring(10)}}</td>
-                <td>{{arbeitstag.arbeitszeit.toFixed(2)}}</td>
-                <td>
-                  <div class="holiday" *ngIf="arbeitstag.feiertag">{{'arbeitstagliste.holiday'|translate}}</div>
-                  <div class="holiday" *ngIf="arbeitstag.gleitzeittag">{{'arbeitstagliste.flexibleday'|translate}}</div>
-                  <div class="warning" *ngIf="arbeitstag.zeitstempel.length % 2 != 0">{{'arbeitstagliste.missingStamp'|translate}}</div>
-                  <div class="warning" *ngIf="!arbeitstag.arbeitszeitenEingehalten">{{'arbeitstagliste.timeoutofbounds'|translate}}</div>
-                </td>
-                <td><button (click)="openEntries(arbeitstag.zeitstempel)">{{'arbeitstagliste.allentries'|translate}}</button></td>
-                <td>{{(arbeitstag.arbeitszeit - sollarbeitszeit).toFixed(2)}}</td>
-            </tr>
+
+              <tr *ngIf="(arbeitstag.calendarWeek == calendarWeek) && (arbeitstag.calendarYear == yearSelect)">
+                <ng-container *ngIf="!arbeitstag.gleitzeittag && !arbeitstag.feiertag && !arbeitstag.urlaubstag">
+                  <td>{{arbeitstag.tag}}</td>
+                  <td>{{arbeitstag.ersterStempel.substring(10)}}</td>
+                  <td>{{arbeitstag.letzterStempel.substring(10)}}</td>
+                  <td>{{arbeitstag.arbeitszeit.toFixed(2)}}</td>
+                  <td>
+                    <div class="warning" *ngIf="arbeitstag.zeitstempel.length % 2 != 0">{{'arbeitstagliste.missingStamp'|translate}}</div>
+                    <div class="warning" *ngIf="!arbeitstag.arbeitszeitenEingehalten">{{'arbeitstagliste.timeoutofbounds'|translate}}</div>
+                  </td>
+                  <td><button (click)="openEntries(arbeitstag.zeitstempel)">{{'arbeitstagliste.allentries'|translate}}</button></td>
+                  <td>{{(arbeitstag.arbeitszeit - sollarbeitszeit).toFixed(2)}}</td>
+                </ng-container>
+
+                <ng-container *ngIf="arbeitstag.gleitzeittag || arbeitstag.feiertag || arbeitstag.urlaubstag">
+                  <td>{{arbeitstag.tag}}</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>{{arbeitstag.arbeitszeit.toFixed(2)}}</td>
+                  <td>
+                    <div class="holiday" *ngIf="arbeitstag.feiertag">{{'arbeitstagliste.holiday'|translate}}</div>
+                    <div class="holiday" *ngIf="arbeitstag.urlaubstag">{{'arbeitstagliste.vacation'|translate}}</div>
+                    <div class="holiday" *ngIf="arbeitstag.gleitzeittag">{{'arbeitstagliste.flexibleday'|translate}}</div>
+                  </td>
+                  <td><button disabled (click)="openEntries(arbeitstag.zeitstempel)">{{'arbeitstagliste.allentries'|translate}}</button></td>
+                  <td *ngIf="arbeitstag.gleitzeittag">-{{arbeitstag.arbeitszeit}}</td>
+                  <td *ngIf="!arbeitstag.gleitzeittag">0.00</td>
+                </ng-container>
+              </tr>
+
             </ng-container>
           </table>
         </section>
