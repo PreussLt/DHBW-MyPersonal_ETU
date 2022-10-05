@@ -7,6 +7,8 @@ import db.sql_statment;
 import lombok.Data;
 
 import java.sql.Connection;
+import java.time.Clock;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -23,7 +25,7 @@ public class ArbeitstagListe {
   public ArbeitstagListe(String mid) {
     this.mid = mid;
     try {
-      getArbeitstage(getAnzahlArbeitstage(getHeute(),"2000-01-01"));
+      getArbeitstage(getAnzahlArbeitstage(getEndOfYear(),"2000-01-01"));
 
     }catch (Exception e){
       System.err.println("!ERROR! Folgender Fehler ist im Cosntructor arbeittage Liste aufgetreten: "+e);
@@ -85,4 +87,10 @@ public class ArbeitstagListe {
     LocalDateTime jetzt = LocalDateTime.now();
     return dtf.format(jetzt);
   }// Get Heuter
+
+  private String getEndOfYear(){
+    LocalDate localDate = LocalDate.now(Clock.systemDefaultZone());
+    int year = localDate.getYear();
+    return String.format("%d-12-31", year);
+  }
 }//Class

@@ -12,6 +12,8 @@ import {VacationService} from "../../services/vacation/vacation.service";
 export class NewentryfieldComponent implements OnInit {
   newTimeEntryForm: FormGroup;
   showModal: boolean;
+  weekend: boolean;
+  failure: boolean;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -42,34 +44,16 @@ export class NewentryfieldComponent implements OnInit {
 
   get f() { return this.newTimeEntryForm.controls; }
 
-  toggleModal(){
-    this.showModal = !this.showModal;
-  }
-
   submit(){
     switch (this.f['entryType'].value){
       case '0':
-        this.timeEntryService.newEntry(this.f['dateStamp'].value, this.f['timeStamp'].value).subscribe(() => this.router.navigate(["/home"]));
+        this.timeEntryService.newEntry(this.f['dateStamp'].value, this.f['timeStamp'].value).subscribe(created => this.wasSuccessfull(created));
         break;
       case '1':
-        this.timeEntryService.newDay(this.f['dateDay'].value, this.f['timeBeginDay'].value, this.f['timeEndDay'].value).subscribe(created =>{
-          if(created){
-            this.router.navigate(["/home"])
-          }
-          else {
-            console.log("Failure")
-          }
-        });
+        this.timeEntryService.newDay(this.f['dateDay'].value, this.f['timeBeginDay'].value, this.f['timeEndDay'].value).subscribe(created => this.wasSuccessfull(created));
         break;
       case '2':
-        this.vacationService.setGleitzeittag(this.f['dateFlexibleday'].value).subscribe(created => {
-          if(created){
-            this.router.navigate(["/home"])
-          }
-          else {
-            console.log("Failure")
-          }
-        })
+        this.vacationService.setGleitzeittag(this.f['dateFlexibleday'].value).subscribe(created => this.wasSuccessfull(created));
         break;
       case '3':
         this.vacationService.setVacation(this.f['dateBeginVacation'].value, this.f['dateEndVacation'].value).subscribe(created => {
@@ -77,11 +61,38 @@ export class NewentryfieldComponent implements OnInit {
             this.router.navigate(["/home"])
           }
           else {
-            console.log("Failure")
+            this.toggleModal();
+            this.toggleFailureModal();
           }
         })
         break;
     }
+  }
+
+  wasSuccessfull(created: string){
+    if(created.includes("SUCCESS")){
+      this.router.navigate(["/home"]);
+    }
+    else if(created.includes("FAILURE")){
+      this.toggleModal();
+      this.toggleFailureModal();
+    }
+    else if(created.includes("WEEKEND")){
+      this.toggleModal();
+      this.toggleWeekendModal();
+    }
+  }
+
+  toggleWeekendModal(): void {
+    this.weekend = !this.weekend;
+  }
+
+  toggleModal(){
+    this.showModal = !this.showModal;
+  }
+
+  toggleFailureModal(){
+    this.failure = !this.failure;
   }
 
 }
