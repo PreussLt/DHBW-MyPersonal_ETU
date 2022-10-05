@@ -33,6 +33,7 @@
 
   "arbeitstagliste":
   {
+    "cw": "KW",
     "date": "Datum",
     "firstStamp": "Erster Stempel",
     "lastStamp": "Letzter Stempel",

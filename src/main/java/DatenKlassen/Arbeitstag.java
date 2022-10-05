@@ -6,9 +6,11 @@ import db.Einstellungen;
 import db.sql_connect;
 import db.sql_statment;
 import lombok.Data;
+import org.threeten.extra.YearWeek;
 
 import java.sql.Connection;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 
 @Data
 public class Arbeitstag {
@@ -25,6 +27,8 @@ public class Arbeitstag {
   public String ersterStempel;
   public String letzterStempel;
   public String mid;
+  private int calendarWeek;
+  private int calendarYear;
 
   // Public Boolens
   public String tag;
@@ -57,6 +61,8 @@ public class Arbeitstag {
       this.mid = mid;
       this.sollArbeitszeit = getSollarbeitszeit();
       this.maxArbeitszeit = getMaxArbeitszeit();
+      this.calendarWeek = getCalendarWeek(tag);
+      this.calendarYear = getCalendarYear(tag);
 
       if (this.zeitstempel != null){
         vorgabenAnwenden();
@@ -141,6 +147,16 @@ public class Arbeitstag {
       return -1;
     }// try Catc
   }// End get sollarbeitszeit
+
+  private int getCalendarWeek(String date){
+    LocalDate localDate = LocalDate.parse(date);
+    return Integer.parseInt(YearWeek.from(localDate).toString().substring(6));
+  }
+
+  private int getCalendarYear(String date){
+    LocalDate localDate = LocalDate.parse(date);
+    return Integer.parseInt(YearWeek.from(localDate).toString().substring(0,4));
+  }
 
   private double Sollarbeitszeit() {
     return this.sollArbeitszeit;
