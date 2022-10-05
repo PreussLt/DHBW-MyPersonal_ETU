@@ -14,6 +14,7 @@ export class NewentryfieldComponent implements OnInit {
   showModal: boolean;
   weekend: boolean;
   failure: boolean;
+  taken: boolean;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -81,6 +82,10 @@ export class NewentryfieldComponent implements OnInit {
       this.toggleModal();
       this.toggleWeekendModal();
     }
+    else if(created.includes("TAKEN")){
+      this.toggleModal();
+      this.toggleTakenModal();
+    }
   }
 
   toggleWeekendModal(): void {
@@ -95,4 +100,7 @@ export class NewentryfieldComponent implements OnInit {
     this.failure = !this.failure;
   }
 
+  toggleTakenModal() {
+    this.taken = !this.taken;
+  }
 }

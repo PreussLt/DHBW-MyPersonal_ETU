@@ -103,9 +103,20 @@
     <!-- Modal content -->
     <div class="modal-content">
       <h3>{{'newentry.error'|translate}}</h3>
-      <div>{{'newentry.failure'|translate}}}}</div>
+      <div>{{'newentry.failure'|translate}}</div>
       <br>
       <button class="button medium" (click)="toggleFailureModal()">{{'newentry.confirm'|translate}}</button>
+    </div>
+  </div>
+
+  <!-- The TakenModal -->
+  <div *ngIf="taken" id="takenModal" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+      <h3>{{'newentry.error'|translate}}</h3>
+      <div>{{'newentry.taken'|translate}}</div>
+      <br>
+      <button class="button medium" (click)="toggleTakenModal()">{{'newentry.confirm'|translate}}</button>
     </div>
   </div>
 

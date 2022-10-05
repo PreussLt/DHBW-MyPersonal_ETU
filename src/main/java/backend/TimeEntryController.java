@@ -28,6 +28,7 @@ public class TimeEntryController {
   private final String WEEKEND = "WEEKEND";
   private final String SUCCESS = "SUCCESS";
   private final String FAILURE = "FAILURE";
+  private final String TAKEN = "TAKEN";
 
 
 
@@ -80,15 +81,20 @@ public class TimeEntryController {
 
   @PostMapping("/newDay")
   public String newDay(@RequestBody NewDay newDay){
-    if(!Freietage.isWeekend(newDay.getDate())) {
-      Entry stamp1 = new Entry(newDay.getMid(), newDay.getDate(), newDay.getTimeBegin());
-      Entry stamp2 = new Entry(newDay.getMid(), newDay.getDate(), newDay.getTimeEnd());
-
-      if(newEntry(stamp1).equals(SUCCESS) && newEntry(stamp2).equals(SUCCESS)) return SUCCESS;
-
-      else return FAILURE;
+    if(isDayTaken(newDay.getDate(), newDay.getMid())){
+      return TAKEN;
     }
-    else return WEEKEND;
+    else {
+      if(!Freietage.isWeekend(newDay.getDate())) {
+        Entry stamp1 = new Entry(newDay.getMid(), newDay.getDate(), newDay.getTimeBegin());
+        Entry stamp2 = new Entry(newDay.getMid(), newDay.getDate(), newDay.getTimeEnd());
+
+        if(newEntry(stamp1).equals(SUCCESS) && newEntry(stamp2).equals(SUCCESS)) return SUCCESS;
+
+        else return FAILURE;
+      }
+      else return WEEKEND;
+    }
   }
 
   @PostMapping("/getEntry")
@@ -109,4 +115,8 @@ public class TimeEntryController {
     return bd.deleteEntry(zid,con);
   }
 
+  public boolean isDayTaken(String day, String mid){
+    Buchung buchung = new Buchung();
+    return (buchung.ueberpruefeBuchungvorhanden(day, mid, con));
+  }
 }
