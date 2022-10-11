@@ -1,0 +1,111 @@
+<form [formGroup]="newUserForm">
+  <div class="fields">
+    <div class="field half">
+      <label>{{'newuser.prename'|translate}}</label>
+      <input type="text" formControlName="vorname"/>
+    </div>
+    <div class="field half">
+      <label>{{'newuser.surname'|translate}}</label>
+      <input type="text" formControlName="nachname"/>
+    </div>
+
+    <div class="field half">
+      <label>{{'newuser.birthday'|translate}}</label>
+      <input type="date" formControlName="geburtstag"/>
+    </div>
+    <div class="field half">
+      <label>{{'newuser.prsn'|translate}}</label>
+      <input type="text" formControlName="personalnummer"/>
+    </div>
+
+    <div class="field third">
+      <label>{{'newuser.pw'|translate}}</label>
+      <input type="text" formControlName="passwort"/>
+    </div>
+    <div class="field third">
+      <label>{{'newuser.pwconfirm'|translate}}</label>
+      <input type="text" formControlName="passwortBestaetigen"/>
+    </div>
+    <div class="field third">
+      <label for="generate"></label>
+      <button class="generate" id="generate" (click)="generatePW()">{{'newuser.generate'|translate}}</button>
+    </div>
+
+    <div class="field half">
+      <label>{{'newuser.chooseAM'|translate}}</label>
+      <select formControlName="arbeitsmodell" #arbeitsmodellSelect>
+        <option value="1">{{'newuser.vollzeit'|translate}}</option>
+        <option value="2">{{'newuser.vollzeitred'|translate}}<I></I></option>
+        <option value="3">{{'newuser.teilzeit'|translate}}</option>
+        <option value="4">{{'newuser.extern'|translate}}</option>
+        <option value="5">{{'newuser.azubi'|translate}}</option>
+        <option value="6">{{'newuser.azubiu18'|translate}}</option>
+      </select>
+    </div>
+    <div class="field half">
+      <label>{{'newuser.chooseuclass'|translate}}</label>
+      <select formControlName="uKlasse" #uKlasseSelect>
+        <option value="2">{{'newuser.basic'|translate}}</option>
+        <option value="1">{{'newuser.admin'|translate}}</option>
+      </select>
+    </div>
+
+<!--    Errors-->
+    <div *ngIf="pressed" class="field">
+      <div *ngIf="newUserForm.invalid" class="field">
+        {{'newuser.missingfields'|translate}}
+      </div>
+      <div *ngIf="notMatching" class="field">
+        {{'newuser.notMatching'|translate}}
+      </div>
+    </div>
+
+    <!--    ConfirmModal-->
+    <div *ngIf="showModal" id="confirmModal" class="modal">
+      <!-- Modal content -->
+      <div class="modal-content">
+        <span class="close" (click)="close()">&times;</span>
+        <h3>{{'newuser.confirmCreation'|translate}}</h3>
+        <div>{{'newuser.prename'|translate}}: {{f['vorname'].value}}</div>
+        <div>{{'newuser.surname'|translate}}: {{f['nachname'].value}}</div>
+        <div>{{'newuser.birthday'|translate}}: {{f['geburtstag'].value}}</div>
+        <div>{{'newuser.prsn'|translate}}: {{f['personalnummer'].value}}</div>
+        <div>{{'newuser.model'|translate}}: {{arbeitsmodell}}</div>
+        <div>{{'newuser.uclass'|translate}}: {{uKlasse}}</div>
+        <br>
+        <button class="button medium" (click)="createUser()">{{'newuser.confirm'|translate}}</button>
+      </div>
+    </div>
+
+    <div *ngIf="showSuccessModal" id="success" class="modal">
+      <!-- Modal content -->
+      <div class="modal-content">
+        <span class="close" (click)="close()">&times;</span>
+        <h3>{{'newuser.success'|translate}}</h3>
+        <div>
+          {{'newuser.successmsg'|translate}}
+        </div>
+        <br>
+        <button class="button medium" (click)="toggleSuccessModal()">{{'newuser.confirm'|translate}}</button>
+      </div>
+    </div>
+
+    <div *ngIf="showFailureModal" id="failure" class="modal">
+      <!-- Modal content -->
+      <div class="modal-content">
+        <span class="close" (click)="close()">&times;</span>
+        <h3>{{'newuser.failure'|translate}}</h3>
+        <div>
+          {{'newuser.failuremsg'|translate}}
+        </div>
+        <br>
+        <button class="button medium" (click)="toggleFailureModal()">{{'newuser.confirm'|translate}}</button>
+      </div>
+    </div>
+
+
+    <div class="field">
+      <button (click)="show()">{{'newuser.createbtn'|translate}}</button>
+    </div>
+  </div>
+</form>

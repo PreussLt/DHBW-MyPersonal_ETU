@@ -1,11 +1,10 @@
 package backend;
 
 import DatenKlassen.ChangePwData;
+import DatenKlassen.CreateUser;
 import DatenKlassen.LoginData;
 import DatenKlassen.User;
-import db.Nutzerverwaltung;
-import db.Passwort_verwaltung;
-import db.sql_connect;
+import db.*;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,6 +21,7 @@ import java.sql.Connection;
 @CrossOrigin (origins = "http://localhost:4200")
 public class UserController {
   private static Connection con = new sql_connect().intern_connect();
+  private static sql_statment sql = new sql_statment();
   /**
    * Requesthandler zum Authentifizieren der Anmeldedaten im Login-Fenster.
    * @param loginData Eingegebene Anmeldeinformationen, bestehend aus Personalnummer und Eingabe-Passwort.
@@ -92,4 +92,17 @@ public class UserController {
     Nutzerverwaltung nutzerverwaltung = new Nutzerverwaltung();
     return nutzerverwaltung.passwort_aendern(cpw.getMid(), cpw.getPw(),con);
   }
+
+  /**
+   * Requesthandler zum Anlegen eines neuen Nutzers
+   * @param user Personendaten des neuen Users
+   * @see CreateUser
+   * @return boolean - Hat das Erstellen geklappt
+   */
+  @PostMapping("/createUser")
+  public boolean createUser(@RequestBody CreateUser user){
+    Nutzerverwaltung nutzerverwaltung = new Nutzerverwaltung();
+    return nutzerverwaltung.nutzer_anlegen(user.getVorname(), user.getNachname(), user.getPersonalnummer(), user.getPasswort(), user.getArbeitsmodell(), user.getUklasse(), user.getGebDatum(), con);
+  }
+
 }

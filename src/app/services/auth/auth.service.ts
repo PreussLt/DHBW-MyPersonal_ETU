@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {AbstractControl, ValidationErrors, ValidatorFn} from "@angular/forms";
+import {User} from "../../models/user/user";
 
 @Injectable({
   providedIn: 'root'
@@ -11,12 +12,16 @@ export class AuthService {
   getIdUrl: string;
   checkPWUrl: string;
   changePWUrl: string;
+  createUserUrl: string;
+  getUKlassenUrl: string;
 
   constructor(private http: HttpClient) {
     this.authUrl = 'http://localhost:8080/userauth';
     this.getIdUrl = 'http://localhost:8080/getMid';
     this.checkPWUrl = 'http://localhost:8080/pwauth';
     this.changePWUrl = 'http://localhost:8080/changepw';
+    this.createUserUrl = "http://localhost:8080/createUser";
+    this.getUKlassenUrl = "http://localhost:8080/getUKlassen"
   }
 
   logout(): void {
@@ -62,4 +67,11 @@ export class AuthService {
       return !passwordValid ? {passwordStrength:true}: null;
     }
   }
+
+  createUser(user: User): Observable<boolean> {
+    console.log(user)
+    return this.http.post<boolean>(this.createUserUrl, user)
+  }
+
+
 }

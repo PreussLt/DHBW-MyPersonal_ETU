@@ -93,11 +93,34 @@
   },
   "newuser":
   {
-    "name": "Vorname",
+    "confirmCreation": "Erstellung bestätigen",
+    "prename": "Vorname",
     "surname": "Nachname",
-    "personellnumber": "Personalnummer",
+    "prsn": "Personalnummer",
+    "birthday": "Geburtsdatum",
+    "model": "Arbeitsmodell",
+    "uclass": "Berechtigungsklasse",
     "pw": "Passwort",
-    "pwconfirm": "Passwort bestätigen"
+    "pwconfirm": "Passwort bestätigen",
+    "confirm": "Bestätigen",
+    "generate": "Passwort generieren",
+    "chooseAM": "Arbeitsmodell wählen",
+    "vollzeit": "Vollzeit",
+    "vollzeitred": "Vollzeit redz. I",
+    "teilzeit": "Teilzeit I",
+    "extern": "Extern - auf Rechnung",
+    "azubi": "Azubi",
+    "azubiu18": "Azubi U18",
+    "chooseuclass": "Berechtigungsklasse wählen",
+    "admin": "Administrator",
+    "basic": "Mitarbeiter",
+    "missingfields": "Alle Pflichtfelder ausfüllen!",
+    "notMatching": "Passwörter stimmen nicht überein",
+    "success": "Erfolg!",
+    "successmsg": "Nutzer erfolgreich angelegt",
+    "failure": "Fehler!",
+    "failuremsg": "Etwas ist schiefgelaufen. Bitte wenden Sie sich an einen Systemadministrator.",
+    "createbtn": "Nutzer anlegen"
   },
   "grenzwerte":
   {
