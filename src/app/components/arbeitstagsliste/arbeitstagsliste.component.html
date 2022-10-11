@@ -1,12 +1,16 @@
       <section id="Zeit" class="wrapper style2 spotlights">
-        <select [(ngModel)]="yearSelect" class="yearSelect">
-          <option *ngFor="let number of numbers" [value]="number">{{number}}</option>
-        </select>
-        <div>
-          <button (click)="decreaseCW()" class="button small"><<</button>
-          {{'arbeitstagliste.cw'|translate}} {{this.calendarWeek}}
-          <button (click)="increaseCW()" class="button small">>></button>
-        </div>
+
+          <select [(ngModel)]="yearSelect" class="yearSelect" style="display: inline">
+            <option *ngFor="let number of numbers" [value]="number">{{number}}</option>
+          </select>
+
+          <div style="display: inline; float: right">
+            <button (click)="greatDecreaseCW()" class="button small"><<</button>
+            <button (click)="decreaseCW()" class="button small"><</button>
+            {{'arbeitstagliste.cw'|translate}} {{this.calendarWeek}}
+            <button (click)="increaseCW()" class="button small">></button>
+            <button (click)="greatIncreaseCW()" class="button small">>></button>
+          </div>
         <section>
           <table>
             <tr>

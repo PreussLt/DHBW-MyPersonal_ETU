@@ -82,8 +82,18 @@ export class ArbeitstagslisteComponent implements OnInit {
     if(this.calendarWeek > 1) this.calendarWeek--;
   }
 
+  greatDecreaseCW(){
+    if(this.calendarWeek - 10 < 1) this.calendarWeek = 1;
+    else this.calendarWeek -= 10;
+  }
+
   increaseCW(): void{
     if(this.calendarWeek < 52) this.calendarWeek++;
+  }
+
+  greatIncreaseCW() {
+    if(this.calendarWeek + 10 > 52) this.calendarWeek = 52;
+    else this.calendarWeek += 10;
   }
 
   toggleModal() {
@@ -100,4 +110,5 @@ export class ArbeitstagslisteComponent implements OnInit {
     this.modalGleitzeit = gleitzeittag;
     this.modalUrlaub = urlaub;
   }
+
 }
