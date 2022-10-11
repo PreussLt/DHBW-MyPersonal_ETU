@@ -18,6 +18,7 @@ import {EditEntryComponent} from "./components/edit-entry/edit-entry.component";
 import {SettingsComponent} from './components/settings/settings/settings.component';
 import { GrenzwertSettingsComponent } from './components/grenzwert-settings/grenzwert-settings.component';
 import { LoadingComponent } from './components/loading/loading.component';
+import { NewuserComponent } from './components/newuser/newuser.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { LoadingComponent } from './components/loading/loading.component';
     SettingsComponent,
     GrenzwertSettingsComponent,
     LoadingComponent,
+    NewuserComponent,
   ],
   imports: [
     BrowserModule,

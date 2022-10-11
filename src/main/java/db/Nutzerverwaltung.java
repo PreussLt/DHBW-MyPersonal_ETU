@@ -96,7 +96,7 @@ public class Nutzerverwaltung {
   // Neuen Nutzer Anlegen
   public boolean nutzer_anlegen(String vName,String nName,int pNummer,String pw,int aModell, int uKlasse,String gDatum, Connection con){
       try {
-       
+
         // Übeprüfen ob eingaben Korrekt
         if (!ueberpruefeZahlen(aModell,uKlasse,con)) return false;
         if (!pwv.pw_richtlinen_check(pw)) return false;
@@ -136,16 +136,24 @@ public class Nutzerverwaltung {
     // Überprüfen ob Modell Existiert
     String[][] arr_aModell = sql.select_arr(Einstellungen.mb_arbeitsmodell,"*","",con);
     for(String[] strings : arr_aModell) {
-      if(aModell == Integer.parseInt(strings[0])) flag = true;
+      int id = Integer.parseInt(strings[0]);
+      if(aModell == id) {
+        flag = true;
+        break;
+      }
     }//END For
     if (!flag) return false;
 
     // Überprüfen ob Userklasse Exsitiert
     flag = false;
     // Überprüfen ob Modell Existiert
-    String[][] arr_uKlasse = sql.select_arr(Einstellungen.mb_konto,"*","",con);
+    String[][] arr_uKlasse = sql.select_arr(Einstellungen.mb_userklassen,"*","",con);
     for (int i = 0; i< arr_uKlasse.length;i++){
-      if (uKlasse == Integer.parseInt(arr_aModell[i][0])) flag=true;
+      int id = Integer.parseInt(arr_aModell[i][0]);
+      if (uKlasse == id){
+        flag=true;
+        break;
+      }
     }// END FOR
     return flag;
   }// ÜberprüfeZahlen

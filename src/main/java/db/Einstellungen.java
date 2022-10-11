@@ -29,6 +29,8 @@ public class Einstellungen {
   public static String mb_buchung = "b_buchung"; // Buchungen
   public static String mb_zeiteintrag = "bz_zeitsteintrag"; // Zeiteinträge in Form der stempel
   public static String mb_arbeitsmodell ="a_arbeitsmodelle"; // Arbeitsmodell
+  public static String mb_userklassen ="u_userklassen"; // Arbeitsmodell
+
   public static String feiertag ="f_feiertage";
   public static String gleitzeittage ="mg_freietage";
   public static String mb_grenzwerte ="g_grenzwerte"; // Grenzwerte der Arbeitsmodelle
