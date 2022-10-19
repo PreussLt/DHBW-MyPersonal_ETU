@@ -18,16 +18,5 @@ updates:
     open-pull-requests-limit: 20
     rebase-strategy: auto
     auto-merge: false
-jobs:
-  bump:
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2-beta
-        with:
-          node-version: '14'
-      - run: |
-          npm install -g npm-check-updates
-          ncu "/^@babel\/.*$/"     # or `ncu -u`
-          npm install
-      
+
 
