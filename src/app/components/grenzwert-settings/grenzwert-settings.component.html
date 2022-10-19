@@ -1,0 +1,36 @@
+<form [formGroup]="grenzwerteForm">
+  <div class="fields">
+    <div class="field">
+      <label for="select">{{'grenzwerte.select'|translate}}</label>
+      <select id="select" formControlName="select" (change)="loadConf()">
+        <option [value]="1">1</option>
+        <option [value]="2">2</option>
+        <option [value]="3">3</option>
+      </select>
+    </div>
+    <div class="field half">
+      <label for="day">{{'grenzwerte.maxtag'|translate}}</label>
+      <input type="number" id="day" formControlName="day" />
+    </div>
+    <div class="field half">
+      <label for="week">{{'grenzwerte.maxwoche'|translate}}</label>
+      <input type="number" id="week" formControlName="week"/>
+    </div>
+    <div class="field half">
+      <label for="yellow">{{'grenzwerte.yellow'|translate}}</label>
+      <input type="number" id="yellow" formControlName="yellow"/>
+    </div>
+    <div class="field half">
+      <label for="red">{{'grenzwerte.red'|translate}}</label>
+      <input type="number" id="red" formControlName="red"/>
+    </div>
+  </div>
+  <div class="error" *ngIf="failure">{{'grenzwerte.failure'|translate}}</div>
+  <div class="error" *ngIf="yGr">{{'grenzwerte.yGr'|translate}}</div>
+  <div class="error" *ngIf="dGw">{{'grenzwerte.dGw'|translate}}</div>
+  <div class="success" *ngIf="success">{{'grenzwerte.success'|translate}}</div>
+
+  <ul class="actions">
+    <li><button (click)="updateConf()">{{'grenzwerte.confirm'|translate}}</button></li>
+  </ul>
+</form>

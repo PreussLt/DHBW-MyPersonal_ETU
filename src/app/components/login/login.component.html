@@ -1,0 +1,20 @@
+<form [formGroup]="loginForm">
+  <section id="intro" class="wrapper style1 fullscreen fade-up">
+    <div class="inner">
+      <h1>{{'login.welcomemessage'|translate}}</h1>
+      <div class="field">
+        <label for="username">{{'login.personellnumber'|translate}}</label>
+        <input type="text" name="username" id="username" formControlName="userid" />
+      </div>
+      <p style=“line-height:150%“>
+      <div class="field">
+        <label for="password">{{'login.password'|translate}}</label>
+        <input type="password" name="username" id="password" formControlName="password" />
+      </div>
+      <p style=“line-height:150%“>
+      <ul class="actions">
+        <li><button class="button scrolly" type="submit" (click)="login()">{{'login.loginBtn'|translate}}</button></li>
+      </ul>
+    </div>
+  </section>
+</form>

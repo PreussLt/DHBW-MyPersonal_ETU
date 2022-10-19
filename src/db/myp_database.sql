@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 15. Sep 2022 um 08:24
+-- Erstellungszeit: 19. Sep 2022 um 12:56
 -- Server-Version: 10.4.21-MariaDB
 -- PHP-Version: 8.0.12
 
@@ -31,6 +31,7 @@ CREATE TABLE `a_arbeitsmodelle` (
   `A_ID` int(11) NOT NULL COMMENT 'Arbeitsmodell ID',
   `A_Beschreibung` varchar(50) NOT NULL COMMENT 'Beschreibung des Arbeitsmodell',
   `A_Sollstunden` int(11) NOT NULL COMMENT 'Sollstunden des Arbeitsmodell',
+  `A_Solltage` int(11) NOT NULL,
   `A_G_ID` int(11) NOT NULL COMMENT 'Grenzwerte ID',
   `A_Starzeit` int(11) NOT NULL COMMENT 'Frühste Starzeit der Arbeitszeit',
   `A_Endzeit` int(11) NOT NULL COMMENT 'Späteste Endzeit der Arbeitszeit'
@@ -58,7 +59,19 @@ CREATE TABLE `b_buchung` (
   `B_ID` int(11) NOT NULL COMMENT 'Buchungs ID',
   `B_M_ID` int(11) NOT NULL COMMENT 'Mitarbeiter ID',
   `B_Tag` date NOT NULL COMMENT 'Tag der Buchung',
-  `B_Stunden` double DEFAULT NULL COMMENT 'Stunden in Industriestunden'
+  `B_Stunden` double NOT NULL DEFAULT -99 COMMENT 'Stunden in Industriestunden'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `f_feiertage`
+--
+
+CREATE TABLE `f_feiertage` (
+  `F_ID` int(11) NOT NULL COMMENT 'Feiertags ID',
+  `F_Beschreibung` varchar(50) NOT NULL COMMENT 'FeiertagsBeschreibung',
+  `F_Tag` date NOT NULL COMMENT 'Feiertagsdatum'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -89,6 +102,18 @@ CREATE TABLE `ma_abteilung` (
 -- --------------------------------------------------------
 
 --
+-- Tabellenstruktur für Tabelle `mg_gleitzeittage`
+--
+
+CREATE TABLE `mg_gleitzeittage` (
+  `MG_ID` int(11) NOT NULL,
+  `MG_M_ID` int(11) NOT NULL,
+  `MG_TAG` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Tabellenstruktur für Tabelle `mk_konto`
 --
 
@@ -112,7 +137,8 @@ CREATE TABLE `m_mitarbeiter` (
   `M_Personalnummer` int(11) NOT NULL COMMENT 'Personalnummer',
   `M_MA_ID` int(11) NOT NULL COMMENT 'Abteilungs ID',
   `M_Passwort` varchar(50) NOT NULL COMMENT 'Passworthash',
-  `M_Salt` varchar(60) NOT NULL COMMENT 'Passwort Salt'
+  `M_Salt` varchar(60) NOT NULL COMMENT 'Passwort Salt',
+  `M_Gleitzeit` double DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -149,6 +175,12 @@ ALTER TABLE `b_buchung`
   ADD PRIMARY KEY (`B_ID`);
 
 --
+-- Indizes für die Tabelle `f_feiertage`
+--
+ALTER TABLE `f_feiertage`
+  ADD PRIMARY KEY (`F_ID`);
+
+--
 -- Indizes für die Tabelle `g_grenzwerte`
 --
 ALTER TABLE `g_grenzwerte`
@@ -159,6 +191,12 @@ ALTER TABLE `g_grenzwerte`
 --
 ALTER TABLE `ma_abteilung`
   ADD PRIMARY KEY (`MA_ID`);
+
+--
+-- Indizes für die Tabelle `mg_gleitzeittage`
+--
+ALTER TABLE `mg_gleitzeittage`
+  ADD PRIMARY KEY (`MG_ID`);
 
 --
 -- Indizes für die Tabelle `mk_konto`
@@ -201,6 +239,12 @@ ALTER TABLE `b_buchung`
   MODIFY `B_ID` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Buchungs ID';
 
 --
+-- AUTO_INCREMENT für Tabelle `f_feiertage`
+--
+ALTER TABLE `f_feiertage`
+  MODIFY `F_ID` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Feiertags ID';
+
+--
 -- AUTO_INCREMENT für Tabelle `g_grenzwerte`
 --
 ALTER TABLE `g_grenzwerte`
@@ -211,6 +255,12 @@ ALTER TABLE `g_grenzwerte`
 --
 ALTER TABLE `ma_abteilung`
   MODIFY `MA_ID` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Abteilungs ID';
+
+--
+-- AUTO_INCREMENT für Tabelle `mg_gleitzeittage`
+--
+ALTER TABLE `mg_gleitzeittage`
+  MODIFY `MG_ID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT für Tabelle `mk_konto`

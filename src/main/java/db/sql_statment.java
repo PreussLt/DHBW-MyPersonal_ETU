@@ -1,9 +1,6 @@
 package db;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 public class sql_statment {
   private String[][] ausgabeArray;
@@ -15,12 +12,12 @@ public class sql_statment {
       // Abfrage aufbauen
       Statement stm = con.createStatement();
       String sql_stm = "select "+ziel+" from "+tabelle+" "+bedingung+";";
-      System.out.println("*INFO* Folgendes Statment wurde ausgeführt: "+sql_stm);
+      //System.out.println("*INFO* Folgendes Statment wurde ausgeführt: "+sql_stm); //--> Debbuging
       ResultSet rs = stm.executeQuery(sql_stm);
 
       // Ausgabe 0
       int count = 0;
-      if (rs.next()==false && count==0) return false; // Ausgabe leer
+      if (!rs.next()) return false; // Ausgabe leer
       /*
       while(rs.next()){
          // Ausgabe leer
@@ -50,7 +47,7 @@ public class sql_statment {
       // Abfrage aufbauen
       Statement stm = con.createStatement();
       String sql_stm = "select "+ziel+" from "+tabelle+" "+bedingung+";";
-      //System.out.println(sql_stm); // Debugging
+      //System.out.println(sql_stm); // -->Debugging
       ResultSet rs = stm.executeQuery(sql_stm);
 
       // Ausgabe in Array
@@ -85,7 +82,7 @@ public boolean insert(String tabelle, String[] Daten, Connection con){
     String sql_stm = "INSERT INTO "+tabelle+" VALUES (Null,"+sql_daten+");";
 
     // Consoleausgabe + Execute;
-    System.out.println("*INFO* Folgendes SQL-Statment wurde ausgeführt:"+sql_stm);
+    //System.out.println("*INFO* Folgendes SQL-Statment wurde ausgeführt:"+sql_stm); //--> Debbuging
     stm.execute(sql_stm);
     return true;
   } catch (SQLException e) {
@@ -95,6 +92,7 @@ public boolean insert(String tabelle, String[] Daten, Connection con){
   }// END try, Catch
 
 } // SQL Insert
+
 
 // Ausführen eines Delete Statments
 public boolean delete(String tabelle, String bedingung, Connection con){
@@ -131,8 +129,6 @@ public boolean update(String tabelle, String[] ziel, String[] neuerWert,String b
         stm_zuweisung+= ""+ziel[i]+" = \'"+neuerWert[i]+"\',";
       }
     }
-
-
     // Statment Vorbereiten
     Statement stm = con.createStatement();
     String sql_stm = "UPDATE "+tabelle+" SET "+stm_zuweisung+" "+bedingung+";";
@@ -149,6 +145,18 @@ public boolean update(String tabelle, String[] ziel, String[] neuerWert,String b
 
 } // SQL Update
 
+  public ResultSet fetchAll(String table, String bedingungen, Connection con){
+    ResultSet rs = null;
+    try {
+      String query = String.format("SELECT * from %s %s", table, bedingungen);
+      PreparedStatement ps = con.prepareStatement(query);
+      rs = ps.executeQuery();
+    } catch(SQLException e) {
+      e.printStackTrace();
+    }
+
+    return rs;
+  }
 /*
  Hier Folgen die "Verborgenen" Funktionen
  */
@@ -176,7 +184,7 @@ public boolean update(String tabelle, String[] ziel, String[] neuerWert,String b
       // Anzahl der Rows herraus finden
       Statement stm = con.createStatement();
       String sql_stm = "select count(*) from "+tabelle+" "+bedingung+";";
-      System.out.println("*INFO* Folgendes Statment wurde ausgeführt: "+sql_stm); // --> Debugging
+      //System.out.println("*INFO* Folgendes Statment wurde ausgeführt: "+sql_stm); // --> Debugging
       ResultSet rs = stm.executeQuery(sql_stm);
       rs.next();
       int count = rs.getInt(1);

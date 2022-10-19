@@ -1,8 +1,49 @@
 {
-  "demo.title": "Translation demo",
-  "demo.text": "This is a simple demonstration of ngx-translate",
-  "demo.en": "English",
-  "demo.de": "German"
+  "translate":
+  {
+    "en": "Englisch",
+    "de": "Deutsch"
+  },
 
+  "login": {
+    "welcomemessage": "Please log in!",
+    "personellnumber": "Personalnummer",
+    "password": "Passwort",
+    "loginBtn": "Einloggen",
+    "required": "Erforderlich",
+    "invalid": "Bitte überprüfen Sie die Personalnummer und Ihr Passwort"
+  },
+
+  "overview": {
+    "zid": "Zeiteintrag-ID",
+    "timestamp": "Zeitstempel",
+    "edit": "Bearbeiten"
+  },
+
+  "changepw":
+  {
+    "oldpw": "Altes Passwort",
+    "newpw": "Neues Passwort",
+    "confirm": "Neues Passwort bestätigen",
+    "invalid": "Das alte Passwort ist nicht korrekt",
+    "notMatching": "Die Passwörter stimmen nicht überein",
+    "invalidForm": "Das neue Passwort erfüllt die Anforderungen nicht",
+    "changepwbtn": "Passwort ändern"
+  },
+
+  "arbeitstagliste":
+  {
+    "date": "Datum",
+    "firstStamp": "Erster Stempel",
+    "lastStamp": "Letzter Stempel",
+    "worktime": "Arbeitszeit",
+    "allentries": "Alle Stempel",
+    "warning": "Warnungen",
+    "missingStamp": "Stempel fehlt",
+    "timeoutofbounds": "Stempel außerhalb der erlaubten Zeiten",
+    "overtime": "Gleitzeit",
+    "holiday": "Feiertag",
+    "flexibleday": "Gleitzeittag"
+  }
 
 }

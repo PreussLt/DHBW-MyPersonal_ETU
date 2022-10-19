@@ -1,0 +1,25 @@
+<form [formGroup]="changePwForm">
+  <div class="fields">
+    <div class="field half">
+      <label for="oldPW">{{'changepw.oldpw'|translate}}</label>
+      <input type="password" name="oldPW" id="oldPW" formControlName="oldPW" />
+    </div>
+    <div class="field half"></div>
+    <div class="field half">
+      <label for="newPW">{{'changepw.newpw'|translate}}</label>
+      <input type="password" name="newPW" id="newPW" formControlName="newPW"/>
+    </div>
+    <div class="field half">
+      <label for="confirm">{{'changepw.confirm'|translate}}</label>
+      <input type="password" id="confirm" formControlName="confirm"/>
+    </div>
+  </div>
+  <div class="field" style="color:red;">
+    <p *ngIf="invalid">{{'changepw.invalid'|translate}}</p>
+    <p *ngIf="notMatching">{{'changepw.notMatching'|translate}}</p>
+    <p *ngIf="invalidForm">{{'changepw.invalidForm'|translate}}</p>
+  </div>
+  <ul class="actions">
+    <li><button (click)="changePassword()">{{'changepw.changepwbtn'|translate}}</button></li>
+  </ul>
+</form>
