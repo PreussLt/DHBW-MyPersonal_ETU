@@ -3,28 +3,40 @@ package DatenKlassen;
 import db.Einstellungen;
 import db.sql_connect;
 import db.sql_statment;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.sql.Connection;
 
-public class grenzwerte {
-  private static Connection con = sql_connect.intern_connect();
-  private static sql_statment sql = new sql_statment();
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class Grenzwerte {
 
-  public String mid;
-  public int gGelb;
-  public int gRot;
+  private String confnum;
+  private String maxday;
+  private String maxweek;
+  private String yellow;
+  private String red;
 
+  private db.sql_statment sql_statment = new sql_statment();
+  private static Connection con = sql_connect.extern_connect();
 
-
-  public grenzwerte(String mid){
-    this.mid = mid;
-    try {
-      String[] grenzwerte = sql.select_arr(Einstellungen.mb_konto+" k, "+Einstellungen.mb_arbeitsmodell+" a, "+Einstellungen.mb_grenzwerte +" g","G_Gleitzeit_Gelb, G_Gleitzeit_Rot ","WHERE g.G_ID = a.A_G_ID AND a.A_ID = k.MK_A_ID AND k.MK_M_ID=\'"+mid+"\'",con)[0];
-      this.gGelb = Integer.parseInt(grenzwerte[0]);
-      this.gRot = Integer.parseInt(grenzwerte[1]);
-
-    }catch (Exception e){
-      System.err.println("!ERROR!: Fehler in der Grenzwerte: "+e);
+  public int[] fetchGrenzwerte(int confnum){
+    String bedingung = String.format("WHERE G_ID = %d", confnum);
+    String[][] grenzwerte = sql_statment.select_arr(Einstellungen.mb_grenzwerte, "*", bedingung, con);
+    int[] intGrenzwerte = new int[grenzwerte[0].length];
+    for(int i = 0; i<intGrenzwerte.length; i++){
+      intGrenzwerte[i] = Integer.parseInt(grenzwerte[0][i]);
     }
+    return intGrenzwerte;
+  }
+
+  public boolean updateGrenzwerte(){
+    String[] ziele = {"G_Tag", "G_Woche", "G_Gleitzeit_Gelb", "G_Gleitzeit_Rot"};
+    String[] werte = {maxday, maxweek, yellow, red};
+    String bedingung = String.format("WHERE G_ID = %s", confnum);
+    return sql_statment.update(Einstellungen.mb_grenzwerte, ziele, werte, bedingung, con);
   }
 }
