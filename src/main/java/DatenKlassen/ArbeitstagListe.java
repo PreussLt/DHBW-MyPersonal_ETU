@@ -21,6 +21,7 @@ public class ArbeitstagListe {
   // Globale Variabeln
   public Arbeitstag[] arbeitstage;
   private String mid;
+  public int gleitzeitstand=0;
 
   public ArbeitstagListe(String mid) {
     this.mid = mid;
@@ -37,6 +38,17 @@ public class ArbeitstagListe {
       return arbeitstage;
     }
 
+    private boolean getGleitzeitstand(){
+      try {
+        for (int i=0; i< arbeitstage.length;i++){
+          gleitzeitstand += arbeitstage[i].arbeitszeit;
+        }
+        return true;
+      }catch (Exception e){
+        System.err.println("!ERROR! Fehler in der Gleitzeitberechnung: "+e);
+        return false;
+      }
+    }
     private int getAnzahlArbeitstage(String eDatum, String aDatum){
     try {
       if (sql_statment.select_arr(Einstellungen.mb_buchung,"count(*)","WHERE B_M_ID='"+mid+"' AND B_TAG >'"+aDatum+"' AND B_TAG <='"+eDatum+"'",con)[0][0].equals(0)) return -1;
