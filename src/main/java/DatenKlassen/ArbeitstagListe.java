@@ -41,7 +41,7 @@ public class ArbeitstagListe {
     private boolean getGleitzeitstand(){
       try {
         for (int i=0; i< arbeitstage.length;i++){
-          gleitzeitstand += arbeitstage[i].arbeitszeit;
+          gleitzeitstand += arbeitstage[i].arbeitszeit - arbeitstage[i].sollArbeitszeit;
         }
         return true;
       }catch (Exception e){
