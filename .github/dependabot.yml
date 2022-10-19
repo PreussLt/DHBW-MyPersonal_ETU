@@ -18,10 +18,16 @@ updates:
     open-pull-requests-limit: 20
     rebase-strategy: auto
     auto-merge: false
-registries:
-  maven:
-    type: maven
-    url: https://api.mapbox.com/downloads/v2/releases/maven
-    username: mapbox
-    password: sk.eyJ1IjoiZWx2YWgtbm9ucHJvZCIsImEiOiJja3JuOWRkZHIwYmJsMzJvOWNicW5pcDkwIn0.coHNbzDtfMh79Oc-pY7mDA
+jobs:
+  bump:
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2-beta
+        with:
+          node-version: '14'
+      - run: |
+          npm install -g npm-check-updates
+          ncu "/^@babel\/.*$/"     # or `ncu -u`
+          npm install
+      
 
