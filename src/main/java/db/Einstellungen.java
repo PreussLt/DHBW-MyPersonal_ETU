@@ -40,8 +40,13 @@ public class Einstellungen {
   public static int pw_max_lengt=16;
 
   // Pausen REgelung
-  public double erstePause=6;
-  public double längeEPause=0.5;
-  public double zweitePause=9;
-  public double längeZPause=0.25;
+  public static double erstePause=6;
+  public static double laengeEPause =0.5;
+  public static double zweitePause=9;
+  public static double laengeZPause =0.25;
+
+  // Azubi Regelung
+  public static int u18_arbeitsmodel=6;
+  public static int ü18_arbeitsmodel=5;
+
 }
