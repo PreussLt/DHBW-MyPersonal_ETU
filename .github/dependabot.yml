@@ -11,4 +11,17 @@ updates:
     directory: '/'
     schedule:
       interval: 'daily'
-  
+  - package-ecosystem: "gradle"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    open-pull-requests-limit: 20
+    rebase-strategy: auto
+    auto-merge: false
+registries:
+  maven:
+    type: maven
+    url: https://api.mapbox.com/downloads/v2/releases/maven
+    username: mapbox
+    password: sk.eyJ1IjoiZWx2YWgtbm9ucHJvZCIsImEiOiJja3JuOWRkZHIwYmJsMzJvOWNicW5pcDkwIn0.coHNbzDtfMh79Oc-pY7mDA
+
