@@ -1,0 +1,11 @@
+<table>
+  <tr>
+    <th>{{'overview.timestamp'|translate}} {{date}}</th>
+    <th></th>
+  </tr>
+  <tr *ngFor="let entry of entries">
+    <td>{{entry[0].substring(10)}}</td>
+    <td><button (click)="editEntry(entry[1])">{{'overview.edit'|translate}}</button></td>
+  </tr>
+</table>
+

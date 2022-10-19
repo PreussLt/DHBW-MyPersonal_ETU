@@ -1,12 +1,139 @@
 {
-  "demo.title": "Übersetzung demo",
-  "demo.text": "Das ist eine einfache Demonstration von ngx-translate",
-  "demo.en": "Englisch",
-  "demo.de": "Deutsch",
-  "login.welcomemessage": "Bitte loggen sie sich ein!",
-  "login.personellnumber": "Personalnummer",
-  "login.password": "Passwort",
-  "login.loginBtn": "Einloggen",
-  "login.required": "Erforderlich",
-  "login.invalid": "Bitte überprüfen Sie die Personalnummer und Ihr Passwort"
+  "translate":
+  {
+    "en": "Englisch",
+    "de": "Deutsch"
+  },
+
+  "login": {
+    "welcomemessage": "Bitte loggen sie sich ein!",
+    "personellnumber": "Personalnummer",
+    "password": "Passwort",
+    "loginBtn": "Einloggen",
+    "required": "Erforderlich",
+    "invalid": "Bitte überprüfen Sie die Personalnummer und Ihr Passwort"
+  },
+
+  "overview": {
+    "zid": "Zeiteintrag-ID",
+    "timestamp": "Zeitstempel vom ",
+    "edit": "Bearbeiten"
+  },
+
+  "changepw":
+  {
+    "oldpw": "Altes Passwort",
+    "newpw": "Neues Passwort",
+    "confirm": "Neues Passwort bestätigen",
+    "invalid": "Das alte Passwort ist nicht korrekt",
+    "notMatching": "Die Passwörter stimmen nicht überein",
+    "invalidForm": "Das neue Passwort erfüllt die Anforderungen nicht",
+    "changepwbtn": "Passwort ändern"
+  },
+
+  "arbeitstagliste":
+  {
+    "cw": "KW",
+    "date": "Datum",
+    "firstStamp": "Erster Stempel",
+    "lastStamp": "Letzter Stempel",
+    "worktime": "Arbeitszeit",
+    "allentries": "Alle Stempel",
+    "warning": "Hinweise",
+    "missingStamp": "Stempel fehlt",
+    "timeoutofbounds": "Stempel außerhalb der erlaubten Zeiten",
+    "vacation": "Urlaub",
+    "overtime": "Gleitzeit",
+    "holiday": "Feiertag",
+    "flexibleday": "Gleitzeittag",
+    "deleteFreiertag": "Eintrag löschen",
+    "confirmDelete": "LÖSCHEN BESTÄTIGEN",
+    "kindOfFlexibleday": "Art: Gleitzeittag",
+    "kindOfVacation": "Art: Urlaub",
+    "confirm": "Löschen",
+    "failure": "FEHLER",
+    "failuremsg": "Es ist ein Fehler beim Löschen des Eintrags aufgetreten",
+    "confirmFailure": "Bestätigen"
+  },
+
+  "newentry":
+  {
+    "type": "Eintragsart wählen",
+    "stamp": "Zeitstempel",
+    "day": "Arbeitstag",
+    "flexibleday": "Gleitzeittag",
+    "vacation": "Urlaub",
+    "date": "Datum",
+    "dateBegin": "Datum Start",
+    "dateEnd": "Datum Ende",
+    "time": "Zeit",
+    "timeBegin": "Zeit Start",
+    "timeEnd": "Zeit Ende",
+    "create": "Neuen Eintrag erstellen",
+    "confirm": "Bestätigen",
+    "confirmStamp": "Zeitstempel bestätigen",
+    "confirmDay": "Arbeitstag bestätigen",
+    "confirmFlexible": "Gleitzeittag bestätigen",
+    "confirmVacation": "Urlaub bestätigen",
+    "error": "FEHLER",
+    "weekenderror": "Tag des Eintrags liegt im Wochenende",
+    "failure": "Ein unbekannter Fehler ist aufgetreten. Bitte wenden Sie sich an einen Systemadministrator",
+    "taken": "Am gewählten Tag liegt bereits ein Eintrag vor."
+  },
+
+  "editentry":
+  {
+    "id": "Zeitstempel-ID",
+    "date": "Datum",
+    "timestamp": "Zeitstempel-Uhrzeit",
+    "confirmchange": "Änderungen übernehmen",
+    "confirmdelete": "Stempel löschen",
+    "confirmdeletemsg": "Möchten Sie diesen Zeitstempel wirklich löschen?",
+    "confirm": "Bestätigen"
+  },
+  "newuser":
+  {
+    "confirmCreation": "Erstellung bestätigen",
+    "prename": "Vorname",
+    "surname": "Nachname",
+    "prsn": "Personalnummer",
+    "birthday": "Geburtsdatum",
+    "model": "Arbeitsmodell",
+    "uclass": "Berechtigungsklasse",
+    "pw": "Passwort",
+    "pwconfirm": "Passwort bestätigen",
+    "confirm": "Bestätigen",
+    "generate": "Passwort generieren",
+    "chooseAM": "Arbeitsmodell wählen",
+    "vollzeit": "Vollzeit",
+    "vollzeitred": "Vollzeit redz. I",
+    "teilzeit": "Teilzeit I",
+    "extern": "Extern - auf Rechnung",
+    "azubi": "Azubi",
+    "azubiu18": "Azubi U18",
+    "chooseuclass": "Berechtigungsklasse wählen",
+    "admin": "Administrator",
+    "basic": "Mitarbeiter",
+    "missingfields": "Alle Pflichtfelder ausfüllen!",
+    "notMatching": "Passwörter stimmen nicht überein",
+    "success": "Erfolg!",
+    "successmsg": "Nutzer erfolgreich angelegt",
+    "failure": "Fehler!",
+    "failuremsg": "Etwas ist schiefgelaufen. Bitte wenden Sie sich an einen Systemadministrator.",
+    "createbtn": "Nutzer anlegen"
+  },
+  "grenzwerte":
+  {
+    "select": "Konfiguration wählen",
+    "maxtag": "Maximale Arbeitszeit/Tag",
+    "maxwoche": "Maximale Arbeitszeit/Woche",
+    "yellow": "Grenzwert Gelb",
+    "red": "Grenzwert Rot",
+    "confirm": "Änderungen übernehmen",
+    "failure": "Etwas ist schiefgelaufen. Bitte wenden Sie sich an einen Administrator",
+    "success": "Änderungen erfolgreich übernommen",
+    "yGr": "Gleitzeit Gelb größer als Gleitzeit Rot",
+    "dGw": "Max. Zeit/Tag größer als Max. Zeit/Woche"
+  }
+
 }

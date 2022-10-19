@@ -1,0 +1,13 @@
+tr:nth-child(even){
+  background-color:#3e4094;
+}
+tr:nth-child(odd){
+  background-color:#5052b5;
+}
+th{
+  background-color: #3c2c62;
+}
+h1{
+  width: 70%;
+  margin-left: 0.5%;
+}

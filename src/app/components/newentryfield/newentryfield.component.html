@@ -1,0 +1,123 @@
+<form [formGroup]="newTimeEntryForm">
+  <div class="fields" style="width: 50%; margin: auto;">
+    <div class="field">
+      <select formControlName="entryType">
+        <option disabled [value]="-1" style="color: dimgrey">{{'newentry.type'|translate}}</option>
+        <option [value]="0">{{'newentry.stamp'|translate}}</option>
+        <option [value]="1">{{'newentry.day'|translate}}</option>
+        <option [value]="2">{{'newentry.flexibleday'|translate}}</option>
+        <option [value]="3">{{'newentry.vacation'|translate}}</option>
+      </select>
+    </div>
+
+    <!--Zeitstempel-->
+      <div *ngIf="f['entryType'].value === '0'" class="field">
+        <label for="date">{{'newentry.date'|translate}}</label>
+        <input type="date" id="date" formControlName="dateStamp">
+        <label for="timeBegin">{{'newentry.time'|translate}}</label>
+        <input type="time" id="timeBegin" formControlName="timeStamp">
+      </div>
+
+    <!--Arbeitstag-->
+    <div *ngIf="f['entryType'].value === '1'" class="field">
+      <label for="dateDay">{{'newentry.date'|translate}}</label>
+      <input type="date" id="dateDay" formControlName="dateDay">
+
+      <label for="timeBeginDay">{{'newentry.timeBegin'|translate}}</label>
+      <input type="time" id="timeBeginDay" formControlName="timeBeginDay">
+
+      <label for="timeEndDay">{{'newentry.timeEnd'|translate}}</label>
+      <input type="time" id="timeEndDay" formControlName="timeEndDay">
+    </div>
+
+    <!--Gleitzeittag-->
+    <div *ngIf="f['entryType'].value === '2'" class="field">
+      <label for="gleitzeitTag">{{'newentry.date'|translate}}</label>
+      <input type="date" id="gleitzeitTag" formControlName="dateFlexibleday">
+    </div>
+
+    <!--Urlaub-->
+    <div *ngIf="f['entryType'].value === '3'" class="field">
+      <label for="urlaubStart">{{'newentry.dateBegin'|translate}}</label>
+      <input type="date" id="urlaubStart" formControlName="dateBeginVacation">
+      <label for="urlaubEnde">{{'newentry.dateEnd'|translate}}</label>
+      <input type="date" id="urlaubEnde" formControlName="dateEndVacation">
+    </div>
+
+    <!--Submit-->
+    <br>
+    <br>
+    <div class="field" *ngIf="f['entryType'].value != '-1'">
+      <button (click)="toggleModal()">{{'newentry.create'|translate}}</button>
+    </div>
+  </div>
+
+  <!-- The ConfirmModal -->
+  <div *ngIf="showModal" id="myModal" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+      <span class="close" (click)="toggleModal()">&times;</span>
+
+      <div *ngIf="f['entryType'].value == '0'">
+        <h3>{{'newentry.confirmStamp'|translate}}</h3>
+        <div>{{'newentry.date'|translate}}: {{f['dateStamp'].value}}</div>
+        <div>{{'newentry.time'|translate}}: {{f['timeStamp'].value}}</div>
+      </div>
+
+      <div *ngIf="f['entryType'].value == '1'">
+        <h3>{{'newentry.confirmDay'|translate}}</h3>
+        <div>{{'newentry.date'|translate}}: {{f['dateDay'].value}}</div>
+        <div>{{'newentry.timeBegin'|translate}}: {{f['timeBeginDay'].value}}</div>
+        <div>{{'newentry.timeEnd'|translate}}: {{f['timeEndDay'].value}}</div>
+      </div>
+
+      <div *ngIf="f['entryType'].value == '2'">
+        <h3>{{'newentry.confirmFlexible'|translate}}</h3>
+        <div>{{'newentry.date'|translate}}: {{f['dateFlexibleday'].value}}</div>
+      </div>
+
+      <div *ngIf="f['entryType'].value == '3'">
+        <h3>{{'newentry.confirmVacation'|translate}}</h3>
+        <div>{{'newentry.dateBegin'|translate}}: {{f['dateBeginVacation'].value}}</div>
+        <div>{{'newentry.dateEnd'|translate}}: {{f['dateEndVacation'].value}}</div>
+      </div>
+
+      <br>
+      <button class="button medium" (click)="submit()">{{'newentry.confirm'|translate}}</button>
+    </div>
+  </div>
+
+  <!-- The WeekenderrorModal -->
+  <div *ngIf="weekend" id="weekendModal" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+        <h3>{{'newentry.error'|translate}}</h3>
+        <div>{{'newentry.weekenderror'|translate}}</div>
+      <br>
+      <button class="button medium" (click)="toggleWeekendModal()">{{'newentry.confirm'|translate}}</button>
+    </div>
+  </div>
+
+  <!-- The FailureModal -->
+  <div *ngIf="failure" id="failureModal" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+      <h3>{{'newentry.error'|translate}}</h3>
+      <div>{{'newentry.failure'|translate}}</div>
+      <br>
+      <button class="button medium" (click)="toggleFailureModal()">{{'newentry.confirm'|translate}}</button>
+    </div>
+  </div>
+
+  <!-- The TakenModal -->
+  <div *ngIf="taken" id="takenModal" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+      <h3>{{'newentry.error'|translate}}</h3>
+      <div>{{'newentry.taken'|translate}}</div>
+      <br>
+      <button class="button medium" (click)="toggleTakenModal()">{{'newentry.confirm'|translate}}</button>
+    </div>
+  </div>
+
+</form>

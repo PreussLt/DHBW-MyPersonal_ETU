@@ -1,0 +1,89 @@
+      <section id="Zeit" class="wrapper style2 spotlights">
+
+          <select [(ngModel)]="yearSelect" class="yearSelect" style="display: inline">
+            <option *ngFor="let number of numbers" [value]="number">{{number}}</option>
+          </select>
+
+          <div style="display: inline; float: right">
+            <button (click)="greatDecreaseCW()" class="button small"><<</button>
+            <button (click)="decreaseCW()" class="button small"><</button>
+            {{'arbeitstagliste.cw'|translate}} {{this.calendarWeek}}
+            <button (click)="increaseCW()" class="button small">></button>
+            <button (click)="greatIncreaseCW()" class="button small">>></button>
+          </div>
+        <section>
+          <table>
+            <tr>
+              <th>{{'arbeitstagliste.date'|translate}}</th>
+              <th>{{'arbeitstagliste.firstStamp'|translate}}</th>
+              <th>{{'arbeitstagliste.lastStamp'|translate}}</th>
+              <th>{{'arbeitstagliste.worktime'|translate}}</th>
+              <th>{{'arbeitstagliste.warning'|translate}}</th>
+              <th></th>
+              <th>{{'arbeitstagliste.overtime'|translate}}</th>
+            </tr>
+
+            <ng-container *ngFor="let arbeitstag of arbeitstagListe">
+
+              <tr *ngIf="(arbeitstag.calendarWeek == calendarWeek) && (arbeitstag.calendarYear == yearSelect)">
+                <ng-container *ngIf="!arbeitstag.gleitzeittag && !arbeitstag.feiertag && !arbeitstag.urlaubstag">
+                  <td>{{arbeitstag.tag}}</td>
+                  <td>{{arbeitstag.ersterStempel.substring(10)}}</td>
+                  <td>{{arbeitstag.letzterStempel.substring(10)}}</td>
+                  <td>{{arbeitstag.arbeitszeit.toFixed(2)}}</td>
+                  <td>
+                    <div class="warning" *ngIf="arbeitstag.zeitstempel.length % 2 != 0">{{'arbeitstagliste.missingStamp'|translate}}</div>
+                    <div class="warning" *ngIf="!arbeitstag.arbeitszeitenEingehalten">{{'arbeitstagliste.timeoutofbounds'|translate}}</div>
+                  </td>
+                  <td><button (click)="openEntries(arbeitstag.zeitstempel)">{{'arbeitstagliste.allentries'|translate}}</button></td>
+                  <td>{{(arbeitstag.arbeitszeit - sollarbeitszeit).toFixed(2)}}</td>
+                </ng-container>
+
+                <ng-container *ngIf="arbeitstag.gleitzeittag || arbeitstag.feiertag || arbeitstag.urlaubstag">
+                  <td>{{arbeitstag.tag}}</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>{{arbeitstag.arbeitszeit.toFixed(2)}}</td>
+                  <td>
+                    <div class="holiday" *ngIf="arbeitstag.feiertag">{{'arbeitstagliste.holiday'|translate}}</div>
+                    <div class="holiday" *ngIf="arbeitstag.urlaubstag">{{'arbeitstagliste.vacation'|translate}}</div>
+                    <div class="holiday" *ngIf="arbeitstag.gleitzeittag">{{'arbeitstagliste.flexibleday'|translate}}</div>
+                  </td>
+                  <td>
+                    <button *ngIf="arbeitstag.feiertag" disabled>{{'arbeitstagliste.allentries'|translate}}</button>
+                    <button *ngIf="arbeitstag.urlaubstag || arbeitstag.gleitzeittag" (click)="openModal(arbeitstag.tag, arbeitstag.gleitzeittag, arbeitstag.urlaubstag)">{{'arbeitstagliste.deleteFreiertag'|translate}}</button>
+                  </td>
+                  <td *ngIf="arbeitstag.gleitzeittag">-{{arbeitstag.arbeitszeit.toFixed(2)}}</td>
+                  <td *ngIf="!arbeitstag.gleitzeittag">0.00</td>
+                </ng-container>
+              </tr>
+
+              <!-- The WeekenderrorModal -->
+              <div *ngIf="showModal" id="weekendModal" class="modal">
+                <!-- Modal content -->
+                <div class="modal-content">
+                  <span class="close" (click)="toggleModal()">&times;</span>
+                  <h3>{{'arbeitstagliste.confirmDelete'|translate}}</h3>
+                  <div *ngIf="modalGleitzeit">{{'arbeitstagliste.kindOfFlexibleday'|translate}}</div>
+                  <div *ngIf="modalUrlaub">{{'arbeitstagliste.kindOfVacation'|translate}}</div>
+                  <div>{{'arbeitstagliste.date'|translate}}: {{modalTag}}</div>
+                  <br>
+                  <button class="button medium" (click)="deleteFreiertag(modalTag)">{{'arbeitstagliste.confirm'|translate}}</button>
+                </div>
+              </div>
+
+              <!-- The FailureModal -->
+              <div *ngIf="showFailureModal" id="failureModal" class="modal">
+                <!-- Modal content -->
+                <div class="modal-content">
+                  <h3>{{'arbeitstagliste.failure'|translate}}</h3>
+                  <div>{{'arbeitstagliste.failuremsg'|translate}}</div>
+                  <br>
+                  <button class="button medium" (click)="toggleFailureModal()">{{'arbeitstagliste.confirmFailure'|translate}}</button>
+                </div>
+              </div>
+            </ng-container>
+          </table>
+
+        </section>
+      </section>

@@ -27,17 +27,19 @@ public class Einstellungen {
   public static String mitarbeiter = "m_mitarbeiter"; // Mitarbeiter
   public static String mb_konto = "mk_konto"; // Mitarbeiter Konto
   public static String mb_buchung = "b_buchung"; // Buchungen
-  public static String mb_zeiteintrag = "bz_zeitsteintrag";
-  public static String mb_arbeitsmodell ="a_arbeitsmodelle";
+  public static String mb_zeiteintrag = "bz_zeitsteintrag"; // Zeiteinträge in Form der stempel
+  public static String mb_arbeitsmodell ="a_arbeitsmodelle"; // Arbeitsmodell
+  public static String mb_userklassen ="u_userklassen"; // Arbeitsmodell
+
   public static String feiertag ="f_feiertage";
   public static String mb_grenzwerte="g_grenzwerte";
   public static String gleitzeittage ="mg_gleitzeittage";
 
   //  Passwort sicherheits einstellungen
-  public static boolean pw_gk_schreibung = true; // Mindest eins Char muss groß / klein sein
-  public static boolean pw_Zahl = true; // Mindestens eine Zahl muss dabei sein
-  public static boolean pw_Sonzerzeichen = true; // Mindesten ein Sonderzeichen muss vorhanden sein
-  public static int pw_min_lenght = 6; // Mindestlänge der Zahlen
+  public static boolean pw_gk_schreibung = false; // Mindest eins Char muss groß / klein sein
+  public static boolean pw_Zahl = false; // Mindestens eine Zahl muss dabei sein
+  public static boolean pw_Sonzerzeichen = false; // Mindesten ein Sonderzeichen muss vorhanden sein
+  public static int pw_min_lenght = 1; // Mindestlänge der Zahlen
   public static int pw_max_lengt=16;
 
   // Pausen REgelung

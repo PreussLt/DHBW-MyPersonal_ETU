@@ -8,6 +8,8 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="DHBW-Fallstudie-MyPersonal" />
+        <module name="demo" />
+        <module name="DHBW-MyPersonal_ETU" />
         <module name="DHBW-MyPersonal" />
       </profile>
     </annotationProcessing>
