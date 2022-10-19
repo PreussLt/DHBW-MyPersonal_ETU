@@ -48,4 +48,9 @@ public class Einstellungen {
   public static double laengeEPause =0.5;
   public static double zweitePause=9;
   public static double laengeZPause =0.25;
+
+  // Azubi Regelung
+  public static int u18_arbeitsmodel=6;
+  public static int ü18_arbeitsmodel=5;
+
 }
