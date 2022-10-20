@@ -1,8 +1,10 @@
 {
-  "translate":
+  "header":
   {
-    "en": "Englisch",
-    "de": "Deutsch"
+    "home": "Startseite",
+    "newentry": "Neuer Eintrag",
+    "overview": "Tagesübersicht",
+    "settings": "Einstellungen"
   },
 
   "login": {
@@ -91,6 +93,7 @@
     "confirmdeletemsg": "Möchten Sie diesen Zeitstempel wirklich löschen?",
     "confirm": "Bestätigen"
   },
+
   "newuser":
   {
     "confirmCreation": "Erstellung bestätigen",
@@ -122,6 +125,7 @@
     "failuremsg": "Etwas ist schiefgelaufen. Bitte wenden Sie sich an einen Systemadministrator.",
     "createbtn": "Nutzer anlegen"
   },
+
   "grenzwerte":
   {
     "select": "Konfiguration wählen",
@@ -134,6 +138,13 @@
     "success": "Änderungen erfolgreich übernommen",
     "yGr": "Gleitzeit Gelb größer als Gleitzeit Rot",
     "dGw": "Max. Zeit/Tag größer als Max. Zeit/Woche"
+  },
+
+  "settings":
+  {
+    "changepw": "Passwort ändern",
+    "createuser": "Nutzer anlegen",
+    "setvalues": "Grenzwerte einstellen"
   }
 
 }

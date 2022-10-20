@@ -38,6 +38,11 @@ public class ArbeitstagController {
     return 7.6;
   }
 
+  @PostMapping("/gleitzeit")
+  public double getGleitzeit(@RequestBody String mid){
+    return new ArbeitstagListe(mid).getGleitzeitstand();
+  }
+
   @PostMapping("/getCW")
   public String getCW() {
     LocalDate localDate = LocalDate.now(Clock.systemDefaultZone());

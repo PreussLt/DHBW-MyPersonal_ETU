@@ -32,4 +32,10 @@ public class GrenzwertController {
   public boolean setGrenzwerte(@RequestBody Grenzwerte grenzwerte){
     return grenzwerte.updateGrenzwerte();
   }
+
+  @PostMapping("/getGrenzwerteFor")
+  public Grenzwerte getGrenzwerteFor(@RequestBody String mid){
+    Grenzwerte grenzwerte = new Grenzwerte();
+    return grenzwerte.getGrenzwerte(mid);
+  }
 }

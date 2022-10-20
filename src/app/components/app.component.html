@@ -2,9 +2,10 @@
 <header id="header">
   <nav>
     <ul>
-      <li><a routerLink="/home" class="active">Startseite</a></li>
-      <li><a routerLink="/arbeitstage" class="active">Tagesübersicht</a></li>
-      <li><a routerLink="/settings"  class="active">Einstellungen</a></li>
+      <li><a routerLink="/home" class="active">{{'header.home'|translate}}</a></li>
+      <li><a routerLink="/newEntry" class="active">{{'header.newentry'|translate}}</a></li>
+      <li><a routerLink="/arbeitstage" class="active">{{'header.overview'|translate}}</a></li>
+      <li><a routerLink="/settings"  class="active">{{'header.settings'|translate}}</a></li>
       <li><a (click)="useLanguage('de')" class="button small">DE</a></li>
       <li><a (click)="useLanguage('en')" class="button small">EN</a></li>
     </ul>

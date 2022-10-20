@@ -12,7 +12,8 @@
             <button (click)="greatIncreaseCW()" class="button small">>></button>
           </div>
         <section>
-          <table>
+          <app-loading *ngIf="loading"></app-loading>
+          <table *ngIf="!loading">
             <tr>
               <th>{{'arbeitstagliste.date'|translate}}</th>
               <th>{{'arbeitstagliste.firstStamp'|translate}}</th>
@@ -36,7 +37,7 @@
                     <div class="warning" *ngIf="!arbeitstag.arbeitszeitenEingehalten">{{'arbeitstagliste.timeoutofbounds'|translate}}</div>
                   </td>
                   <td><button (click)="openEntries(arbeitstag.zeitstempel)">{{'arbeitstagliste.allentries'|translate}}</button></td>
-                  <td>{{(arbeitstag.arbeitszeit - sollarbeitszeit).toFixed(2)}}</td>
+                  <td>{{getGleitzeit(arbeitstag.arbeitszeit, sollarbeitszeit)}}</td>
                 </ng-container>
 
                 <ng-container *ngIf="arbeitstag.gleitzeittag || arbeitstag.feiertag || arbeitstag.urlaubstag">
@@ -53,12 +54,12 @@
                     <button *ngIf="arbeitstag.feiertag" disabled>{{'arbeitstagliste.allentries'|translate}}</button>
                     <button *ngIf="arbeitstag.urlaubstag || arbeitstag.gleitzeittag" (click)="openModal(arbeitstag.tag, arbeitstag.gleitzeittag, arbeitstag.urlaubstag)">{{'arbeitstagliste.deleteFreiertag'|translate}}</button>
                   </td>
-                  <td *ngIf="arbeitstag.gleitzeittag">-{{arbeitstag.arbeitszeit.toFixed(2)}}</td>
-                  <td *ngIf="!arbeitstag.gleitzeittag">0.00</td>
+                  <td *ngIf="arbeitstag.gleitzeittag">-{{arbeitstag.arbeitszeit.toFixed(2)}}h</td>
+                  <td *ngIf="!arbeitstag.gleitzeittag">+/-0.00h</td>
                 </ng-container>
               </tr>
 
-              <!-- The WeekenderrorModal -->
+              <!-- The DeleteModal -->
               <div *ngIf="showModal" id="weekendModal" class="modal">
                 <!-- Modal content -->
                 <div class="modal-content">

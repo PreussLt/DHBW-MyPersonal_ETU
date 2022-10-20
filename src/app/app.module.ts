@@ -19,6 +19,8 @@ import {SettingsComponent} from './components/settings/settings/settings.compone
 import { GrenzwertSettingsComponent } from './components/grenzwert-settings/grenzwert-settings.component';
 import { LoadingComponent } from './components/loading/loading.component';
 import { NewuserComponent } from './components/newuser/newuser.component';
+import { GleitzeitComponent } from './components/gleitzeit/gleitzeit.component';
+import { DeletebufferComponent } from './components/deletebuffer/deletebuffer.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +36,8 @@ import { NewuserComponent } from './components/newuser/newuser.component';
     GrenzwertSettingsComponent,
     LoadingComponent,
     NewuserComponent,
+    GleitzeitComponent,
+    DeletebufferComponent,
   ],
   imports: [
     BrowserModule,

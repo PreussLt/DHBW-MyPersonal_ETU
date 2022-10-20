@@ -1,0 +1,39 @@
+<div class="features">
+  <div class="container">
+    <app-loading *ngIf="loading"></app-loading>
+    <h2 *ngIf="!loading">Sie haben aktuell <span class="gleitzeit">{{gleitzeitstand}}h</span> Gleitzeit. </h2>
+  </div>
+  <div class="ampelcontainer">
+    <!-- Green -->
+    <ng-container *ngIf="danger === 0 && !loading">
+      <img
+        src="../../../assets/images/ampel_gruen.png"
+        alt="green"
+        class="ampel"
+      >
+      <p>Ihre Gleitzeit liegt im Rahmen</p>
+    </ng-container>
+
+    <!-- Yellow -->
+    <ng-container *ngIf="danger === 1 && !loading">
+      <img
+        src="../../../assets/images/ampel_gelb.png"
+        alt="yellow"
+        class="ampel"
+      >
+      <p>Werfen Sie ein Auge auf Ihre Gleitzeit.</p>
+    </ng-container>
+
+    <!-- Red -->
+    <ng-container *ngIf="danger === 2 && !loading">
+      <img
+        src="../../../assets/images/ampel_rot.png"
+        alt="red"
+        class="ampel"
+      >
+      <p>Bitte bauen Sie dringend Gleitzeit ab!</p>
+    </ng-container>
+
+  </div>
+
+</div>
