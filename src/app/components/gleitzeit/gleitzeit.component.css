@@ -1,0 +1,20 @@
+.ampel{
+  width: 160px;
+  height: 160px;
+}
+
+.ampelcontainer{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin: 50px 50px 50px 50px;
+}
+
+.gleitzeit{
+  color: lightblue;
+}
+
+.container{
+  margin: auto;
+}

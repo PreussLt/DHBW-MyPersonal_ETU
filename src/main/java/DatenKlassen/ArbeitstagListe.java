@@ -21,13 +21,13 @@ public class ArbeitstagListe {
   // Globale Variabeln
   public Arbeitstag[] arbeitstage;
   private String mid;
-  public int gleitzeitstand=0;
+  private double gleitzeitstand = 0;
 
   public ArbeitstagListe(String mid) {
     this.mid = mid;
     try {
       getArbeitstage(getAnzahlArbeitstage(getEndOfYear(),"2000-01-01"));
-
+      berechneGleitzeitstand();
     }catch (Exception e){
       System.err.println("!ERROR! Folgender Fehler ist im Cosntructor arbeittage Liste aufgetreten: "+e);
     }
@@ -38,15 +38,13 @@ public class ArbeitstagListe {
       return arbeitstage;
     }
 
-    private boolean getGleitzeitstand(){
+    private void berechneGleitzeitstand(){
       try {
-        for (int i=0; i< arbeitstage.length;i++){
-          gleitzeitstand += arbeitstage[i].arbeitszeit - arbeitstage[i].sollArbeitszeit;
+        for(Arbeitstag arbeitstag : arbeitstage) {
+          this.gleitzeitstand += arbeitstag.arbeitszeit - arbeitstag.sollArbeitszeit;
         }
-        return true;
       }catch (Exception e){
         System.err.println("!ERROR! Fehler in der Gleitzeitberechnung: "+e);
-        return false;
       }
     }
     private int getAnzahlArbeitstage(String eDatum, String aDatum){

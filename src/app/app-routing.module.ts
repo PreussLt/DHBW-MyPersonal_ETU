@@ -10,6 +10,7 @@ import {ArbeitstagslisteComponent} from "./components/arbeitstagsliste/arbeitsta
 import {EditEntryComponent} from "./components/edit-entry/edit-entry.component";
 import {SettingsComponent} from "./components/settings/settings/settings.component";
 import {LoadingComponent} from "./components/loading/loading.component";
+import {DeletebufferComponent} from "./components/deletebuffer/deletebuffer.component";
 
 //Für verschiedene Request-Urls Ergebniskomponenten setzen
 const routes: Routes = [
@@ -21,6 +22,8 @@ const routes: Routes = [
   {path: 'settings', component: SettingsComponent, canActivate:[AuthGuard]},
   {path: 'editEntry/:id', component: EditEntryComponent, canActivate:[AuthGuard]},
   {path: 'loading', component: LoadingComponent, canActivate:[AuthGuard]},
+  {path: 'deletebuffer', component: DeletebufferComponent, canActivate:[AuthGuard]},
+
   {path: '', component: AppComponent, canActivate:[AuthGuard]}
 ];
 

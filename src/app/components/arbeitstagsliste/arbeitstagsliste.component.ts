@@ -22,6 +22,8 @@ export class ArbeitstagslisteComponent implements OnInit {
   modalUrlaub: boolean;
   modalGleitzeit: boolean;
 
+  loading: boolean;
+
   constructor(private arbeitstagListeService: ArbeitslisteService,
               private router: Router,
               private vacationService: VacationService
@@ -40,8 +42,10 @@ export class ArbeitstagslisteComponent implements OnInit {
   }
 
   loadEntries():void{
+    this.loading = true;
     this.arbeitstagListeService.getArbeitstagliste().subscribe(data => {
       this.arbeitstagListe = data.sort((a, b) => a.tag.localeCompare(b.tag));
+      this.loading = false;
     });
   }
 
@@ -70,7 +74,7 @@ export class ArbeitstagslisteComponent implements OnInit {
   deleteFreiertag(date: string){
     this.vacationService.deleteFreiertag(date).subscribe(deleted =>{
       if(deleted){
-        this.router.navigate(["/loading"])
+        this.router.navigate(["/deletebuffer"])
       }
       else {
         this.toggleModal();
@@ -109,6 +113,16 @@ export class ArbeitstagslisteComponent implements OnInit {
     this.modalTag = tag;
     this.modalGleitzeit = gleitzeittag;
     this.modalUrlaub = urlaub;
+  }
+
+  getGleitzeit(arbeitszeit: number, sollarbeitszeit:number): string{
+    let temp = arbeitszeit - sollarbeitszeit;
+    let gleitzeit;
+    if(temp > 0){
+      gleitzeit = "+"+temp.toFixed(2)+"h";
+      return gleitzeit;
+    }
+    else return temp.toFixed(2).toString()+"h";
   }
 
 }

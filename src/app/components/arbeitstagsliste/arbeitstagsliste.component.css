@@ -59,3 +59,8 @@ th{
   text-decoration: none;
   cursor: pointer;
 }
+
+.dateselection{
+  display: flex;
+  flex-direction: row;
+}
