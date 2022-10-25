@@ -43,7 +43,18 @@
       <artifactId>threeten-extra</artifactId>
       <version>1.7.1</version>
     </dependency>
+    <dependency>
+      <groupId>com.github.dblock.waffle</groupId>
+      <artifactId>waffle-jna</artifactId>
+      <version>1.5</version>
+    </dependency>
+    <dependency>
+      <groupId>net.java.dev.jna</groupId>
+      <artifactId>platform</artifactId>
+      <version>3.5.2</version>
+    </dependency>
   </dependencies>
+
 
   <build>
     <plugins>

@@ -35,6 +35,8 @@ public class Einstellungen {
   public static String gleitzeittage ="mg_freietage";
   public static String mb_grenzwerte ="g_grenzwerte"; // Grenzwerte der Arbeitsmodelle
 
+  public static String sso = "ms_sso";// Benötigt für SSO
+
 
   //  Passwort sicherheits einstellungen
   public static boolean pw_gk_schreibung = false; // Mindest eins Char muss groß / klein sein
