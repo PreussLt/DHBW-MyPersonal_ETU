@@ -1,6 +1,5 @@
 package db;
 
-import DatenKlassen.Arbeitstag;
 import DatenKlassen.ArbeitstagListe;
 
 import java.security.NoSuchAlgorithmException;
@@ -17,9 +16,10 @@ public class Controller {
     //nzv.existiertNutzer("Kyle","Henselmann");
     try {
       //System.out.println(bcd.getArbeitszeit("6","2022-09-18"));
-      Arbeitstag t1 = bcd.getArbeitszeitEintrag("6","2022-09-18");
+      //Arbeitstag t1 = bcd.getArbeitszeiteintrag("6","2022-09-18");
       //ArbeitstagListe aL = new ArbeitstagListe("6");
-
+      SSO t = new SSO();
+      t.bekommeMitarbeiterID();
 //      aL.arbeitstage[0].istMaxArbeitszeitEingehalten();
     }catch (Exception e){
       System.err.println(e);
