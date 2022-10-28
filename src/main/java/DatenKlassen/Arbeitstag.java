@@ -108,16 +108,22 @@ public class Arbeitstag {
   }
 
   private boolean ZeitGrenzen() {
-    String Min = tag + " 06:00:00"; // TODO: 19.09.2022 Aus datenbank ziehen
-    String Max = tag + " 22:00:00"; // ""
+    try {
+      String[][] res_sql = sql.select_arr(cnf.mb_konto+", "+cnf.mb_arbeitsmodell+"","a_arbeitsmodelle.A_Starzeit, a_arbeitsmodelle.A_Endzeit","WHERE MK_A_ID=A_ID AND MK_M_ID=\""+mid+"\"",con);
+      String Min = tag +" "+res_sql[0][0]+":00:00"; //
+      String Max = tag +" "+ res_sql[0][1]+":00:00"; // ""
+      Timestamp tMin = Timestamp.valueOf(Min);
+      Timestamp tMax = Timestamp.valueOf(Max);
 
-    Timestamp tMin = Timestamp.valueOf(Min);
-    Timestamp tMax = Timestamp.valueOf(Max);
+      if (aTag.sindZeiteneingehalten(getZeitstempel(), tMin, tMax) == 0) return true;
+      System.err.println("*INFO* Warscheinlich der Fehler");
+      this.arbeitszeit = arbeitszeit - aTag.sindZeiteneingehalten(getZeitstempel(), tMin, tMax);
+      return false;
+    }catch (Exception e){
+      System.err.println("Fehler in ABT.ZeitGrenzen: "+e);
+      return false;
+    }
 
-    if (aTag.sindZeiteneingehalten(getZeitstempel(), tMin, tMax) == 0) return true;
-    System.err.println("*INFO* Warscheinlich der Fehler");
-    this.arbeitszeit = arbeitszeit - aTag.sindZeiteneingehalten(getZeitstempel(), tMin, tMax);
-    return false;
   }
 
   private double getMaxArbeitszeit(){
