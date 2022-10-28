@@ -1,6 +1,6 @@
       <section id="Zeit" class="wrapper style2 spotlights">
 
-          <select [(ngModel)]="yearSelect" class="yearSelect" style="display: inline">
+          <select [(ngModel)]="yearSelect" class="yearSelect" style="display: inline" (change)="getArbeitstageCurrentWeek()">
             <option *ngFor="let number of numbers" [value]="number">{{number}}</option>
           </select>
 
@@ -24,9 +24,8 @@
               <th>{{'arbeitstagliste.overtime'|translate}}</th>
             </tr>
 
-            <ng-container *ngFor="let arbeitstag of arbeitstagListe">
-
-              <tr *ngIf="(arbeitstag.calendarWeek == calendarWeek) && (arbeitstag.calendarYear == yearSelect)">
+            <ng-container *ngFor="let arbeitstag of arbeitstageCurrentWeek">
+              <tr *ngIf="countArbeitstageCurrentWeek > 0">
                 <ng-container *ngIf="!arbeitstag.gleitzeittag && !arbeitstag.feiertag && !arbeitstag.urlaubstag">
                   <td>{{arbeitstag.tag}}</td>
                   <td>{{arbeitstag.ersterStempel.substring(10)}}</td>
@@ -84,6 +83,7 @@
                 </div>
               </div>
             </ng-container>
+            <tr *ngIf="countArbeitstageCurrentWeek == 0"><td colspan="7">{{'arbeitstagliste.noEntriesForWeek'|translate}}</td></tr>
           </table>
 
         </section>
