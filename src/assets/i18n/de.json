@@ -55,7 +55,8 @@
     "confirm": "Löschen",
     "failure": "FEHLER",
     "failuremsg": "Es ist ein Fehler beim Löschen des Eintrags aufgetreten",
-    "confirmFailure": "Bestätigen"
+    "confirmFailure": "Bestätigen",
+    "noEntriesForWeek": "Keine Einträge für diese Woche"
   },
 
   "newentry":

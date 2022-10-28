@@ -11,6 +11,7 @@ import {VacationService} from "../../services/vacation/vacation.service";
 })
 export class ArbeitstagslisteComponent implements OnInit {
   arbeitstagListe: Arbeitstag[];
+  arbeitstageCurrentWeek: Arbeitstag[];
   sollarbeitszeit: number;
   calendarWeek: number;
   currentYear: number;
@@ -23,16 +24,20 @@ export class ArbeitstagslisteComponent implements OnInit {
   modalGleitzeit: boolean;
 
   loading: boolean;
+  countArbeitstageCurrentWeek: number;
 
   constructor(private arbeitstagListeService: ArbeitslisteService,
               private router: Router,
               private vacationService: VacationService
-              ) { }
+              ) {
+    this.countArbeitstageCurrentWeek = 0;
+  }
 
   ngOnInit(): void {
-    this.getCW()
+    this.getCW();
     this.getSollarbeitszeit();
     this.loadEntries();
+    this.getArbeitstageCurrentWeek();
   }
 
   getSollarbeitszeit(): void {
@@ -60,6 +65,17 @@ export class ArbeitstagslisteComponent implements OnInit {
     });
   }
 
+  getArbeitstageCurrentWeek(): void{
+    this.arbeitstageCurrentWeek = [];
+    this.countArbeitstageCurrentWeek = 0;
+    for (let i = 0; i < this.arbeitstagListe.length; i++) {
+      if(this.arbeitstagListe[i].calendarWeek == this.calendarWeek && this.arbeitstagListe[i].calendarYear == this.yearSelect){
+        this.arbeitstageCurrentWeek.push(this.arbeitstagListe[i]);
+        this.countArbeitstageCurrentWeek++;
+      }
+    }
+    console.log(this.arbeitstageCurrentWeek)
+  }
   openEntries(entries: string[][]): void{
     const queryParams: any = {};
     queryParams.entries = JSON.stringify(entries);
@@ -84,20 +100,24 @@ export class ArbeitstagslisteComponent implements OnInit {
   }
   decreaseCW(): void{
     if(this.calendarWeek > 1) this.calendarWeek--;
+    this.getArbeitstageCurrentWeek()
   }
 
   greatDecreaseCW(){
     if(this.calendarWeek - 10 < 1) this.calendarWeek = 1;
     else this.calendarWeek -= 10;
+    this.getArbeitstageCurrentWeek()
   }
 
   increaseCW(): void{
     if(this.calendarWeek < 52) this.calendarWeek++;
+    this.getArbeitstageCurrentWeek()
   }
 
   greatIncreaseCW() {
     if(this.calendarWeek + 10 > 52) this.calendarWeek = 52;
     else this.calendarWeek += 10;
+    this.getArbeitstageCurrentWeek()
   }
 
   toggleModal() {
