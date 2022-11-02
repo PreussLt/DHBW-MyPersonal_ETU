@@ -103,8 +103,10 @@ public class Arbeitstag {
     if (arbeitszeit > maxArbeitszeit) {
       arbeitszeit = maxArbeitszeit;
       return false;
+    }else{
+      return true;
     }
-    return true;
+
   }
 
   private boolean ZeitGrenzen() {
