@@ -4,8 +4,6 @@ public class Einstellungen {
 
   /*
     In dieser File können die Eisntellungen für die Datenbank, etc. vorgenommen weden
-
-
    */
 
   // db.Einstellungen für die Datenbanken

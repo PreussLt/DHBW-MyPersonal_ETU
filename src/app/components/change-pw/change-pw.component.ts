@@ -30,7 +30,7 @@ export class ChangePwComponent implements OnInit {
   get f() { return this.changePwForm.controls; }
 
   logout() {
-    console.log('logout');
+    // console.log('logout');
     this.authService.logout();
     this.router.navigate(['/login']);
   }

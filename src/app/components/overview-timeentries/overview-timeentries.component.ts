@@ -30,7 +30,7 @@ export class OverviewTimeentriesComponent implements OnInit {
     }
     else {
       this.entries = JSON.parse(array);
-      console.log(this.entries)
+      // console.log(this.entries)
       // @ts-ignore
       this.date = this.entries[0][0].substring(0,10)
     }

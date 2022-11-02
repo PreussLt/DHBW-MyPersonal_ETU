@@ -74,7 +74,7 @@ export class ArbeitstagslisteComponent implements OnInit {
         this.countArbeitstageCurrentWeek++;
       }
     }
-    console.log(this.arbeitstageCurrentWeek)
+    // console.log(this.arbeitstageCurrentWeek)
   }
   openEntries(entries: string[][]): void{
     const queryParams: any = {};

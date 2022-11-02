@@ -17,6 +17,7 @@ public class SSO {
     public int bekommeMitarbeiterID(){
       try {
         String adresse= identifizieren();
+
         if (adresse==null) return -1;
         String[] daten = adresse.split("\\\\");
         String domain = daten[0];

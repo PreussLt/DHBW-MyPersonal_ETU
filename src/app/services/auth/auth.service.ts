@@ -69,7 +69,7 @@ export class AuthService {
   }
 
   createUser(user: User): Observable<boolean> {
-    console.log(user)
+    // console.log(user)
     return this.http.post<boolean>(this.createUserUrl, user)
   }
 
