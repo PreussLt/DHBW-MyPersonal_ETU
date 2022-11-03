@@ -128,6 +128,22 @@
     "createbtn": "Nutzer anlegen"
   },
 
+  "registerdevice": {
+    "windows": "Userkennung Windows-Account",
+    "domain": "Geräte Domain",
+    "user": "User verknüpfen",
+    "chooseuser": "User wählen",
+    "register": "Registrieren",
+    "confirm": "Registrierung bestätigen",
+    "confirmbtn": "Bestätigen",
+    "confirmuser": "Verknüpfter User",
+    "invalid": "Alle Pflichtfelder ausfüllen",
+    "success": "Erfolg!",
+    "sucessmsg": "Gerät erfolgreich registriert",
+    "failure": "Fehler!",
+    "failuremsg": "Etwas ist schiefgelaufen. Bitte wenden Sie sich an einen Systemadministrator."
+  },
+
   "grenzwerte":
   {
     "select": "Konfiguration wählen",
@@ -146,7 +162,8 @@
   {
     "changepw": "Passwort ändern",
     "createuser": "Nutzer anlegen",
-    "setvalues": "Grenzwerte einstellen"
+    "setvalues": "Grenzwerte einstellen",
+    "registerdevice": "Gerät registrieren"
   },
 
   "gleitzeitampel":{

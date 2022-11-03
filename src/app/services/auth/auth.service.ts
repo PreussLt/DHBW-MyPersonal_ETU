@@ -17,6 +17,8 @@ export class AuthService {
   isSsoActiveUrl: string;
   getSsoUrl: string;
   ssoAuthUrl: string;
+  private getUsersUrl: string;
+  private registerDeviceUrl: string;
 
   constructor(private http: HttpClient) {
     this.authUrl = 'http://localhost:8080/userauth';
@@ -28,6 +30,8 @@ export class AuthService {
     this.isSsoActiveUrl = "http://localhost:8080/isSsoActive";
     this.getSsoUrl = "http://localhost:8080/getSso";
     this.ssoAuthUrl = "http://localhost:8080/ssoauth";
+    this.getUsersUrl = "http://localhost:8080/getUsers";
+    this.registerDeviceUrl = "http://localhost:8080/registerDevice";
   }
 
   logout(): void {
@@ -91,4 +95,11 @@ export class AuthService {
     return this.http.post(this.getSsoUrl,{},{responseType: 'text'});
   }
 
+  getUsers(): Observable<User[]>{
+    return this.http.post<User[]>(this.getUsersUrl, {});
+  }
+
+  registerDevice(mid: string, windows: string, domain: string): Observable<boolean> {
+    return this.http.post<boolean>(this.registerDeviceUrl, {"mid": mid, "windows": windows, "domain": domain})
+  }
 }
