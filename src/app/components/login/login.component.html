@@ -2,6 +2,7 @@
   <section id="intro" class="wrapper style1 fullscreen fade-up">
     <div class="inner">
       <h1>{{'login.welcomemessage'|translate}}</h1>
+      <h4 style="color:crimson" *ngIf="invalid">{{'login.invalid'|translate}}</h4>
       <div class="field">
         <label for="username">{{'login.personellnumber'|translate}}</label>
         <input type="text" name="username" id="username" formControlName="userid" />
