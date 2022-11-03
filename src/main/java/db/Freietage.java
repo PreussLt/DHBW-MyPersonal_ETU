@@ -94,7 +94,7 @@ public class Freietage {
   public static boolean isWeekend(String date){
     LocalDate localDate = LocalDate.parse(date);
     String day = localDate.getDayOfWeek().toString();
-    return day.equals(SATURDAY) || day.equals(SUNDAY);
+    return day.equals(SUNDAY);
   }
 
   public boolean isDayTaken(String day, String mid){
