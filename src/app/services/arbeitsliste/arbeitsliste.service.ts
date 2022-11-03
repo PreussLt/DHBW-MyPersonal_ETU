@@ -27,7 +27,8 @@ export class ArbeitslisteService{
   }
 
   public getSollarbeitszeit(): Observable<number> {
-    return this.http.post<number>(this.sollarbeitszeitUrl, {});
+    let mid = sessionStorage.getItem("mid");
+    return this.http.post<number>(this.sollarbeitszeitUrl, mid);
   }
 
   public getCW(): Observable<string> {

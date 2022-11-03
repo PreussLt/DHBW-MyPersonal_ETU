@@ -14,6 +14,9 @@ export class AuthService {
   changePWUrl: string;
   createUserUrl: string;
   getUKlassenUrl: string;
+  isSsoActiveUrl: string;
+  getSsoUrl: string;
+  ssoAuthUrl: string;
 
   constructor(private http: HttpClient) {
     this.authUrl = 'http://localhost:8080/userauth';
@@ -21,7 +24,10 @@ export class AuthService {
     this.checkPWUrl = 'http://localhost:8080/pwauth';
     this.changePWUrl = 'http://localhost:8080/changepw';
     this.createUserUrl = "http://localhost:8080/createUser";
-    this.getUKlassenUrl = "http://localhost:8080/getUKlassen"
+    this.getUKlassenUrl = "http://localhost:8080/getUKlassen";
+    this.isSsoActiveUrl = "http://localhost:8080/isSsoActive";
+    this.getSsoUrl = "http://localhost:8080/getSso";
+    this.ssoAuthUrl = "http://localhost:8080/ssoauth";
   }
 
   logout(): void {
@@ -73,5 +79,16 @@ export class AuthService {
     return this.http.post<boolean>(this.createUserUrl, user)
   }
 
+  isSsoActive(): Observable<boolean>{
+    return this.http.post<boolean>(this.isSsoActiveUrl, {});
+  }
+
+  ssoAuth(): Observable<boolean> {
+    return this.http.post<boolean>(this.ssoAuthUrl, {});
+  }
+
+  getSso(): Observable<string> {
+    return this.http.post(this.getSsoUrl,{},{responseType: 'text'});
+  }
 
 }
