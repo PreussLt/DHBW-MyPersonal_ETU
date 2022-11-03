@@ -18,9 +18,10 @@ public class Controller {
       //System.out.println(bcd.getArbeitszeit("6","2022-09-18"));
       //Arbeitstag t1 = bcd.getArbeitszeiteintrag("6","2022-09-18");
       //ArbeitstagListe aL = new ArbeitstagListe("6");
-      SSO t = new SSO();
-      t.bekommeMitarbeiterID();
+      //SSO t = new SSO();
+      //t.bekommeMitarbeiterID();
 //      aL.arbeitstage[0].istMaxArbeitszeitEingehalten();
+      nzv.passwort_aendern("6","Kyle_2002",sql_connect.intern_connect());
     }catch (Exception e){
       System.err.println(e);
     }

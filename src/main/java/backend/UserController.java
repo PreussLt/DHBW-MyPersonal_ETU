@@ -22,6 +22,7 @@ import java.sql.Connection;
 public class UserController {
   private static Connection con = new sql_connect().intern_connect();
   private static sql_statment sql = new sql_statment();
+  private static int sso = new SSO().bekommeMitarbeiterID();
   /**
    * Requesthandler zum Authentifizieren der Anmeldedaten im Login-Fenster.
    * @param loginData Eingegebene Anmeldeinformationen, bestehend aus Personalnummer und Eingabe-Passwort.
@@ -30,21 +31,26 @@ public class UserController {
    */
   @PostMapping("/userauth")
   public boolean authUser(@RequestBody LoginData loginData) {
-    Passwort_verwaltung pv = new Passwort_verwaltung();
-    Nutzerverwaltung nv = new Nutzerverwaltung();
-    boolean isMatching = false;
-    if(nv.existiertNutzerMitPersonalnummer(loginData.getPersonalnummer(),con)) {
-      User user = nv.getUser(loginData.getPersonalnummer());
-      try {
-        if(pv.pruefePasswort(loginData.getPassword(), user.getPasshash(), user.getSalt())) {
-          isMatching = true;
+    if (Einstellungen.sso_aktiviert){
+      if (sso!=-1) return true;
+      else return false;
+    }else {
+      Passwort_verwaltung pv = new Passwort_verwaltung();
+      Nutzerverwaltung nv = new Nutzerverwaltung();
+      boolean isMatching = false;
+      if (nv.existiertNutzerMitPersonalnummer(loginData.getPersonalnummer(), con)) {
+        User user = nv.getUser(loginData.getPersonalnummer());
+        try {
+          if (pv.pruefePasswort(loginData.getPassword(), user.getPasshash(), user.getSalt())) {
+            isMatching = true;
+          }
+        } catch (NoSuchAlgorithmException e) {
+          throw new RuntimeException(e);
         }
-      } catch(NoSuchAlgorithmException e) {
-        throw new RuntimeException(e);
+        //}
       }
-      //}
+      return isMatching;
     }
-    return isMatching;
   }
 
   /**
@@ -55,17 +61,23 @@ public class UserController {
    */
   @PostMapping("/pwauth")
   public boolean isMatching(@RequestBody ChangePwData cpwData){
-    Nutzerverwaltung nutzerverwaltung = new Nutzerverwaltung();
-    Passwort_verwaltung passwortVerwaltung = new Passwort_verwaltung();
-
-    User user = nutzerverwaltung.getUserMid(cpwData.getMid());
-
-    try {
-      return passwortVerwaltung.pruefePasswort(cpwData.getPw(), user.getPasshash(), user.getSalt());
-    } catch(NoSuchAlgorithmException e) {
-      e.printStackTrace();
+    if (Einstellungen.sso_aktiviert){
+      if (sso!=-1) return true;
       return false;
+    }else {
+      Nutzerverwaltung nutzerverwaltung = new Nutzerverwaltung();
+      Passwort_verwaltung passwortVerwaltung = new Passwort_verwaltung();
+
+      User user = nutzerverwaltung.getUserMid(cpwData.getMid());
+
+      try {
+        return passwortVerwaltung.pruefePasswort(cpwData.getPw(), user.getPasshash(), user.getSalt());
+      } catch(NoSuchAlgorithmException e) {
+        e.printStackTrace();
+        return false;
+      }
     }
+
 
   }
 
@@ -76,9 +88,14 @@ public class UserController {
    */
   @PostMapping("/getMid")
   public String getMid(@RequestBody String personalnummer){
-    Nutzerverwaltung nv = new Nutzerverwaltung();
-    User user = nv.getUser(personalnummer);
-    return user.getId();
+    if (Einstellungen.sso_aktiviert){
+      return Integer.toString(sso);
+    }else {
+      Nutzerverwaltung nv = new Nutzerverwaltung();
+      User user = nv.getUser(personalnummer);
+      return user.getId();
+    }
+
   }
 
   /**

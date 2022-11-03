@@ -7,7 +7,7 @@ public class Einstellungen {
 
 
    */
-
+  public static boolean sso_aktiviert=false;
   // db.Einstellungen für die Datenbanken
   public static String db = "jdbc:mysql://localhost:3306/myp_database"; //Datenbank
   public static String db_name = "myp_database"; // Datenbankname
