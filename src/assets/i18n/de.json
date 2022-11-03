@@ -80,7 +80,7 @@
     "confirmFlexible": "Gleitzeittag bestätigen",
     "confirmVacation": "Urlaub bestätigen",
     "error": "FEHLER",
-    "weekenderror": "Tag des Eintrags liegt im Wochenende",
+    "weekenderror": "Tag des Eintrags liegt an einem Sonntag",
     "failure": "Ein unbekannter Fehler ist aufgetreten. Bitte wenden Sie sich an einen Systemadministrator",
     "taken": "Am gewählten Tag liegt bereits ein Eintrag vor."
   },

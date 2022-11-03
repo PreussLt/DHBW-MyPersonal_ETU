@@ -80,7 +80,7 @@
     "confirmFlexible": "Confirm flextime day",
     "confirmVacation": "Confirm Vacation",
     "error": "ERROR",
-    "weekenderror": "Day of entry is in the weekend",
+    "weekenderror": "Day of entry is a Sunday",
     "failure": "An unknown error has occured. Please contact a system administrator.",
     "taken": "There is already an entry on the chosen day."
   },
