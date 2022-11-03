@@ -1,9 +1,6 @@
 package backend;
 
-import DatenKlassen.ChangePwData;
-import DatenKlassen.CreateUser;
-import DatenKlassen.LoginData;
-import DatenKlassen.User;
+import DatenKlassen.*;
 import db.*;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -115,6 +112,18 @@ public class UserController {
   public boolean createUser(@RequestBody CreateUser user){
     Nutzerverwaltung nutzerverwaltung = new Nutzerverwaltung();
     return nutzerverwaltung.nutzer_anlegen(user.getVorname(), user.getNachname(), user.getPersonalnummer(), user.getPasswort(), user.getArbeitsmodell(), user.getUklasse(), user.getGebDatum(), con);
+  }
+
+  @PostMapping("/getUsers")
+  public User[] getUsers(){
+    Nutzerverwaltung nutzerverwaltung = new Nutzerverwaltung();
+    return nutzerverwaltung.getUsers(con);
+  }
+
+  @PostMapping("registerDevice")
+  public boolean registerDevice(@RequestBody RegisterSso registerSso){
+    Nutzerverwaltung nutzerverwaltung = new Nutzerverwaltung();
+    return nutzerverwaltung.registerDevice(registerSso, con);
   }
 
 }

@@ -21,6 +21,7 @@ import { LoadingComponent } from './components/loading/loading.component';
 import { NewuserComponent } from './components/newuser/newuser.component';
 import { GleitzeitComponent } from './components/gleitzeit/gleitzeit.component';
 import { DeletebufferComponent } from './components/deletebuffer/deletebuffer.component';
+import { RegisterdeviceComponent } from './components/registerdevice/registerdevice.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { DeletebufferComponent } from './components/deletebuffer/deletebuffer.co
     NewuserComponent,
     GleitzeitComponent,
     DeletebufferComponent,
+    RegisterdeviceComponent,
   ],
   imports: [
     BrowserModule,
