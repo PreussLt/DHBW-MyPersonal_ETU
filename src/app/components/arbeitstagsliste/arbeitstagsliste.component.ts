@@ -37,7 +37,6 @@ export class ArbeitstagslisteComponent implements OnInit {
     this.getCW();
     this.getSollarbeitszeit();
     this.loadEntries();
-    this.getArbeitstageCurrentWeek();
   }
 
   getSollarbeitszeit(): void {
@@ -50,6 +49,7 @@ export class ArbeitstagslisteComponent implements OnInit {
     this.loading = true;
     this.arbeitstagListeService.getArbeitstagliste().subscribe(data => {
       this.arbeitstagListe = data.sort((a, b) => a.tag.localeCompare(b.tag));
+      this.getArbeitstageCurrentWeek();
       this.loading = false;
     });
   }
