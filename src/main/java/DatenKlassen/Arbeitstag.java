@@ -66,6 +66,7 @@ public class Arbeitstag {
 
       if (this.zeitstempel != null){
         vorgabenAnwenden();
+        System.err.println("Arbeitszeit eingehalten: "+maxArbeitszeitEingehalten);
       } else {
         // Überpüfe ob Tag Feiertag oder Gleitzeittag ist
         feiertag = aTag.istTagFeiertag(this.tag,con);
