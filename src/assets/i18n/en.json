@@ -128,6 +128,22 @@
     "createbtn": "Create user"
   },
 
+  "registerdevice": {
+    "windows": "Username Windows-account",
+    "domain": "Device domain",
+    "user": "Link user",
+    "chooseuser": "Choose user",
+    "register": "Register",
+    "confirm": "Confirm registration",
+    "confirmbtn": "Confirm",
+    "confirmuser": "Linked User",
+    "invalid": "Fill all required fields",
+    "success": "Success!",
+    "sucessmsg": "Device was successfully registered",
+    "failure": "Failure!",
+    "failuremsg": "Something went wrong. Please contact a systemadmininistrator."
+  },
+
   "grenzwerte":
   {
     "select": "Choose configuration",
@@ -146,7 +162,8 @@
   {
     "changepw": "Change password",
     "createuser": "Create user",
-    "setvalues": "Set limits"
+    "setvalues": "Set limits",
+    "registerdevice": "Register device"
   },
 
   "gleitzeitampel":{

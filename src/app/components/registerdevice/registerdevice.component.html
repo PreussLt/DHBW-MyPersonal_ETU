@@ -1,0 +1,69 @@
+<form [formGroup]="registerDeviceForm">
+  <div class="fields">
+    <div class="field half">
+      <label>{{'registerdevice.windows'|translate}}</label>
+      <input type="text" formControlName="windows"/>
+    </div>
+    <div class="field half">
+      <label>{{'registerdevice.domain'|translate}}</label>
+      <input type="text" formControlName="domain"/>
+    </div>
+
+    <div class="field half">
+      <label>{{'registerdevice.user'|translate}}</label>
+      <select formControlName="user" #userSelect>
+        <option disabled selected [value]="-1">{{'registerdevice.chooseuser'|translate}}</option>
+        <option *ngFor="let user of users" [value]="user.id">{{user.id}} - {{user.prename}} {{user.lastname}}</option>
+      </select>
+    </div>
+
+    <div class="field error" *ngIf="invalid">
+      {{'registerdevice.invalid'|translate}}
+    </div>
+    <div class="field">
+      <button (click)="close()">{{'registerdevice.register'|translate}}</button>
+    </div>
+  </div>
+
+  <!--    ConfirmModal-->
+  <div *ngIf="showModal" id="confirmModal" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+      <span class="close" (click)="close()">&times;</span>
+      <h3>{{'registerdevice.confirm'|translate}}</h3>
+      <div>{{'registerdevice.windows'|translate}}: {{f['windows'].value}}</div>
+      <div>{{'registerdevice.domain'|translate}}: {{f['domain'].value}}</div>
+      <div>{{'registerdevice.confirmuser'|translate}}: {{userSelected}}</div>
+      <br>
+      <button class="button medium" (click)="register()">{{'registerdevice.confirmbtn'|translate}}</button>
+    </div>
+  </div>
+
+  <!--  Success-->
+  <div *ngIf="showSuccessModal" id="success" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+      <span class="close" (click)="close()">&times;</span>
+      <h3>{{'registerdevice.success'|translate}}</h3>
+      <div>
+        {{'registerdevice.successmsg'|translate}}
+      </div>
+      <br>
+      <button class="button medium" (click)="toggleSuccessModal()">{{'registerdevice.confirmbtn'|translate}}</button>
+    </div>
+  </div>
+
+  <!--  Failure-->
+  <div *ngIf="showFailureModal" id="failure" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+      <span class="close" (click)="close()">&times;</span>
+      <h3>{{'registerdevice.failure'|translate}}</h3>
+      <div>
+        {{'registerdevice.failuremsg'|translate}}
+      </div>
+      <br>
+      <button class="button medium" (click)="toggleFailureModal()">{{'registerdevice.confirmbtn'|translate}}</button>
+    </div>
+  </div>
+</form>
