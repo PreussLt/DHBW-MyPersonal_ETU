@@ -3,7 +3,6 @@ import {ArbeitslisteService} from "../../services/arbeitsliste/arbeitsliste.serv
 import {Arbeitstag} from "../../models/arbeitstagliste/arbeitstag";
 import {NavigationExtras, Router} from "@angular/router";
 import {VacationService} from "../../services/vacation/vacation.service";
-import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-arbeitstagsliste',
@@ -30,7 +29,6 @@ export class ArbeitstagslisteComponent implements OnInit {
   constructor(private arbeitstagListeService: ArbeitslisteService,
               private router: Router,
               private vacationService: VacationService,
-              private translate: TranslateService
               ) {
     this.countArbeitstageCurrentWeek = 0;
   }
@@ -50,6 +48,7 @@ export class ArbeitstagslisteComponent implements OnInit {
   loadEntries():void{
     this.loading = true;
     this.arbeitstagListeService.getArbeitstagliste().subscribe(data => {
+      //Liste nach Datum sortieren
       this.arbeitstagListe = data.sort((a, b) => a.tag.localeCompare(b.tag));
       this.getArbeitstageCurrentWeek();
       this.loading = false;
@@ -67,10 +66,12 @@ export class ArbeitstagslisteComponent implements OnInit {
     });
   }
 
+
   getArbeitstageCurrentWeek(): void{
     this.arbeitstageCurrentWeek = [];
     this.countArbeitstageCurrentWeek = 0;
     for (let i = 0; i < this.arbeitstagListe.length; i++) {
+      //Wenn Arbeitstag in gewählte KW und Jahr passt
       if(this.arbeitstagListe[i].calendarWeek == this.calendarWeek && this.arbeitstagListe[i].calendarYear == this.yearSelect){
         this.arbeitstageCurrentWeek.push(this.arbeitstagListe[i]);
         this.countArbeitstageCurrentWeek++;
@@ -80,6 +81,7 @@ export class ArbeitstagslisteComponent implements OnInit {
   }
 
   openEntries(entries: string[][]): void{
+    //Navigation mit Zeiteinträgen als Parameter
     const queryParams: any = {};
     queryParams.entries = JSON.stringify(entries);
 

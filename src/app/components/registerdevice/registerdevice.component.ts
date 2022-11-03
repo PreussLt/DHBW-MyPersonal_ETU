@@ -35,6 +35,7 @@ export class RegisterdeviceComponent implements OnInit {
 
   close(){
     this.invalid = false;
+    //Wenn User ausgewählt und alle Felder befüllt
     if(Number(this.f['user'].value)>=0 && this.registerDeviceForm.valid){
       this.showModal = !this.showModal;
     } else this.invalid = true;

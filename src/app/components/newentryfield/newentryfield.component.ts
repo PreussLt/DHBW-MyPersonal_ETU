@@ -47,15 +47,19 @@ export class NewentryfieldComponent implements OnInit {
 
   submit(){
     switch (this.f['entryType'].value){
+      //Zeiteintrag
       case '0':
         this.timeEntryService.newEntry(this.f['dateStamp'].value, this.f['timeStamp'].value).subscribe(created => this.wasSuccessfull(created));
         break;
+      //Arbeitstag
       case '1':
         this.timeEntryService.newDay(this.f['dateDay'].value, this.f['timeBeginDay'].value, this.f['timeEndDay'].value).subscribe(created => this.wasSuccessfull(created));
         break;
+      //Gleitzeittag
       case '2':
         this.vacationService.setGleitzeittag(this.f['dateFlexibleday'].value).subscribe(created => this.wasSuccessfull(created));
         break;
+      //Urlaub
       case '3':
         this.vacationService.setVacation(this.f['dateBeginVacation'].value, this.f['dateEndVacation'].value).subscribe(created => {
           if(created){
@@ -71,6 +75,7 @@ export class NewentryfieldComponent implements OnInit {
   }
 
   wasSuccessfull(created: string){
+    //Verschiedene Meldungen anzeigen
     if(created.includes("SUCCESS")){
       this.router.navigate(["/home"]);
     }

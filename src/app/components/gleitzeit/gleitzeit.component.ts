@@ -11,6 +11,7 @@ import {Grenzwerte} from "../../models/grenzwerte/grenzwerte";
 export class GleitzeitComponent implements OnInit {
 
   gleitzeitstand: string;
+  //Boolean für Ladesymbol
   loading: boolean;
   grenzwerte:Grenzwerte;
   danger: number;
@@ -35,6 +36,7 @@ export class GleitzeitComponent implements OnInit {
     });
   }
 
+  //Momentanes Ampellevel setzen
   getDanger(): void{
     let gleitzeitstand = Number(this.gleitzeitstand);
     let yellow = Number(this.grenzwerte.yellow);

@@ -21,6 +21,7 @@ export class LoginComponent implements OnInit {
     private authService : AuthService,
     ) {
       this.invalid = false;
+      //SSO oder Manueller Login?
       this.getSsoActive();
     }
 
@@ -43,48 +44,42 @@ export class LoginComponent implements OnInit {
   get f() { return this.loginForm.controls; }
 
   login() {
-    // stop here if form is invalid
-      if(this.ssoActive){
-        this.authService.ssoAuth().subscribe(authenticated => {
-          console.log(2)
-          if(authenticated){
-            this.authService.getSso().subscribe(mid => {
-              console.log(mid)
-              sessionStorage.setItem('isLoggedIn', "true");
-              // sessionStorage.setItem('token', this.f['userid'].value);
-              sessionStorage.setItem('mid', mid);
-              this.router.navigate([this.returnUrl]);
-            })
+    //SSO Login
+    if(this.ssoActive){
+      this.authService.ssoAuth().subscribe(authenticated => {
+        console.log(2)
+        if(authenticated){
+          this.authService.getSso().subscribe(mid => {
+            console.log(mid)
+            sessionStorage.setItem('isLoggedIn', "true");
+            sessionStorage.setItem('mid', mid);
+            this.router.navigate([this.returnUrl]);
+          })
 
-          }
-        })
-      }
-
-      else { //Login über Eingabefelder
-        if (this.loginForm.invalid) {
-          return;
         }
-        else {
-          this.authService.authenticate(this.f['userid'].value, this.f['password'].value).subscribe(data => {
-            if(data){
-              sessionStorage.setItem('isLoggedIn', "true");
-              sessionStorage.setItem('token', this.f['userid'].value);
-              this.authService.getMId(this.f['userid'].value).subscribe(data => {
-                sessionStorage.setItem('mid', data);
-                this.router.navigate([this.returnUrl]);
-              });
-            }
-            else {
-              this.invalid = true;
-            }
-          });
-        }
-      }
-
-
-
+      })
     }
 
-
-
+    //Login über Eingabefelder
+    else {
+      if (this.loginForm.invalid) {
+        return;
+      }
+      else {
+        this.authService.authenticate(this.f['userid'].value, this.f['password'].value).subscribe(data => {
+          if(data){
+            sessionStorage.setItem('isLoggedIn', "true");
+            this.authService.getMId(this.f['userid'].value).subscribe(data => {
+              sessionStorage.setItem('mid', data);
+              this.router.navigate([this.returnUrl]);
+            });
+          }
+          else {
+            this.invalid = true;
+          }
+        });
+      }
+    }
   }
+
+}

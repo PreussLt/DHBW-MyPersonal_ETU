@@ -27,6 +27,8 @@ export class EditEntryComponent implements OnInit {
       date: [''],
       time: ['', Validators.required]
     })
+
+    //Parameter auslesen und verarbeiten
     this.activatedRoute.params.subscribe(params =>{
         this.id = params['id'];
         this.timeEntryService.getEntry(this.id).subscribe(data => {

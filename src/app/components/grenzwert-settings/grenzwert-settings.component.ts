@@ -11,7 +11,9 @@ export class GrenzwertSettingsComponent implements OnInit {
 
   grenzwerteForm: FormGroup;
   failure: boolean;
+  //yellow greater red
   yGr: boolean;
+  //day greater week
   dGw: boolean;
   success: boolean;
 
@@ -35,6 +37,7 @@ export class GrenzwertSettingsComponent implements OnInit {
   get f() { return this.grenzwerteForm.controls; }
 
   loadConf(): void{
+    //Aktuelle Grenzwerte auslesen und in Eingabefelder setzen
     this.grenzwertService.getGrenzwerte(Number(this.f['select'].value)).subscribe(num => {
       this.f['day'].setValue(num[1]);
       this.f['week'].setValue(num[2]);
