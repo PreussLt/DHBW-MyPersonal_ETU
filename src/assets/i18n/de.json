@@ -30,7 +30,8 @@
     "invalid": "Das alte Passwort ist nicht korrekt",
     "notMatching": "Die Passwörter stimmen nicht überein",
     "invalidForm": "Das neue Passwort erfüllt die Anforderungen nicht",
-    "changepwbtn": "Passwort ändern"
+    "changepwbtn": "Passwort ändern",
+    "invalidPW": "Passwort muss einen Großbuchstaben, einen Kleinbuchstaben, eine Zahl und mindestens 12 Zeichen enthalten"
   },
 
   "arbeitstagliste":
@@ -125,7 +126,8 @@
     "successmsg": "Nutzer erfolgreich angelegt",
     "failure": "Fehler!",
     "failuremsg": "Etwas ist schiefgelaufen. Bitte wenden Sie sich an einen Systemadministrator.",
-    "createbtn": "Nutzer anlegen"
+    "createbtn": "Nutzer anlegen",
+    "invalid": "Passwort muss einen Großbuchstaben, einen Kleinbuchstaben, eine Zahl und mindestens 12 Zeichen enthalten"
   },
 
   "registerdevice": {

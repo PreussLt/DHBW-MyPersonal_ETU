@@ -30,7 +30,8 @@
     "invalid": "The old password is not correct",
     "notMatching": "The passwords do not match",
     "invalidForm": "The new password does not meet all conditions",
-    "changepwbtn": "Change password"
+    "changepwbtn": "Change password",
+    "invalidPW": "Password must contain an uppercase letter, an lowercase letter, a number and at least 12 characters"
   },
 
   "arbeitstagliste":
@@ -125,7 +126,8 @@
     "successmsg": "User created successfully",
     "failure": "Error!",
     "failuremsg": "An unknown error has occured. Please contact a system administrator.",
-    "createbtn": "Create user"
+    "createbtn": "Create user",
+    "invalid": "Password must contain an uppercase letter, an lowercase letter, a number and at least 12 characters"
   },
 
   "registerdevice": {
