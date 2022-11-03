@@ -146,6 +146,13 @@
     "changepw": "Passwort ändern",
     "createuser": "Nutzer anlegen",
     "setvalues": "Grenzwerte einstellen"
+  },
+
+  "gleitzeitampel":{
+    "green": "Ihre Gleitzeit liegt momentan im Rahmen",
+    "yellow": "Werfen Sie ein Auge auf Ihre Gleitzeit",
+    "red": "Bitte bauen Sie dringend Gleitzeit ab!",
+    "currentFlexibleTime": "Ihr Gleitzeitstand: "
   }
 
 }

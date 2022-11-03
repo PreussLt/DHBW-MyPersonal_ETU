@@ -3,6 +3,7 @@ import {ArbeitslisteService} from "../../services/arbeitsliste/arbeitsliste.serv
 import {Arbeitstag} from "../../models/arbeitstagliste/arbeitstag";
 import {NavigationExtras, Router} from "@angular/router";
 import {VacationService} from "../../services/vacation/vacation.service";
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-arbeitstagsliste',
@@ -28,7 +29,8 @@ export class ArbeitstagslisteComponent implements OnInit {
 
   constructor(private arbeitstagListeService: ArbeitslisteService,
               private router: Router,
-              private vacationService: VacationService
+              private vacationService: VacationService,
+              private translate: TranslateService
               ) {
     this.countArbeitstageCurrentWeek = 0;
   }
@@ -76,6 +78,7 @@ export class ArbeitstagslisteComponent implements OnInit {
     }
     console.log(this.arbeitstageCurrentWeek)
   }
+
   openEntries(entries: string[][]): void{
     const queryParams: any = {};
     queryParams.entries = JSON.stringify(entries);

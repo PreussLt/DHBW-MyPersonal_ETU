@@ -10,7 +10,7 @@ import {TranslateService} from "@ngx-translate/core";
 export class AppComponent implements OnInit{
   constructor(private router: Router, private translate:TranslateService) {
     translate.setDefaultLang('de');
-    translate.use('de');
+    translate.addLangs(['en'])
     window.scrollTo(0,0)
   }
 
