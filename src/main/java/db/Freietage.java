@@ -27,7 +27,7 @@ public class Freietage {
   }// GetGleitzeitstand
 
   public String setGleitzeittag(String tag,String mid){
-    if(isDayTaken(tag, mid)) return TAKEN;
+    if(isDayTaken(tag, mid) || isVacationDayTaken(tag, mid)) return TAKEN;
     else {
       try {
         String[] Daten = {mid, "0", tag};
@@ -77,7 +77,7 @@ public class Freietage {
       String date1 = sdf.format(c.getTime());
 
       while(!date1.equals(date2)){
-        if(!isWeekend(date1) && !isDayTaken(date1, mid)){
+        if(!isWeekend(date1) && !isDayTaken(date1, mid) && !isVacationDayTaken(date1, mid)){
           setUrlaubstag(date1, mid);
         }
         c.add(Calendar.DATE, 1);  // number of days to add
@@ -101,4 +101,21 @@ public class Freietage {
     Buchung buchung = new Buchung();
     return (buchung.ueberpruefeBuchungvorhanden(day, mid, con));
   }
+
+  public boolean isVacationDayTaken(String day, String mid){
+      // Überprüfen ob für den Heutigen Tag schon eine Buchung Besteht
+      String sBedingung = "WHERE MG_M_ID='" + mid + "'  AND MG_TAG='" + day + "'";
+      //System.out.println(sBedingung);// --> Debuggin
+      String[][] tmpArr = sql.select_arr(Einstellungen.gleitzeittage, "*", sBedingung, con);
+      // Überprüfen ob Buchung doppelt, mehrfach oder schon vorhanden ist
+      if (tmpArr.length>1){
+        System.err.println("!Error! Doppelte Buchung, Prozess wird vorgesetzt");
+        return true;
+      }// END IF
+      else if (tmpArr.length==1){
+        System.out.println("*Info* Buchung vorhanden");
+        return true;
+      } else return false;
+  }
+
 }// Class
