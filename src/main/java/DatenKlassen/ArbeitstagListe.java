@@ -26,8 +26,15 @@ public class ArbeitstagListe {
   public ArbeitstagListe(String mid) {
     this.mid = mid;
     try {
-      getArbeitstage(getAnzahlArbeitstage(getEndOfYear(),"2000-01-01"));
-      berechneGleitzeitstand();
+      int length = getAnzahlArbeitstage(getEndOfYear(),"2000-01-01");
+      if(length > 0){
+        getArbeitstage(length);
+        berechneGleitzeitstand();
+      }
+      else {
+        this.arbeitstage = new Arbeitstag[0];
+      }
+
     }catch (Exception e){
       System.err.println("!ERROR! Folgender Fehler ist im Cosntructor arbeittage Liste aufgetreten: "+e);
     }
@@ -53,6 +60,14 @@ public class ArbeitstagListe {
       int tage = Integer.parseInt(sql_statment.select_arr(Einstellungen.mb_buchung,"count(*)","WHERE B_M_ID='"+mid+"' AND B_TAG >'"+aDatum+"' AND B_TAG <='"+eDatum+"'",con)[0][0]);
       tage += Integer.parseInt(sql_statment.select_arr(Einstellungen.gleitzeittage,"count(*)","WHERE MG_M_ID='"+mid+"' AND MG_TAG >'"+aDatum+"' AND MG_TAG <='"+eDatum+"'",con)[0][0]);
       return tage;
+    } catch (ArrayIndexOutOfBoundsException oob){
+      //KEINE EINTRÄGE
+      if(oob.getMessage().equals("Index 0 out of bounds for length 0")){
+        System.out.println("Leere Liste");
+        return 0;
+      }
+      else return -1;
+
     } catch (Exception e){
       System.err.println("!ERROR! Fehler in der Anzahl Arbeitstag: " + e);
       return -1;
