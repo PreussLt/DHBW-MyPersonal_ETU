@@ -34,6 +34,7 @@
                   <td>
                     <div class="warning" *ngIf="arbeitstag.zeitstempel.length % 2 != 0">{{'arbeitstagliste.missingStamp'|translate}}</div>
                     <div class="warning" *ngIf="!arbeitstag.arbeitszeitenEingehalten">{{'arbeitstagliste.timeoutofbounds'|translate}}</div>
+                    <div class="warning" *ngIf="!arbeitstag.maxArbeitszeitEingehalten">{{'arbeitstagliste.exceededMaxTime'|translate}}</div>
                   </td>
                   <td><button (click)="openEntries(arbeitstag.zeitstempel)">{{'arbeitstagliste.allentries'|translate}}</button></td>
                   <td>{{getGleitzeit(arbeitstag.arbeitszeit, sollarbeitszeit)}}</td>

@@ -43,6 +43,7 @@
     "allentries": "Alle Stempel",
     "warning": "Hinweise",
     "missingStamp": "Stempel fehlt",
+    "exceededMaxTime": "Maximale Arbeitszeit überschritten",
     "timeoutofbounds": "Stempel außerhalb der erlaubten Zeiten",
     "vacation": "Urlaub",
     "overtime": "Gleitzeit",
