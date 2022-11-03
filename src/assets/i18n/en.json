@@ -1,150 +1,157 @@
 {
   "header":
   {
-    "home": "Startseite",
-    "newentry": "Neuer Eintrag",
-    "overview": "Tagesübersicht",
-    "settings": "Einstellungen"
+    "home": "Homepage",
+    "newentry": "New entry",
+    "overview": "Daily overview",
+    "settings": "Settings"
   },
 
   "login": {
-    "welcomemessage": "Bitte loggen sie sich ein!",
-    "personellnumber": "Personalnummer",
-    "password": "Passwort",
-    "loginBtn": "Einloggen",
-    "required": "Erforderlich",
-    "invalid": "Bitte überprüfen Sie die Personalnummer und Ihr Passwort"
+    "welcomemessage": "Please login!",
+    "personellnumber": "Personal number",
+    "password": "Password",
+    "loginBtn": "Login",
+    "required": "Necessary",
+    "invalid": "Please check your personal number and password"
   },
 
   "overview": {
-    "zid": "Zeiteintrag-ID",
-    "timestamp": "Zeitstempel vom ",
-    "edit": "Bearbeiten"
+    "zid": "Timeentry-ID",
+    "timestamp": "Time stamp from ",
+    "edit": "Edit"
   },
 
   "changepw":
   {
-    "oldpw": "Altes Passwort",
-    "newpw": "Neues Passwort",
-    "confirm": "Neues Passwort bestätigen",
-    "invalid": "Das alte Passwort ist nicht korrekt",
-    "notMatching": "Die Passwörter stimmen nicht überein",
-    "invalidForm": "Das neue Passwort erfüllt die Anforderungen nicht",
-    "changepwbtn": "Passwort ändern"
+    "oldpw": "Old password",
+    "newpw": "New password",
+    "confirm": "Confirm new password",
+    "invalid": "The old password is not correct",
+    "notMatching": "The passwords do not match",
+    "invalidForm": "The new password does not meet all conditions",
+    "changepwbtn": "Change password"
   },
 
   "arbeitstagliste":
   {
-    "cw": "KW",
-    "date": "Datum",
-    "firstStamp": "Erster Stempel",
-    "lastStamp": "Letzter Stempel",
-    "worktime": "Arbeitszeit",
-    "allentries": "Alle Stempel",
-    "warning": "Hinweise",
-    "missingStamp": "Stempel fehlt",
-    "timeoutofbounds": "Stempel außerhalb der erlaubten Zeiten",
-    "vacation": "Urlaub",
-    "overtime": "Gleitzeit",
-    "holiday": "Feiertag",
-    "flexibleday": "Gleitzeittag",
-    "deleteFreiertag": "Eintrag löschen",
-    "confirmDelete": "LÖSCHEN BESTÄTIGEN",
-    "kindOfFlexibleday": "Art: Gleitzeittag",
-    "kindOfVacation": "Art: Urlaub",
-    "confirm": "Löschen",
-    "failure": "FEHLER",
-    "failuremsg": "Es ist ein Fehler beim Löschen des Eintrags aufgetreten",
-    "confirmFailure": "Bestätigen"
+    "cw": "CW",
+    "date": "Date",
+    "firstStamp": "First stamp",
+    "lastStamp": "Last stamp",
+    "worktime": "Worktime",
+    "allentries": "All stamps",
+    "warning": "Hints",
+    "missingStamp": "Stamps missing",
+    "timeoutofbounds": "Stamps outside the permitted times",
+    "vacation": "Vacation",
+    "overtime": "Flexible working hours",
+    "holiday": "Holidays",
+    "flexibleday": "Flextime day",
+    "deleteFreiertag": "Delete entry",
+    "confirmDelete": "CONFIRM DELETION",
+    "kindOfFlexibleday": "Type: Flextime day",
+    "kindOfVacation": "Type: Vacation",
+    "confirm": "Delete",
+    "failure": "ERROR",
+    "failuremsg": "An error occurred while deleting the entry",
+    "confirmFailure": "Confirm"
   },
 
   "newentry":
   {
-    "type": "Eintragsart wählen",
-    "stamp": "Zeitstempel",
-    "day": "Arbeitstag",
-    "flexibleday": "Gleitzeittag",
-    "vacation": "Urlaub",
-    "date": "Datum",
-    "dateBegin": "Datum Start",
-    "dateEnd": "Datum Ende",
-    "time": "Zeit",
-    "timeBegin": "Zeit Start",
-    "timeEnd": "Zeit Ende",
-    "create": "Neuen Eintrag erstellen",
-    "confirm": "Bestätigen",
-    "confirmStamp": "Zeitstempel bestätigen",
-    "confirmDay": "Arbeitstag bestätigen",
-    "confirmFlexible": "Gleitzeittag bestätigen",
-    "confirmVacation": "Urlaub bestätigen",
-    "error": "FEHLER",
-    "weekenderror": "Tag des Eintrags liegt im Wochenende",
-    "failure": "Ein unbekannter Fehler ist aufgetreten. Bitte wenden Sie sich an einen Systemadministrator",
-    "taken": "Am gewählten Tag liegt bereits ein Eintrag vor."
+    "type": "Select entry type",
+    "stamp": "Timestamp",
+    "day": "Working day",
+    "flexibleday": "Flextime day",
+    "vacation": "Vacation",
+    "date": "Date",
+    "dateBegin": "Date start",
+    "dateEnd": "Date end",
+    "time": "Time",
+    "timeBegin": "Time start",
+    "timeEnd": "Time end",
+    "create": "Create new entry",
+    "confirm": "Confirm",
+    "confirmStamp": "Confirm timestamp",
+    "confirmDay": "Confirm working day",
+    "confirmFlexible": "Confirm flextime day",
+    "confirmVacation": "Confirm Vacation",
+    "error": "ERROR",
+    "weekenderror": "Day of entry is in the weekend",
+    "failure": "An unknown error has occured. Please contact a system administrator.",
+    "taken": "There is already an entry on the chosen day."
   },
 
   "editentry":
   {
-    "id": "Zeitstempel-ID",
-    "date": "Datum",
-    "timestamp": "Zeitstempel-Uhrzeit",
-    "confirmchange": "Änderungen übernehmen",
-    "confirmdelete": "Stempel löschen",
-    "confirmdeletemsg": "Möchten Sie diesen Zeitstempel wirklich löschen?",
-    "confirm": "Bestätigen"
+    "id": "Timestamp-ID",
+    "date": "Date",
+    "timestamp": "Timestamp-time",
+    "confirmchange": "Apply changes",
+    "confirmdelete": "Delete stamp",
+    "confirmdeletemsg": "Do you want to delete this timestamp?",
+    "confirm": "Confirm"
   },
 
   "newuser":
   {
-    "confirmCreation": "Erstellung bestätigen",
-    "prename": "Vorname",
-    "surname": "Nachname",
-    "prsn": "Personalnummer",
-    "birthday": "Geburtsdatum",
-    "model": "Arbeitsmodell",
-    "uclass": "Berechtigungsklasse",
-    "pw": "Passwort",
-    "pwconfirm": "Passwort bestätigen",
-    "confirm": "Bestätigen",
-    "generate": "Passwort generieren",
-    "chooseAM": "Arbeitsmodell wählen",
-    "vollzeit": "Vollzeit",
-    "vollzeitred": "Vollzeit redz. I",
-    "teilzeit": "Teilzeit I",
-    "extern": "Extern - auf Rechnung",
-    "azubi": "Azubi",
-    "azubiu18": "Azubi U18",
-    "chooseuclass": "Berechtigungsklasse wählen",
+    "confirmCreation": "Apply settings",
+    "prename": "First name",
+    "surname": "Last name",
+    "prsn": "Personnel number",
+    "birthday": "Birthdate",
+    "model": "Working model",
+    "uclass": "Authorization class",
+    "pw": "Password",
+    "pwconfirm": "Confirm password",
+    "confirm": "Confirm",
+    "generate": "Generate password",
+    "chooseAM": "Choose working model",
+    "vollzeit": "Fulltime",
+    "vollzeitred": "Fulltime reduced I",
+    "teilzeit": "Parttime I",
+    "extern": "Extern - on bill",
+    "azubi": "Apprentice",
+    "azubiu18": "Apprentice over 18",
+    "chooseuclass": "Choose authorization class",
     "admin": "Administrator",
-    "basic": "Mitarbeiter",
-    "missingfields": "Alle Pflichtfelder ausfüllen!",
-    "notMatching": "Passwörter stimmen nicht überein",
-    "success": "Erfolg!",
-    "successmsg": "Nutzer erfolgreich angelegt",
-    "failure": "Fehler!",
-    "failuremsg": "Etwas ist schiefgelaufen. Bitte wenden Sie sich an einen Systemadministrator.",
-    "createbtn": "Nutzer anlegen"
+    "basic": "Employee",
+    "missingfields": "Please fill out every mandatory field!",
+    "notMatching": "Passwords do not match.",
+    "success": "Success!",
+    "successmsg": "User created successfully",
+    "failure": "Error!",
+    "failuremsg": "An unknown error has occured. Please contact a system administrator.",
+    "createbtn": "Create user"
   },
 
   "grenzwerte":
   {
-    "select": "Konfiguration wählen",
-    "maxtag": "Maximale Arbeitszeit/Tag",
-    "maxwoche": "Maximale Arbeitszeit/Woche",
-    "yellow": "Grenzwert Gelb",
-    "red": "Grenzwert Rot",
-    "confirm": "Änderungen übernehmen",
-    "failure": "Etwas ist schiefgelaufen. Bitte wenden Sie sich an einen Administrator",
-    "success": "Änderungen erfolgreich übernommen",
-    "yGr": "Gleitzeit Gelb größer als Gleitzeit Rot",
-    "dGw": "Max. Zeit/Tag größer als Max. Zeit/Woche"
+    "select": "Choose configuration",
+    "maxtag": "Maximum working time/day",
+    "maxwoche": "Maximum working time/week",
+    "yellow": "Limit yellow",
+    "red": "Limit red",
+    "confirm": "Apply changes",
+    "failure": "An unknown error has occured. Please contact a system administrator.",
+    "success": "Changes applied successfully",
+    "yGr": "Parttime yellow greater than parttime red",
+    "dGw": "Max. time/day greater than max time/week"
   },
 
   "settings":
   {
-    "changepw": "Passwort ändern",
-    "createuser": "Nutzer anlegen",
-    "setvalues": "Grenzwerte einstellen"
+    "changepw": "Change password",
+    "createuser": "Create user",
+    "setvalues": "Set limits"
+  },
+
+  "gleitzeitampel":{
+    "green": "Your flextime is currently within limits",
+    "yellow": "Please watch your flextime",
+    "red": "Please reduce flextime urgently!",
+    "currentFlexibleTime": "Your flextime status: "
   }
 
 }
