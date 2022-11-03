@@ -8,7 +8,7 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The backe
 
 ## Java Backend
 
-Run 'MyPersonalApplication.java' to start the Java Backend
+Run `MyPersonalApplication.java` to start the Java Backend
 
 ## Code scaffolding
 
