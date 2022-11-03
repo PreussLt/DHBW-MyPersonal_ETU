@@ -16,6 +16,7 @@ export class NewuserComponent implements OnInit {
   showSuccessModal: boolean;
   showFailureModal: boolean;
 
+  //Elemente als HTML Element
   @ViewChild('arbeitsmodellSelect', {static:false}) arbeitsmodellSelect: ElementRef<HTMLSelectElement>;
   @ViewChild('uKlasseSelect', {static:false}) uKlasseSelect: ElementRef<HTMLSelectElement>;
 

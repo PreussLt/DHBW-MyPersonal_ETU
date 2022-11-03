@@ -56,4 +56,5 @@ public class Einstellungen {
   public static int u18_arbeitsmodel=6;
   public static int ü18_arbeitsmodel=5;
 
+  public static final String origins = "http://localhost:4200";
 }

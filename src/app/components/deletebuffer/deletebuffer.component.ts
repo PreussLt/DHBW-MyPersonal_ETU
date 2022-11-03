@@ -11,6 +11,7 @@ export class DeletebufferComponent implements OnInit {
   constructor(private router: Router) { }
 
   ngOnInit(): void {
+    //Sofort weiterleiten
     this.router.navigate(["/arbeitstage"])
   }
 

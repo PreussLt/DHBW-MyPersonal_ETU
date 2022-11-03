@@ -4,10 +4,7 @@ import DatenKlassen.BuchungModel;
 import DatenKlassen.Entry;
 import DatenKlassen.NewDay;
 import DatenKlassen.TimeEntry;
-import db.Buchung;
-import db.Buchungsdaten;
-import db.Freietage;
-import db.sql_connect;
+import db.*;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,7 +19,7 @@ import java.util.Collections;
  * @version 1.0.
  */
 @RestController
-@CrossOrigin (origins = "http://localhost:4200")
+@CrossOrigin (origins = Einstellungen.origins)
 public class TimeEntryController {
   private final static Connection con = sql_connect.intern_connect();
   private final String WEEKEND = "WEEKEND";
@@ -49,6 +46,7 @@ public class TimeEntryController {
       entries.addAll(bd.getAllTimeentries(buchung.getBid(),con));
     }
 
+    //Nach Zeit sortieren
     Collections.sort(entries);
     TimeEntry[] timeEntries = new TimeEntry[entries.size()];
 
@@ -66,55 +64,91 @@ public class TimeEntryController {
    */
   @PostMapping("/newEntry")
   public String newEntry(@RequestBody Entry entry){
+    //Wenn gewählter Tag nicht an Wochenende
     if(!Freietage.isWeekend(entry.getDate())){
       Buchung buchung = new Buchung();
       Buchungsdaten buchungsdaten = new Buchungsdaten();
+
+      //Datum und Uhrzeit in ein Format bringen
       String timestamp = String.format("%s %s:00", entry.getDate(), entry.getTime());
+
+      //Buchung und Zeiteintrag anlegen
       if(buchung.neueBuchung(entry.getMid(), entry.getDate(),con)){
         if(buchungsdaten.setZeitintrag(entry.getMid(), entry.getDate(), timestamp)) return SUCCESS;
       }
+
       return FAILURE;
     }
     else return WEEKEND;
-
   }
 
+  /**
+   * Requesthandler zum Anlegen eines neuen Arbeitstages
+   * @param newDay Daten des Arbeitstageintrags
+   * @see NewDay
+   * @return Erfolgsstatus des Erstellens aks String
+   */
   @PostMapping("/newDay")
   public String newDay(@RequestBody NewDay newDay){
+    //Wenn Tag nicht belegt
     if(isDayTaken(newDay.getDate(), newDay.getMid())){
       return TAKEN;
     }
     else {
+      //Wenn nicht am Sonntag
       if(!Freietage.isWeekend(newDay.getDate())) {
+        //2 Einträge anlegen
         Entry stamp1 = new Entry(newDay.getMid(), newDay.getDate(), newDay.getTimeBegin());
         Entry stamp2 = new Entry(newDay.getMid(), newDay.getDate(), newDay.getTimeEnd());
 
         if(newEntry(stamp1).equals(SUCCESS) && newEntry(stamp2).equals(SUCCESS)) return SUCCESS;
-
         else return FAILURE;
       }
       else return WEEKEND;
     }
   }
 
+  /**
+   * Requesthandler zum Erhalten eines Zeiteintrags
+   * @param id ID des Zeiteintrags
+   * @see TimeEntry
+   * @return Zeiteintrag als Timestamp
+   */
   @PostMapping("/getEntry")
   public TimeEntry getEntry(@RequestBody String id){
     Buchungsdaten bd = new Buchungsdaten();
     return bd.getEntryById(id,con);
   }
 
+  /**
+   * Requesthandler zum Ueberschreiben eines Zeiteintrags
+   * @param timeEntry Der zu Ueberschreibende Zeiteinrag
+   * @see TimeEntry
+   * @return boolean - Hat das Ueberschreiben gelappt?
+   */
   @PostMapping("/updateEntry")
   public boolean updateEntry(@RequestBody TimeEntry timeEntry){
     Buchungsdaten bd = new Buchungsdaten();
     return bd.updateEntry(timeEntry,con);
   }
 
+  /**
+   * Requesthandler zum Löschen eines Zeiteintrags
+   * @param zid ID des zu löschenden Zeiteintrags
+   * @return boolean - Hat das Loeschen geklappt?
+   */
   @PostMapping("/deleteEntry")
   public boolean deleteEntry(@RequestBody String zid){
     Buchungsdaten bd = new Buchungsdaten();
     return bd.deleteEntry(zid,con);
   }
 
+  /**
+   * Hilfsmethode zum Ueberpruefen, ob an einem Tag bereits eine Buchung vorhanden ist
+   * @param day Der zu pruefende Tag
+   * @param mid Mitarbeiter ID
+   * @return boolean - Ist an dem Tag eine Buchung vorhanden?
+   */
   public boolean isDayTaken(String day, String mid){
     Buchung buchung = new Buchung();
     return (buchung.ueberpruefeBuchungvorhanden(day, mid, con));

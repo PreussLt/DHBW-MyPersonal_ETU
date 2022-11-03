@@ -38,20 +38,25 @@ export class ChangePwComponent implements OnInit {
   changePassword(): void {
     if(this.changePwForm.valid) {
       this.invalidForm = false;
+
       if (this.f['newPW'].value === this.f['confirm'].value) {
         this.notMatching = false;
+
         this.authService.isPwMatching(this.f['oldPW'].value).subscribe(data => {
           if (!data) {
             this.invalid = true;
           } else {
             this.invalid = false;
-            this.authService.changePW(this.f['newPW'].value).subscribe(dta => {
-              if (dta) {
+
+            this.authService.changePW(this.f['newPW'].value).subscribe(changed => {
+              if (changed) {
                 this.logout()
               }
             })
+
           }
         })
+
       } else this.notMatching = true;
     }
     else this.invalidForm = true;
