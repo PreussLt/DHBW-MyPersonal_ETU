@@ -55,7 +55,8 @@
     "confirm": "Delete",
     "failure": "ERROR",
     "failuremsg": "An error occurred while deleting the entry",
-    "confirmFailure": "Confirm"
+    "confirmFailure": "Confirm",
+    "noEntriesForWeek": "No entries in this week"
   },
 
   "newentry":

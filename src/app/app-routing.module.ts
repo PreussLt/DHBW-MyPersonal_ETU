@@ -20,7 +20,7 @@ const routes: Routes = [
   {path: 'newEntry', component: NewentryfieldComponent, canActivate:[AuthGuard]},
   {path: 'arbeitstage', component: ArbeitstagslisteComponent, canActivate:[AuthGuard]},
   {path: 'settings', component: SettingsComponent, canActivate:[AuthGuard]},
-  {path: 'editEntry/:id', component: EditEntryComponent, canActivate:[AuthGuard]},
+  {path: 'editEntry/:lang/:id', component: EditEntryComponent, canActivate:[AuthGuard]},
   {path: 'loading', component: LoadingComponent, canActivate:[AuthGuard]},
   {path: 'deletebuffer', component: DeletebufferComponent, canActivate:[AuthGuard]},
 
