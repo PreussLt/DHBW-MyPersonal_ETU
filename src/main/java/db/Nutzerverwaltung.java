@@ -159,4 +159,19 @@ public class Nutzerverwaltung {
   }// ÜberprüfeZahlen
 
 
+  public double getSollarbeitszeit(String mid, Connection con){
+    //Auslesen Arbeitsmodell ID aus DB
+    String bedingung = String.format("WHERE MK_M_ID = %s", mid);
+    String[][] query = sql.select_arr(Einstellungen.mb_konto,"MK_A_ID",bedingung, con);
+    String arbeitsmodell = query[0][0];
+
+    //Auslesen Sollstunden/tage aus DB
+    bedingung =  String.format("WHERE A_ID = %s", arbeitsmodell);
+    query = sql.select_arr(Einstellungen.mb_arbeitsmodell,"A_Sollstunden, A_Solltage",bedingung, con);
+    int sollstunden = Integer.parseInt(query[0][0]);
+    int solltage = Integer.parseInt(query[0][1]);
+
+    return (double) sollstunden/solltage;
+
+  }
 }// Nuterverwaltung
