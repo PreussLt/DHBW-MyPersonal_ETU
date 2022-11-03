@@ -43,6 +43,7 @@
     "allentries": "All stamps",
     "warning": "Hints",
     "missingStamp": "Stamps missing",
+    "exceededMaxTime": "Maximum working time exceeded",
     "timeoutofbounds": "Stamps outside the permitted times",
     "vacation": "Vacation",
     "overtime": "Flexible working hours",

@@ -172,6 +172,6 @@ public class Nutzerverwaltung {
     int solltage = Integer.parseInt(query[0][1]);
 
     return (double) sollstunden/solltage;
-
   }
+
 }// Nuterverwaltung
