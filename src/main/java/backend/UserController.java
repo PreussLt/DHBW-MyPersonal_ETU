@@ -31,28 +31,35 @@ public class UserController {
    */
   @PostMapping("/userauth")
   public boolean authUser(@RequestBody LoginData loginData) {
-    if (Einstellungen.sso_aktiviert){
-      if (sso!=-1) return true;
-      else return false;
-    }else {
-      Passwort_verwaltung pv = new Passwort_verwaltung();
-      Nutzerverwaltung nv = new Nutzerverwaltung();
-      boolean isMatching = false;
-      if (nv.existiertNutzerMitPersonalnummer(loginData.getPersonalnummer(), con)) {
-        User user = nv.getUser(loginData.getPersonalnummer());
-        try {
-          if (pv.pruefePasswort(loginData.getPassword(), user.getPasshash(), user.getSalt())) {
-            isMatching = true;
-          }
-        } catch (NoSuchAlgorithmException e) {
-          throw new RuntimeException(e);
+    Passwort_verwaltung pv = new Passwort_verwaltung();
+    Nutzerverwaltung nv = new Nutzerverwaltung();
+    boolean isMatching = false;
+    if (nv.existiertNutzerMitPersonalnummer(loginData.getPersonalnummer(), con)) {
+      User user = nv.getUser(loginData.getPersonalnummer());
+      try {
+        if (pv.pruefePasswort(loginData.getPassword(), user.getPasshash(), user.getSalt())) {
+          isMatching = true;
         }
-        //}
+      } catch (NoSuchAlgorithmException e) {
+        throw new RuntimeException(e);
       }
-      return isMatching;
+      //}
     }
+    return isMatching;
+  }
+  @PostMapping("/ssoauth")
+  public boolean ssoauth(){
+    return sso != -1;
+  }
+  @PostMapping("/isSsoActive")
+  public boolean isSsoActive() {
+    return Einstellungen.sso_aktiviert;
   }
 
+  @PostMapping("/getSso")
+  public String getSso(){
+    return Integer.toString(sso);
+  }
   /**
    * Requesthandler zum Authentifizieren eines Passworts bei Passwortaenderung.
    * @param cpwData MitarbeiterID + Eingegebenes Passwort.
@@ -61,24 +68,17 @@ public class UserController {
    */
   @PostMapping("/pwauth")
   public boolean isMatching(@RequestBody ChangePwData cpwData){
-    if (Einstellungen.sso_aktiviert){
-      if (sso!=-1) return true;
+    Nutzerverwaltung nutzerverwaltung = new Nutzerverwaltung();
+    Passwort_verwaltung passwortVerwaltung = new Passwort_verwaltung();
+
+    User user = nutzerverwaltung.getUserMid(cpwData.getMid());
+
+    try {
+      return passwortVerwaltung.pruefePasswort(cpwData.getPw(), user.getPasshash(), user.getSalt());
+    } catch(NoSuchAlgorithmException e) {
+      e.printStackTrace();
       return false;
-    }else {
-      Nutzerverwaltung nutzerverwaltung = new Nutzerverwaltung();
-      Passwort_verwaltung passwortVerwaltung = new Passwort_verwaltung();
-
-      User user = nutzerverwaltung.getUserMid(cpwData.getMid());
-
-      try {
-        return passwortVerwaltung.pruefePasswort(cpwData.getPw(), user.getPasshash(), user.getSalt());
-      } catch(NoSuchAlgorithmException e) {
-        e.printStackTrace();
-        return false;
-      }
     }
-
-
   }
 
   /**
@@ -88,14 +88,9 @@ public class UserController {
    */
   @PostMapping("/getMid")
   public String getMid(@RequestBody String personalnummer){
-    if (Einstellungen.sso_aktiviert){
-      return Integer.toString(sso);
-    }else {
       Nutzerverwaltung nv = new Nutzerverwaltung();
       User user = nv.getUser(personalnummer);
       return user.getId();
-    }
-
   }
 
   /**
