@@ -76,6 +76,8 @@ public class Arbeitstag {
         }
         if (feiertag || gleitzeittag || urlaubstag ) this.arbeitszeit = sollArbeitszeit;
       }
+
+      if (this.arbeitszeit==-99) this.arbeitszeit=sollArbeitszeit;
     }catch (Exception e){
       System.err.println("!ERROR! Fehler im Arbeitstag Constructor: "+e);
     }
