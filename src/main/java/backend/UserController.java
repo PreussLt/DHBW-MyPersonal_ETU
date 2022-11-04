@@ -31,6 +31,7 @@ public class UserController {
    */
   @PostMapping("/userauth")
   public boolean authUser(@RequestBody LoginData loginData) {
+    new  azubiUpdate();
     Passwort_verwaltung pv = new Passwort_verwaltung();
     Nutzerverwaltung nv = new Nutzerverwaltung();
     boolean isMatching = false;

@@ -21,10 +21,10 @@ public class SSO {
         String[] daten = adresse.split("\\\\");
         String domain = daten[0];
         String user = daten[1];
-        System.out.println("User: "+user+" Domain: "+domain);
+        System.err.println("*INFO* SSO Erfolgreich: User: "+user+" Domain: "+domain);
         String id = sql.select_arr(Einstellungen.sso,"ms_m_id","WHERE ms_uname=\""+user+"\" AND ms_domain=\""+domain+"\"",con)[0][0];
         if (id == null) return -1;
-        System.err.println(id);
+        //System.err.println(id); //--> Debbugin Gründe
         return Integer.parseInt(id);
       }catch (Exception e){
         System.err.println("!ERROR! Fehler im SSO:"+e);

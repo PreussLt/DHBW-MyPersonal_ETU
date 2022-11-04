@@ -27,6 +27,7 @@ public class Arbeitstag {
   public String ersterStempel;
   public String letzterStempel;
   public String mid;
+  public boolean azubi = false;
   private int calendarWeek;
   private int calendarYear;
 
@@ -66,7 +67,6 @@ public class Arbeitstag {
 
       if (this.zeitstempel != null){
         vorgabenAnwenden();
-        System.err.println("Arbeitszeit eingehalten: "+maxArbeitszeitEingehalten);
       } else {
         // Überpüfe ob Tag Feiertag oder Gleitzeittag ist
         feiertag = aTag.istTagFeiertag(this.tag,con);
@@ -89,15 +89,21 @@ public class Arbeitstag {
     gleitzeittag = aTag.istTagGleitzeitag(this.tag, mid, con);
     if (feiertag || gleitzeittag) arbeitszeit = Sollarbeitszeit();
     arbeitszeitenEingehalten = ZeitGrenzen();
-    pausenEingehalten = sindPausenEingehalten();
     maxArbeitszeitEingehalten = istMaxArbeitszeitEingehalten();
-    System.out.println(arbeitszeitenEingehalten);
+    pausenEingehalten = sindPausenEingehalten();
 
   }
 
 
   private boolean sindPausenEingehalten() {
-    return true;
+    int aModell = Integer.parseInt(sql.select_arr(cnf.mb_konto, "MK_A_ID", "WHERE MK_M_ID=\"" + mid + "\"", con)[0][0]);
+    int u18modell = cnf.u18_arbeitsmodel;
+    boolean azubi=false;
+    if (aModell==u18modell) azubi=true;
+    Double pausenabzug = aTag.sindPausenEingehalten(zeitstempel,azubi,arbeitszeit);
+    if (pausenabzug == 0) return true;
+    else arbeitszeit = arbeitszeit-pausenabzug;
+    return false;
   }
 
   private boolean istMaxArbeitszeitEingehalten() {

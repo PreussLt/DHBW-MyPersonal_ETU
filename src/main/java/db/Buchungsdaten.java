@@ -142,7 +142,7 @@ public class Buchungsdaten {
       System.err.println("!ERROR! Es fehlt ein Zeiteintrag");
       return -1;
     }// END IF, Es ist eine Ungerade Zahl
-    System.out.println(arbzeit[0].length+" "+arbzeit.length);
+    //System.out.println(arbzeit[0].length+" "+arbzeit.length);
     double Arbeitszeit = 0;
     int z1=0;
     int z2=1;

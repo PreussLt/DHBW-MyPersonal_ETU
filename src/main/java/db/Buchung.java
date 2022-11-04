@@ -85,7 +85,7 @@ public boolean neuerZeiteintrag(String mID,String tag,String Zeitstempel, Connec
   public boolean loescheBuchung(String bid, Connection con){
     // NEue Datenbnak Verbindung
     Boolean zeiteintraege = sql.select(Einstellungen.mb_zeiteintrag,"*","BZ_B_ID='"+bid+"'",con);
-    System.out.println("r");
+    //System.out.println("r");
     if (!sql.delete(Einstellungen.mb_zeiteintrag,"BZ_B_ID='"+bid+"'",con)) return false;
 
     return sql.delete(Einstellungen.mb_buchung, "B_ID='" + bid + "'", con);

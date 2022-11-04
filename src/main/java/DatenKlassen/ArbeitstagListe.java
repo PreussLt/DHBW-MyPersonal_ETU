@@ -63,7 +63,7 @@ public class ArbeitstagListe {
     } catch (ArrayIndexOutOfBoundsException oob){
       //KEINE EINTRÄGE
       if(oob.getMessage().equals("Index 0 out of bounds for length 0")){
-        System.out.println("Leere Liste");
+        System.err.println("!ERROR!: Leere Liste");
         return 0;
       }
       else return -1;
@@ -79,7 +79,7 @@ public class ArbeitstagListe {
   private boolean getArbeitstage(int laengeListe){
 
     try {
-      System.err.println("*INFO* Länge:"+laengeListe);
+      //System.err.println("*INFO* Länge:"+laengeListe);
       arbeitstage = new Arbeitstag[laengeListe];
       if (!sql_statment.select(Einstellungen.mb_buchung,"*","WHERE B_M_ID='"+mid+"'",con)) return false;
       String[][] arbt_tage = sql_statment.select_arr(Einstellungen.mb_buchung,"B_TAG","WHERE B_M_ID='"+mid+"'",con);
