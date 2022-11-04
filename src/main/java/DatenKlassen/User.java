@@ -15,4 +15,10 @@ public class User {
   private String abtnumber;
   private String passhash;
   private String salt;
+  public User(){}
+  public User(String id, String prename, String lastname){
+    this.id = id;
+    this.prename = prename;
+    this.lastname = lastname;
+  }
 }

@@ -30,7 +30,8 @@
     "invalid": "The old password is not correct",
     "notMatching": "The passwords do not match",
     "invalidForm": "The new password does not meet all conditions",
-    "changepwbtn": "Change password"
+    "changepwbtn": "Change password",
+    "invalidPW": "Password must contain an uppercase letter, an lowercase letter, a number and at least 12 characters"
   },
 
   "arbeitstagliste":
@@ -80,7 +81,7 @@
     "confirmFlexible": "Confirm flextime day",
     "confirmVacation": "Confirm Vacation",
     "error": "ERROR",
-    "weekenderror": "Day of entry is in the weekend",
+    "weekenderror": "Day of entry is a Sunday",
     "failure": "An unknown error has occured. Please contact a system administrator.",
     "taken": "There is already an entry on the chosen day."
   },
@@ -125,7 +126,24 @@
     "successmsg": "User created successfully",
     "failure": "Error!",
     "failuremsg": "An unknown error has occured. Please contact a system administrator.",
-    "createbtn": "Create user"
+    "createbtn": "Create user",
+    "invalid": "Password must contain an uppercase letter, an lowercase letter, a number and at least 12 characters"
+  },
+
+  "registerdevice": {
+    "windows": "Username Windows-account",
+    "domain": "Device domain",
+    "user": "Link user",
+    "chooseuser": "Choose user",
+    "register": "Register",
+    "confirm": "Confirm registration",
+    "confirmbtn": "Confirm",
+    "confirmuser": "Linked User",
+    "invalid": "Fill all required fields",
+    "success": "Success!",
+    "sucessmsg": "Device was successfully registered",
+    "failure": "Failure!",
+    "failuremsg": "Something went wrong. Please contact a systemadmininistrator."
   },
 
   "grenzwerte":
@@ -146,7 +164,8 @@
   {
     "changepw": "Change password",
     "createuser": "Create user",
-    "setvalues": "Set limits"
+    "setvalues": "Set limits",
+    "registerdevice": "Register device"
   },
 
   "gleitzeitampel":{

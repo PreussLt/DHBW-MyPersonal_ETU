@@ -1,6 +1,7 @@
 export class User {
-  vorname: string;
-  nachname: string;
+  id:string;
+  prename: string;
+  lastname: string;
   personalnummer: number;
   passwort: string;
   arbeitsmodell: number;
@@ -16,8 +17,8 @@ export class User {
     uklasse: number,
     gebDatum: string
   ) {
-    this.vorname = vorname;
-    this.nachname = nachname;
+    this.prename = vorname;
+    this.lastname = nachname;
     this.personalnummer = personalnummer;
     this.passwort = passwort;
     this.arbeitsmodell = arbeitsmodell;

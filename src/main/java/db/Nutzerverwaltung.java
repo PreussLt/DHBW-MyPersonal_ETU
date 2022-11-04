@@ -1,5 +1,6 @@
 package db;
 
+import DatenKlassen.RegisterSso;
 import DatenKlassen.User;
 
 import java.sql.Connection;
@@ -174,4 +175,24 @@ public class Nutzerverwaltung {
     return (double) sollstunden/solltage;
   }
 
+  public User[] getUsers(Connection con){
+    //Alle User wählen
+    String[][] query = sql.select_arr(Einstellungen.mitarbeiter,"M_ID, M_Vorname, M_Nachname","", con);
+    int anzahlUsers = query.length;
+
+    //Wenn keine User vorhanden
+    if(anzahlUsers <= 0) return null;
+
+
+    User[] users = new User[anzahlUsers];
+    for (int i = 0; i < anzahlUsers; i++) {
+      User user = new User(query[i][0],query[i][1],query[i][2]);
+      users[i] = user;
+    }
+    return users;
+  }
+
+  public boolean registerDevice(RegisterSso registerSso, Connection con) {
+    return sql.insert(Einstellungen.sso, new String[]{registerSso.getMid(), registerSso.getWindows(), registerSso.getDomain()}, con);
+  }
 }// Nuterverwaltung

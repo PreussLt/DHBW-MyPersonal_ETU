@@ -30,7 +30,8 @@
     "invalid": "Das alte Passwort ist nicht korrekt",
     "notMatching": "Die Passwörter stimmen nicht überein",
     "invalidForm": "Das neue Passwort erfüllt die Anforderungen nicht",
-    "changepwbtn": "Passwort ändern"
+    "changepwbtn": "Passwort ändern",
+    "invalidPW": "Passwort muss einen Großbuchstaben, einen Kleinbuchstaben, eine Zahl und mindestens 12 Zeichen enthalten"
   },
 
   "arbeitstagliste":
@@ -80,7 +81,7 @@
     "confirmFlexible": "Gleitzeittag bestätigen",
     "confirmVacation": "Urlaub bestätigen",
     "error": "FEHLER",
-    "weekenderror": "Tag des Eintrags liegt im Wochenende",
+    "weekenderror": "Tag des Eintrags liegt an einem Sonntag",
     "failure": "Ein unbekannter Fehler ist aufgetreten. Bitte wenden Sie sich an einen Systemadministrator",
     "taken": "Am gewählten Tag liegt bereits ein Eintrag vor."
   },
@@ -125,7 +126,24 @@
     "successmsg": "Nutzer erfolgreich angelegt",
     "failure": "Fehler!",
     "failuremsg": "Etwas ist schiefgelaufen. Bitte wenden Sie sich an einen Systemadministrator.",
-    "createbtn": "Nutzer anlegen"
+    "createbtn": "Nutzer anlegen",
+    "invalid": "Passwort muss einen Großbuchstaben, einen Kleinbuchstaben, eine Zahl und mindestens 12 Zeichen enthalten"
+  },
+
+  "registerdevice": {
+    "windows": "Userkennung Windows-Account",
+    "domain": "Geräte Domain",
+    "user": "User verknüpfen",
+    "chooseuser": "User wählen",
+    "register": "Registrieren",
+    "confirm": "Registrierung bestätigen",
+    "confirmbtn": "Bestätigen",
+    "confirmuser": "Verknüpfter User",
+    "invalid": "Alle Pflichtfelder ausfüllen",
+    "success": "Erfolg!",
+    "sucessmsg": "Gerät erfolgreich registriert",
+    "failure": "Fehler!",
+    "failuremsg": "Etwas ist schiefgelaufen. Bitte wenden Sie sich an einen Systemadministrator."
   },
 
   "grenzwerte":
@@ -146,7 +164,8 @@
   {
     "changepw": "Passwort ändern",
     "createuser": "Nutzer anlegen",
-    "setvalues": "Grenzwerte einstellen"
+    "setvalues": "Grenzwerte einstellen",
+    "registerdevice": "Gerät registrieren"
   },
 
   "gleitzeitampel":{

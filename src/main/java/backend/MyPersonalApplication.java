@@ -11,7 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class MyPersonalApplication {
   /**
    * @param args args.
-   * Methode zum Starten des Backends
+   * Methode zum Starten des Java-Backends
    */
   public static void main(String[] args) {
     SpringApplication.run(MyPersonalApplication.class, args);

@@ -18,6 +18,7 @@ public class TimeEntry implements Comparable<TimeEntry>{
   /**
    * Vergleich zum Sortieren von Listen nach Timestamp
    * @param o Vergleichsobjekt
+   * @return Vergleichsfaktor als int
    */
   @Override
   public int compareTo(TimeEntry o) {

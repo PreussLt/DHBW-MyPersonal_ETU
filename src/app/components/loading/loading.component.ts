@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import {Router} from "@angular/router";
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-loading',
@@ -8,9 +7,8 @@ import {Router} from "@angular/router";
 })
 export class LoadingComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor() { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
 }

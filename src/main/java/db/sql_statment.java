@@ -82,7 +82,7 @@ public boolean insert(String tabelle, String[] Daten, Connection con){
     String sql_stm = "INSERT INTO "+tabelle+" VALUES (Null,"+sql_daten+");";
 
     // Consoleausgabe + Execute;
-    //System.out.println("*INFO* Folgendes SQL-Statment wurde ausgeführt:"+sql_stm); //--> Debbuging
+    System.out.println("*INFO* Folgendes SQL-Statment wurde ausgeführt:"+sql_stm); //--> Debbuging
     stm.execute(sql_stm);
     return true;
   } catch (SQLException e) {

@@ -11,11 +11,13 @@ import {AuthService} from "../../services/auth/auth.service";
 export class NewuserComponent implements OnInit {
   newUserForm: FormGroup;
   notMatching: boolean;
+  invalid: boolean;
   pressed: boolean;
   showModal: boolean;
   showSuccessModal: boolean;
   showFailureModal: boolean;
 
+  //Elemente als HTML Element
   @ViewChild('arbeitsmodellSelect', {static:false}) arbeitsmodellSelect: ElementRef<HTMLSelectElement>;
   @ViewChild('uKlasseSelect', {static:false}) uKlasseSelect: ElementRef<HTMLSelectElement>;
 
@@ -43,9 +45,45 @@ export class NewuserComponent implements OnInit {
   }
 
   generatePW(){
-    let randomstring = Math.random().toString(36).slice(-12);
+    var length = 12,
+      charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
+      randomstring = "";
+    for (var i = 0, n = charset.length; i < length; ++i) {
+      randomstring += charset.charAt(Math.floor(Math.random() * n));
+    }
+
     this.f['passwort'].setValue(randomstring);
     this.f['passwortBestaetigen'].setValue(randomstring);
+  }
+
+  isPWValid():boolean{
+    this.invalid = false;
+    if(this.isPwMatching()){
+      let uppercase = false;
+      let lowercase = false;
+      let number = false;
+      let pw = this.f['passwort'].value;
+      let length = pw.length >= 12;
+
+      for (var i = 0; i < pw.length; i++){
+        if(Number(pw.charAt(i)) >= 0 && Number(pw.charAt(i))<= 9) number = true;
+        else if(pw.charAt(i) === pw.charAt(i).toUpperCase()) uppercase = true;
+        else if(pw.charAt(i) === pw.charAt(i).toLowerCase()) lowercase = true;
+      }
+      return uppercase && lowercase && number && length;
+
+    }else return false;
+  }
+
+  isPwMatching(): boolean{
+    if (this.f['passwort'].value === this.f['passwortBestaetigen'].value) {
+      this.notMatching = false;
+      return true;
+    }
+    else {
+      this.notMatching = true;
+      return false;
+    }
   }
 
   setUserData(): User{
@@ -64,11 +102,10 @@ export class NewuserComponent implements OnInit {
   show() {
     this.pressed = true;
     if(this.newUserForm.valid) {
-      if (this.f['passwort'].value === this.f['passwortBestaetigen'].value) {
+      if(this.isPWValid()) {
         this.showModal = !this.showModal;
-      }
-      else{
-        this.notMatching = true;
+      }else{
+          this.invalid = true;
       }
     }
   }
