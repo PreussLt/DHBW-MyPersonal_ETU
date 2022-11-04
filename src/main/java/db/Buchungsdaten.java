@@ -140,7 +140,7 @@ public class Buchungsdaten {
     String[][] arbzeit = sql.select_arr(Einstellungen.mb_zeiteintrag+","+Einstellungen.mb_buchung,"*"," WHERE B_ID = BZ_B_ID AND B_M_ID='"+mid+"' AND B_Tag='"+Tag+"' ORDER BY BZ_Zeiteintrag ASC ",con);
     if((arbzeit.length%2)==1){
       System.err.println("!ERROR! Es fehlt ein Zeiteintrag");
-      return -1;
+      return -99;
     }// END IF, Es ist eine Ungerade Zahl
     //System.out.println(arbzeit[0].length+" "+arbzeit.length);
     double Arbeitszeit = 0;
